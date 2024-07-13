@@ -15,7 +15,7 @@ STOP = set(stopwords.words('english'))
 EXCLUDE = set(string.punctuation)
 LEMMA = WordNetLemmatizer()
 # STEMMER = PorterStemmer()
-PATTERN = r'ing$|s$|able$|ed$'
+PATTERN = r's$|able$'
 STEMMER = RegexpStemmer(PATTERN, min=4)
 
 
@@ -84,7 +84,7 @@ def prepare_cleaner_data():
 
 
 
-# data = prepare_data()
+# data = prepare_cleaner_data()
 # corpus = get_filtered_corpus(data)
 # corpus_input = [doc.split() for doc in corpus]
 # vocabFilter = get_filtered_vocabulary(corpus_input)

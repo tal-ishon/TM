@@ -7,15 +7,16 @@ import json
 import nltk
 import string
 from gensim import corpora
-
+import torch
 
 # nltk.download('punkt')
+# nltk.download('stopwords')
 # Define stopwords and lemmatizer
 STOP = set(stopwords.words('english'))
 EXCLUDE = set(string.punctuation)
 LEMMA = WordNetLemmatizer()
 # STEMMER = PorterStemmer()
-PATTERN = r's$|able$'
+PATTERN = r's$|able$|ly$'
 STEMMER = RegexpStemmer(PATTERN, min=4)
 
 
@@ -24,7 +25,7 @@ def clean(doc):
     stop_free = " ".join([i for i in non_letters_free.lower().split() if i not in STOP])
     punc_free = "".join(ch for ch in stop_free if ch not in EXCLUDE)
     stemmered = " ".join([STEMMER.stem(word) for word in punc_free.split()])
-    long_short_free = " ".join(word for word in stemmered.split() if len(word) <= 12 and len(word) > 2)  # Remove words longer than 10 or shorter than 2
+    long_short_free = " ".join(word for word in stemmered.split() if len(word) <= 12 and len(word) >= 2)  # Remove words longer than 10 or shorter than 2
     return long_short_free
 
 
@@ -43,6 +44,9 @@ def get_filtered_corpus(corpus):
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.999
     dictionary.filter_extremes(no_below=min_freq, no_above=max_freq)
+
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
+
     dictionary.compactify()
 
     # Convert the tokenized corpus to a bag-of-words representation using the filtered dictionary
@@ -53,13 +57,17 @@ def get_filtered_corpus(corpus):
         ' '.join(dictionary[word_id] for word_id, freq in bow)
         for bow in bow_corpus
     ]
+
+    word_to_ix = dictionary.token2id
+
     
-    return filtered_corpus
+    return word_to_ix, filtered_corpus
 
 
 def get_filtered_vocabulary(corpus):
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
 
     # Create a vocabulary set to collect unique words
     vocabulary = set()
@@ -83,11 +91,23 @@ def prepare_cleaner_data():
     return clean_corpus
 
 
+def save_file_txt(path, list):
+    with open(f'{path}.txt', 'w') as f:
+        for item in list:
+            f.write(f"{item}\n")
+
+
+with open('words.txt', 'r') as file:
+    words = file.read().splitlines()
 
 # data = prepare_cleaner_data()
-# corpus = get_filtered_corpus(data)
+# # # print(data[:5])
+# word_to_ix, corpus = get_filtered_corpus(data)
 # corpus_input = [doc.split() for doc in corpus]
 # vocabFilter = get_filtered_vocabulary(corpus_input)
 
 # print(f"Number of docs: {len(corpus)}")
 # print(f"Number of words: {len(vocabFilter)}")
+# # torch.save(word_to_ix, "Results/TF-IDF/word_to_ix")
+# save_file_txt("Results/clean_corpus", corpus)
+# save_file_txt("Results/clean_vocab", vocabFilter)

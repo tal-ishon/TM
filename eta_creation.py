@@ -1,5 +1,6 @@
 import torch
-from utils import soft_predictions, get_lda_input, prepare_data
+from utils import soft_predictions, get_lda_input
+from preprocessing import prepare_cleaner_data as prepare_data
 import numpy as np
 
 
@@ -11,11 +12,16 @@ def read_words_file(path):
     return eta_words
 
 
-def create_eta(load_path):
+def get_words_from_dict(path_words_dict):
+    words_dict = torch.load(path_words_dict)
+    words = [word for word in words_dict.keys()]
+    return words
 
+
+def create_eta(load_path):
     pred = torch.load(load_path)
     soft_pred = soft_predictions(pred)
-    words = read_words_file(path_words_order)
+    words = get_words_from_dict(path_words_order)
     _, dictionary = get_lda_input(prepare_data())
 
     ordered_matrix = get_sorted_matrix_according_corpus_order(soft_pred, words, dictionary)
@@ -54,11 +60,13 @@ def save_words_WE(load_path, save_path):
             file.write(f"{word}\n")
 
 
-HOME = "/home/tal/dev/TopicModeling/Results/0.0001Filter/TF-IDF"
+HOME = "Results/GloveCorpusEmbedding"
+TOP = 100
 
-path_words_order = f"{HOME}/words_tfidf_no_filter.txt"
-path_predictions = f"{HOME}/pred_no_filter/tf-idf"
+path_words_order = f"{HOME}/word_to_ix"
+path_predictions = f"{HOME}/{TOP}_WE_predictions"
 
 
 ordered_mat = create_eta(path_predictions)
-torch.save(ordered_mat.T, f"{HOME}/tfidf_no_filter_eta")
+torch.save(ordered_mat.T, f"{HOME}/{TOP}_WE_prior")
+

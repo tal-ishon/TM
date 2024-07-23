@@ -5,7 +5,7 @@ import csv
 
 
 def save_topics_words(lists):
-    with open(f"{TOP}_topics_tfidf_out.csv", "w") as f:
+    with open(f"{TOP}_WE_out.csv", "w") as f:
         wr = csv.writer(f)
         for list in lists:
             f.write(f'Number of words in topic: {len(list)}')
@@ -15,10 +15,10 @@ def save_topics_words(lists):
                 f.write(word + '\n')
             f.write('\n')
 
-TOP = 104
-HOME = os.getcwd() + "/Results/0.0001Filter/TF-IDF"
-pred_path = f"{HOME}/{TOP}_topics_pred_no_filter_tfidf"
-word2ix_path = f"{HOME}/no_filter_tfidf_word_to_ix"
+TOP = 100
+HOME = "Results/GloveCorpusEmbedding"
+pred_path = f"{HOME}/{TOP}_WE_predictions"
+word2ix_path = f"{HOME}/word_to_ix"
 
 pred = torch.load(pred_path).T
 word_to_ix = torch.load(word2ix_path)

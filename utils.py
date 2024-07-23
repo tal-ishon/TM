@@ -81,14 +81,20 @@ def get_filtered_corpus(corpus):
 
 
 def get_lda_input(corpus):
+    with open('words.txt', 'r') as file:
+        words = file.read().splitlines()
+
     total_doc = len(corpus)
 
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
 
+
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.99
     dictionary.filter_extremes(no_below=min_freq, no_above=max_freq)
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
+
     dictionary.compactify()
 
     # Convert the tokenized corpus to a bag-of-words representation using the filtered dictionary
@@ -108,3 +114,10 @@ def soft_predictions(pred):
     soft_predictions /= soft_predictions.sum(axis=1, keepdims=True)
 
     return soft_predictions
+
+
+def load_file_txt(path):
+    with open(f'{path}.txt', 'r') as f:
+        loaded_list = f.read().splitlines()
+    
+    return loaded_list

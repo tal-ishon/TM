@@ -1,5 +1,5 @@
 
-from tfidf_utils import prepare_data, get_corpus, get_filtered_corpus, generate_tfidf_matrix
+from tfidf_utils import prepare_data, get_corpus, get_filtered_corpus, generate_tfidf_matrix, load_file_txt
 import networkx as nx
 from scase._cluster import SpectralNet
 import matplotlib.pyplot as plt
@@ -22,7 +22,11 @@ def create_tfidf_graph(tfidf_matrix, feature_names):
                 if word_index1 != word_index2:
                     word1 = feature_names[word_index1]
                     word2 = feature_names[word_index2]
-                    weight = (score1 + score2) / 2  # Or any other function of scores you prefer
+                    if score1 > score2:
+                        weight = score2 / score1
+                    else:
+                        weight = score1 / score2
+                    # weight = (score1 + score2) / 2  # Or any other function of scores you prefer
                     if G.has_edge(word1, word2):
                         G[word1][word2]['weight'] += weight
                     else:
@@ -33,7 +37,7 @@ def create_tfidf_graph(tfidf_matrix, feature_names):
 
 
 # Apply Gaussian Mixture Model to TF-IDF graph
-def apply_SN_to_graph(G, SN_model_path, words_path):
+def apply_SN_to_graph(G, words_path):
     # Extract edge weights as features
     edge_features = [(u, v, d['weight']) for u, v, d in G.edges(data=True)]
 
@@ -52,27 +56,29 @@ def apply_SN_to_graph(G, SN_model_path, words_path):
 
     
     print("FINISH X")
+    HOME = "Results/TF-IDF"
+    X = torch.tensor(X).float()
+    torch.save(X, f"{HOME}/Tal_Affinity_matrix")
+
+    exit(0)
     ###
     
-    # # save words order to be able to assign each prediction to each word
+    # save words order to be able to assign each prediction to each word
 
-    # # Define the file path
-    # file_path = words_path
+    # Define the file path
+    file_path = words_path
 
-    # # Write the string representation to a text file
-    # with open(file_path, 'w') as file:
-    #     for word in words:
-    #         file.write(f"{word}\n")
+    # Write the string representation to a text file
+    with open(file_path, 'w') as file:
+        for word in words:
+            file.write(f"{word}\n")
 
-    # ###
+    ###
 
-    HOME = "/home/tal/dev/TopicModeling/Results/0.0001Filter/TF-IDF"
-    X = torch.tensor(X).float()
-    torch.save(X, f"{HOME}/X_to_SN_104_topics")
 
-    SE = SpectralEmbedding(n_components=104)
+    SE = SpectralEmbedding(n_components=1000)
     eigen_vec = SE.fit_transform(X)
-    torch.save(eigen_vec, f"{HOME}/EV_SE_tfidf_104_topics")
+    torch.save(eigen_vec, f"{HOME}/SE_TFIDF")
 
     exit(0)
 
@@ -109,4 +115,8 @@ def calculate_pred(save_predictions_path):
     torch.save(predictions, save_predictions_path)
 
 
-main()
+# main()
+corpus = load_file_txt("Results/clean_corpus")
+tfidf_matrix, feature_names = generate_tfidf_matrix(corpus)
+G = create_tfidf_graph(tfidf_matrix, feature_names)
+apply_SN_to_graph(G, "Results/TF-IDF/Tal_words.txt")

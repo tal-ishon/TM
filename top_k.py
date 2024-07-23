@@ -1,5 +1,5 @@
 import numpy as np
-from wordEmbeddings.Embeddings import word2vec
+from Embeddings import word2vec
 
 
 def cosine_similarity(u, v):
@@ -23,7 +23,7 @@ def most_similar(word, k=5):
 
 
 # Example usage:
-words_to_check = ['dog', 'england', 'john', 'explode', 'office']
+words_to_check = ['dog', 'england', 'john', 'explode', 'office', 'king', 'computer', 'apple']
 
 for word in words_to_check:
     similar_words = most_similar(word)

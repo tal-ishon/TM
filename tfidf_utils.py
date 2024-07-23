@@ -118,4 +118,14 @@ def generate_tfidf_matrix(corpus):
     feature_names = vectorizer.get_feature_names_out()
     return tfidf_matrix, feature_names
 
+def load_file_txt(path):
+    with open(f'{path}.txt', 'r') as f:
+        loaded_list = f.read().splitlines()
+    
+    return loaded_list
 
+
+def save_file_txt(path, list):
+    with open(f'{path}.txt', 'w') as f:
+        for item in list:
+            f.write(f"{item}\n")

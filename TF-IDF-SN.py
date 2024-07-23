@@ -1,10 +1,10 @@
-from tfidf_utils import generate_tfidf_matrix, prepare_data, get_filtered_corpus
+from tfidf_utils import generate_tfidf_matrix, prepare_data, get_filtered_corpus, load_file_txt
 from scase._utils import get_affinity_matrix, get_eigenvectors
 from scase._cluster import SpectralNet
 import torch
 import os
 import numpy as np
-from preprocessing import prepare_cleaner_data
+# from preprocessing import prepare_cleaner_data
 from sklearn.decomposition import PCA
 from sklearn.manifold import SpectralEmbedding
 from sklearn.neighbors import NearestNeighbors
@@ -30,13 +30,9 @@ def get_corpus():
 
 
 def create_laplacian_graph():
-    word_to_ix, corpus = get_corpus()
-    torch.save(word_to_ix, f"{HOME}/word_to_ix")
-    exit(0)
+    corpus = load_file_txt("Results/clean_corpus")
     tf_idf_mat, feature_names = generate_tfidf_matrix(corpus)
-    
     W = affinity_matrix(tf_idf_mat.transpose())
-    
     torch.save(W, f"{HOME}/Affinity_matrix")
     print("got W")
     return W
@@ -44,6 +40,12 @@ def create_laplacian_graph():
 
 def save_pred(pred):
     torch.save(pred, name)
+
+
+def construct_SE(W):
+    SE = SpectralEmbedding(n_components=50)
+    embedding = SE.fit_transform(W)
+    return embedding
 
 
 def SpectralNet_fit_and_predict(W):
@@ -70,7 +72,10 @@ def main(no_graph=True):
 
 
 TOP = 104  # according to number of topics
-HOME = os.getcwd() + "/Results/CleanerCorpus/TF-IDF"
+HOME = "Results/TF-IDF"
 name = f"{HOME}/{TOP}_topics_pred_cleaner_tfidf"
 # main(True)
-create_laplacian_graph()
+W = create_laplacian_graph()
+embed = construct_SE(W)
+
+torch.save(f"{HOME}/embedding")

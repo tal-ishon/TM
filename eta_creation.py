@@ -12,41 +12,34 @@ def read_words_file(path):
     return eta_words
 
 
-def get_words_from_dict(path_words_dict):
+def get_words_dict(path_words_dict):
     words_dict = torch.load(path_words_dict)
-    words = [word for word in words_dict.keys()]
-    return words
+    return words_dict
 
 
-def create_eta(load_path):
+def create_prior(load_path):
     pred = torch.load(load_path)
     soft_pred = soft_predictions(pred)
-    words = get_words_from_dict(path_words_order)
-    _, dictionary = get_lda_input(prepare_data())
+    word_to_ix = get_words_dict(path_words_order)
 
-    ordered_matrix = get_sorted_matrix_according_corpus_order(soft_pred, words, dictionary)
-
-    return ordered_matrix
-    torch.save(soft_pred, save_path)
-    beta = torch.load(save_path) # validte saving well
-
-    print(beta[:5])
+    return soft_pred
 
 
-def get_sorted_matrix_according_corpus_order(matrix, words, dictionary):
-    """
-    making sure words are ordered according dictionary words order
 
-    """
-    ordered_matrix = np.zeros((matrix.shape[0], matrix.shape[1]))
-    word_to_id = dictionary.token2id
+# def get_sorted_matrix_according_corpus_order(matrix, word_to_ix):
+#     """
+#     making sure words are ordered according dictionary words order
 
-    for i, word in enumerate(words):
-        if word in word_to_id:
-            dict_index = word_to_id[word]
-            ordered_matrix[dict_index] = matrix[i]
+#     """
+#     ordered_matrix = np.zeros((matrix.shape[0], matrix.shape[1]))
+#     word_to_id = dictionary.token2id
 
-    return ordered_matrix
+#     for i, word in enumerate(words):
+#         if word in word_to_id:
+#             dict_index = word_to_id[word]
+#             ordered_matrix[dict_index] = matrix[i]
+
+#     return ordered_matrix
 
 
 def save_words_WE(load_path, save_path):
@@ -67,6 +60,6 @@ path_words_order = f"{HOME}/word_to_ix"
 path_predictions = f"{HOME}/{TOP}_WE_predictions"
 
 
-ordered_mat = create_eta(path_predictions)
+ordered_mat = create_prior(path_predictions)
 torch.save(ordered_mat.T, f"{HOME}/{TOP}_WE_prior")
 

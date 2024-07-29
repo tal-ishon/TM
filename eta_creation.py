@@ -57,9 +57,9 @@ HOME = "Results/GloveCorpusEmbedding"
 TOP = 100
 
 path_words_order = f"{HOME}/word_to_ix"
-path_predictions = f"{HOME}/{TOP}_WE_predictions"
+path_predictions = f"{HOME}/{TOP}_SN_WE_predictions"
 
 
 ordered_mat = create_prior(path_predictions)
-torch.save(ordered_mat.T, f"{HOME}/{TOP}_WE_prior")
+torch.save(ordered_mat.T, f"{HOME}/{TOP}_SN_WE_prior")
 

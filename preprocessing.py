@@ -8,6 +8,7 @@ import nltk
 import string
 from gensim import corpora
 import torch
+import csv
 
 # nltk.download('punkt')
 # nltk.download('stopwords')
@@ -91,23 +92,58 @@ def prepare_cleaner_data():
     return clean_corpus
 
 
+def prepare_cleaner_csv_data(filename):
+    sentences = []
+    labels  = []
+    with open(filename, 'r') as csvfile:
+        file = csv.reader(csvfile, delimiter = ',')
+        next(file, None)
+        
+        for row in file:
+            row_n = clean(row[1])
+            sentences.append(row_n.split())
+            labels.append(row[2])
+
+    return sentences, labels
+
+
 def save_file_txt(path, list):
     with open(f'{path}.txt', 'w') as f:
         for item in list:
             f.write(f"{item}\n")
 
 
-with open('words.txt', 'r') as file:
+with open('BBCwords.txt', 'r') as file:
     words = file.read().splitlines()
 
-# data = prepare_cleaner_data()
-# # # print(data[:5])
-# word_to_ix, corpus = get_filtered_corpus(data)
-# corpus_input = [doc.split() for doc in corpus]
-# vocabFilter = get_filtered_vocabulary(corpus_input)
+FILE_PATH = "BBC/BBC_News_Train.csv"
 
-# print(f"Number of docs: {len(corpus)}")
-# print(f"Number of words: {len(vocabFilter)}")
-# # torch.save(word_to_ix, "Results/TF-IDF/word_to_ix")
-# save_file_txt("Results/clean_corpus", corpus)
-# save_file_txt("Results/clean_vocab", vocabFilter)
+def run_20NewsGroup():
+    data = prepare_cleaner_data()
+    print(data[:5])
+    _, corpus = get_filtered_corpus(data)
+    corpus_input = [doc.split() for doc in corpus]
+    vocabFilter = get_filtered_vocabulary(corpus_input)
+
+    print(f"Number of docs: {len(corpus)}")
+    print(f"Number of words: {len(vocabFilter)}")
+
+    save_file_txt("Results/clean_corpus", corpus)
+    save_file_txt("Results/clean_vocab", vocabFilter)
+ 
+
+def run_BBC(file):
+    sentences, labels = prepare_cleaner_csv_data(file)
+    print(sentences[:5])
+    _, corpus = get_filtered_corpus(sentences)
+    corpus_input = [doc.split() for doc in corpus]
+    vocabFilter = get_filtered_vocabulary(corpus_input)
+
+    print(f"Number of docs: {len(corpus)}")
+    print(f"Number of words: {len(vocabFilter)}")
+
+    save_file_txt("Results/BBCGlove/clean_corpus", corpus)
+    save_file_txt("Results/BBCGlove/clean_vocab", vocabFilter)
+    save_file_txt("Results/BBCGlove/labels", labels)
+
+# run_BBC(FILE_PATH)

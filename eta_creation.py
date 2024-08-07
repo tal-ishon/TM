@@ -59,7 +59,6 @@ TOP = 5
 path_words_order = f"{HOME}/word_to_ix"
 path_predictions = f"{HOME}/{TOP}_WE_predictions"
 
-
 ordered_mat = create_prior(path_predictions)
-torch.save(ordered_mat.T, f"{HOME}/{TOP}_WE_prior")
+torch.save(ordered_mat.T, f"{HOME}/{TOP}_SN_WE_prior")
 

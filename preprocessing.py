@@ -42,11 +42,12 @@ def get_filtered_corpus(corpus):
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
 
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
+
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.999
     dictionary.filter_extremes(no_below=min_freq, no_above=max_freq)
 
-    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
 
     dictionary.compactify()
 
@@ -68,7 +69,7 @@ def get_filtered_corpus(corpus):
 def get_filtered_vocabulary(corpus):
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
-    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
+    # dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
 
     # Create a vocabulary set to collect unique words
     vocabulary = set()
@@ -146,4 +147,4 @@ def run_BBC(file):
     save_file_txt("Results/BBCGlove/clean_vocab", vocabFilter)
     save_file_txt("Results/BBCGlove/labels", labels)
 
-# run_BBC(FILE_PATH)
+run_20NewsGroup()

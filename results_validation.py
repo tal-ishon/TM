@@ -5,7 +5,7 @@ import csv
 
 
 def save_topics_words(lists):
-    with open(f"{TOP}_WE_words.csv", "w") as f:
+    with open(f"{TOP}_SN_WE_BBCFilterwords.csv", "w") as f:
         wr = csv.writer(f)
         for list in lists:
             f.write(f'Number of words in topic: {len(list)}')
@@ -16,8 +16,8 @@ def save_topics_words(lists):
             f.write('\n')
 
 TOP = 5
-HOME = "Results/BBCGlove"
-pred_path = f"{HOME}/{TOP}_WE_predictions"
+HOME = "Results/BBCGloveFilter"
+pred_path = f"{HOME}/{TOP}_SN_WE_predictions"
 word2ix_path = f"{HOME}/word_to_ix"
 
 pred = torch.load(pred_path).T

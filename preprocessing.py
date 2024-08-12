@@ -14,6 +14,11 @@ import csv
 # nltk.download('stopwords')
 # Define stopwords and lemmatizer
 STOP = set(stopwords.words('english'))
+
+custom_stop_words = {"will", "would", "should", "could", "can", "shall", 
+                     "also", "more", "so", "said", "might", "must", "the"}
+STOP.update(custom_stop_words)
+
 EXCLUDE = set(string.punctuation)
 LEMMA = WordNetLemmatizer()
 # STEMMER = PorterStemmer()
@@ -41,8 +46,8 @@ def get_filtered_corpus(corpus):
 
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
-
-    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words])
+    values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words if word in values])
 
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.999
@@ -143,8 +148,8 @@ def run_BBC(file):
     print(f"Number of docs: {len(corpus)}")
     print(f"Number of words: {len(vocabFilter)}")
 
-    save_file_txt("Results/BBCGlove/clean_corpus", corpus)
-    save_file_txt("Results/BBCGlove/clean_vocab", vocabFilter)
-    save_file_txt("Results/BBCGlove/labels", labels)
+    save_file_txt("Results/BBCGloveFilter/clean_corpus", corpus)
+    save_file_txt("Results/BBCGloveFilter/clean_vocab", vocabFilter)
+    save_file_txt("Results/BBCGloveFilter/labels", labels)
 
-run_20NewsGroup()
+# run_BBC("BBC/BBC_News_Train.csv")

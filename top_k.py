@@ -1,5 +1,5 @@
 import numpy as np
-from Embeddings import word2vec
+from GloveCorpusEmbed import word2vec
 
 
 def cosine_similarity(u, v):

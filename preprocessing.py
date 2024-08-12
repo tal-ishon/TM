@@ -119,10 +119,10 @@ def save_file_txt(path, list):
             f.write(f"{item}\n")
 
 
-with open('BBCwords.txt', 'r') as file:
+with open('words.txt', 'r') as file:
     words = file.read().splitlines()
 
-FILE_PATH = "BBC/BBC_News_Train.csv"
+FILE_PATH = "glove.6B/glove.6B.50d.txt"
 
 def run_20NewsGroup():
     data = prepare_cleaner_data()
@@ -134,8 +134,8 @@ def run_20NewsGroup():
     print(f"Number of docs: {len(corpus)}")
     print(f"Number of words: {len(vocabFilter)}")
 
-    save_file_txt("Results/clean_corpus", corpus)
-    save_file_txt("Results/clean_vocab", vocabFilter)
+    save_file_txt("Results/CorpusFilter/clean_corpus", corpus)
+    save_file_txt("Results/CorpusFilter/clean_vocab", vocabFilter)
  
 
 def run_BBC(file):
@@ -153,3 +153,4 @@ def run_BBC(file):
     save_file_txt("Results/BBCGloveFilter/labels", labels)
 
 # run_BBC("BBC/BBC_News_Train.csv")
+# run_20NewsGroup()

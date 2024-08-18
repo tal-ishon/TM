@@ -24,6 +24,7 @@ LEMMA = WordNetLemmatizer()
 # STEMMER = PorterStemmer()
 PATTERN = r's$|able$|ly$'
 STEMMER = RegexpStemmer(PATTERN, min=4)
+words = None
 
 
 def clean(doc):
@@ -41,13 +42,13 @@ def preprocess_text(text):
     return tokens
 
 
-def get_filtered_corpus(corpus):
+def get_filtered_corpus(corpus, words):
     total_doc = len(corpus)
 
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
-    values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
-    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words if word in values])
+    # values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
+    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words if word in words])
 
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.999
@@ -89,9 +90,9 @@ def get_filtered_vocabulary(corpus):
 
 
 
-def prepare_cleaner_data():
+def prepare_cleaner_data(path):
     # Read the list of lists from the file
-    with open('docs.json', 'r') as file:
+    with open(path, 'r') as file:
         docs = json.load(file)
     
     clean_corpus = preprocess_text(docs)
@@ -119,13 +120,17 @@ def save_file_txt(path, list):
             f.write(f"{item}\n")
 
 
-with open('words.txt', 'r') as file:
-    words = file.read().splitlines()
+def define_words(path):
+    global words
+    with open(f'{path}.txt', 'r') as file:
+        words = file.read().splitlines()
 
 FILE_PATH = "glove.6B/glove.6B.50d.txt"
 
-def run_20NewsGroup():
-    data = prepare_cleaner_data()
+def run_20NewsGroup(words_path):
+    define_words(words_path)
+    global words
+    data = prepare_cleaner_data(words)
     print(data[:5])
     _, corpus = get_filtered_corpus(data)
     corpus_input = [doc.split() for doc in corpus]
@@ -138,7 +143,8 @@ def run_20NewsGroup():
     save_file_txt("Results/CorpusFilter/clean_vocab", vocabFilter)
  
 
-def run_BBC(file):
+def run_BBC(file, words_path):
+    define_words(words_path)
     sentences, labels = prepare_cleaner_csv_data(file)
     print(sentences[:5])
     _, corpus = get_filtered_corpus(sentences)

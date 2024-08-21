@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from scipy.sparse.linalg import eigsh
 
 from ._cluster import SpectralNet
 from ._utils import *
@@ -30,6 +31,7 @@ class ScaSE:
             ae_patience: int = 10,
             ae_batch_size: int = 256,
             should_use_ae: bool = False,
+            laplacian_kind: str = 'rw',
     ):
         """SpectralNet is a class for implementing a Deep learning model that performs spectral clustering.
         This model optionally utilizes Autoencoders (AE) for training.
@@ -82,7 +84,10 @@ class ScaSE:
             Specifies whether to compute the true eigenvectors of the Laplacian of the input data.
 
         t : int, optional (default=0)
-            The diffusion time for the diffusion map algorithm."""
+            The diffusion time for the diffusion map algorithm.
+
+        laplacian_kind : str, optional (default='rw')
+            Specifies the kind of Laplacian matrix to use. It can be one of 'unnormalized', 'rw', or 'symmetric'."""
 
         self.n_components = n_components
         self.is_sparse_graph = is_sparse_graph
@@ -108,6 +113,7 @@ class ScaSE:
             self.should_true_eigenvectors = True
         else:
             self.should_true_eigenvectors = should_true_eigenvectors
+        self.laplacian_kind = laplacian_kind
 
         # AE
         self.ae_hiddens = ae_hiddens
@@ -170,6 +176,7 @@ class ScaSE:
             ae_patience=self.ae_patience,
             ae_batch_size=self.ae_batch_size,
             should_use_ae=self.should_use_ae,
+            laplacian_kind=self.laplacian_kind,
         )
 
         self._spectralnet.fit(X, y)
@@ -314,3 +321,28 @@ class ScaSE:
         V_batch = V_batch / np.linalg.norm(V_batch, axis=0)
         Lambda = V_batch.T @ L_batch @ V_batch
         return Lambda
+
+    def grassmann_distance(self, X: torch.Tensor, each_vector: bool = False) -> float:
+        """Compute the Grassmann distance between the embeddings of the true SE"""
+        pred = self.transform(X)
+        se = self._get_true_se(X)
+        return get_grassmann_distance(pred, se, each_vector)
+
+    def _get_true_se(self, X: torch.Tensor) -> np.ndarray:
+        """Get the true spectral embeddings of the input data.
+
+        Parameters
+        ----------
+        X : torch.Tensor
+            The input data of shape (n_samples, n_features).
+
+        Returns
+        -------
+        np.ndarray
+            The true spectral embeddings of the input data.
+        """
+        n_neighbors = (X.shape[0] // self.spectral_batch_size) * self.spectral_n_nbg
+        W = get_affinity_matrix(X, n_nbg=n_neighbors, device=self._spectralnet.device)
+        L = get_laplacian(W, laplacian_kind=self.laplacian_kind)
+        V = eigsh(L, k=self.n_components+1, which='SM')[1]
+        return V[:, 1:]

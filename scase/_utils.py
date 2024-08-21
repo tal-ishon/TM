@@ -68,7 +68,7 @@ def make_batch_for_sparse_grapsh(batch_x: torch.Tensor) -> torch.Tensor:
     return new_batch_x
 
 
-def get_laplacian(W: torch.Tensor) -> np.ndarray:
+def get_laplacian(W: torch.Tensor, laplacian_kind: str = 'rw') -> np.ndarray:
     """
     Computes the Random-Walk normalized Laplacian matrix, given the affinity matrix W.
 
@@ -85,7 +85,14 @@ def get_laplacian(W: torch.Tensor) -> np.ndarray:
 
     W = W.detach().cpu().numpy()
     D = np.diag(W.sum(axis=1))
-    L = np.eye(W.shape[0]) - np.linalg.inv(D) @ W
+    if laplacian_kind == "unnormalized":
+        L = D - W
+    elif laplacian_kind == "rw":
+        L = np.eye(W.shape[0]) - np.linalg.inv(D) @ W
+    else: # laplacian_kind == "symmetric"
+        D_inv_sqrt = np.sqrt(np.linalg.inv(D))
+        L = np.eye(W.shape[0]) - D_inv_sqrt @ W @ D_inv_sqrt
+
     return L
 
 
@@ -294,7 +301,7 @@ def get_nearest_neighbors(
     return Dis, Ids
 
 
-def get_grassmann_distance(A: np.ndarray, B: np.ndarray) -> float:
+def get_grassmann_distance(A: np.ndarray, B: np.ndarray, each_vector: bool = False) -> float:
     """
     Computes the Grassmann distance between the subspaces spanned by the columns of A and B.
 
@@ -304,6 +311,8 @@ def get_grassmann_distance(A: np.ndarray, B: np.ndarray) -> float:
         Numpy ndarray.
     B : np.ndarray
         Numpy ndarray.
+    each_vector : bool, optional
+        If True, computes the Grassmann distance between each pair of vectors. Defaults to False.
 
     Returns
     -------
@@ -317,9 +326,14 @@ def get_grassmann_distance(A: np.ndarray, B: np.ndarray) -> float:
     B, _ = np.linalg.qr(B)
 
     M = np.dot(np.transpose(A), B)
-    _, s, _ = np.linalg.svd(M, full_matrices=False)
-    s = 1 - np.square(s)
-    grassmann = np.sum(s)
+    if each_vector:
+        s = np.diag(M)
+        s = 1 - np.square(s)
+        grassmann = s
+    else:
+        _, s, _ = np.linalg.svd(M, full_matrices=False)
+        s = 1 - np.square(s)
+        grassmann = np.sum(s)
     return grassmann
 
 
@@ -402,6 +416,9 @@ def get_gaussian_kernel(
         Matrix W with Gaussian similarities.
     """
 
+    # make scale a column vector
+    scale = scale.reshape(-1, 1)
+
     if not is_local:
         # global scale
         W = torch.exp(-torch.pow(D, 2) / (scale ** 2))
@@ -414,8 +431,7 @@ def get_gaussian_kernel(
     if Ids is not None:
         n, k = Ids.shape
         mask = torch.zeros([n, n]).to(device=device)
-        for i in range(len(Ids)):
-            mask[i, Ids[i]] = 1
+        mask[np.arange(n).reshape(-1, 1), Ids] = 1
         W = W * mask
     sym_W = (W + torch.t(W)) / 2.0
     return sym_W
@@ -457,8 +473,7 @@ def get_laplace_kernel(
     if Ids is not None:
         n, k = Ids.shape
         mask = torch.zeros([n, n]).to(device=device)
-        for i in range(len(Ids)):
-            mask[i, Ids[i]] = 1
+        mask[np.arange(n).reshape(-1, 1), Ids] = 1
         W = W * mask
     sym_W = (W + torch.t(W)) / 2.0
     return sym_W
@@ -509,10 +524,7 @@ def get_affinity_matrix(X: torch.Tensor, is_local_scale: bool = True, n_nbg: int
     Returns:
         torch.Tensor: The affinity matrix W
     """
-    # Convert sparse tensor to dense tensor for distance computation if necessary
-    if X.is_sparse:
-        X = X.to_dense()
-        
+
     is_local = is_local_scale
     n_neighbors = n_nbg
     scale_k = scale_k

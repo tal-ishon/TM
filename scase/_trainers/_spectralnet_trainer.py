@@ -3,7 +3,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, random_split, TensorDataset
 from tqdm import trange
 
-from scase._utils import *
+from .._utils import *
 from .._losses import SpectralNetLoss
 from .._models import SpectralNetModel
 
@@ -45,6 +45,7 @@ class SpectralTrainer:
         self.architecture = self.spectral_config["hiddens"]
         self.batch_size = self.spectral_config["batch_size"]
         self.is_local_scale = self.spectral_config["is_local_scale"]
+        self.laplacian_kind = self.spectral_config["laplacian_kind"]
 
     def train(
             self, X: torch.Tensor, y: torch.Tensor
@@ -74,7 +75,7 @@ class SpectralTrainer:
         self.X = X.view(X.size(0), -1)
         self.y = y
         self.counter = 0
-        self.criterion = SpectralNetLoss()
+        self.criterion = SpectralNetLoss(self.laplacian_kind)
         self.spectral_net = SpectralNetModel(
             self.architecture, input_dim=self.X.shape[1]
         ).to(self.device)

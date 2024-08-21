@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from sklearn.cluster import KMeans
 from sklearn.mixture import GaussianMixture
+
 from ._trainers import SpectralTrainer, AETrainer
 from ._utils import *
 
@@ -19,7 +20,7 @@ class SpectralNet:
             ae_min_lr: float = 1e-7,
             ae_patience: int = 10,
             ae_batch_size: int = 256,
-            spectral_hiddens: list = [1024, 1024, 512, 104],
+            spectral_hiddens: list = [1024, 1024, 512, 100],
             spectral_epochs: int = 30,
             spectral_lr: float = 1e-3,
             spectral_lr_decay: float = 0.1,
@@ -29,6 +30,7 @@ class SpectralNet:
             spectral_n_nbg: int = 30,
             spectral_scale_k: int = 15,
             spectral_is_local_scale: bool = True,
+            laplacian_kind: str = "rw",
     ):
         """SpectralNet is a class for implementing a Deep learning model that performs spectral clustering.
         This model optionally utilizes Autoencoders (AE) for training.
@@ -76,7 +78,10 @@ class SpectralNet:
             The learning rate for the Spectral network.
 
         spectral_lr_decay : float, optional (default=0.1)
-            The learning rate decay factor"""
+            The learning rate decay factor
+
+        laplacian_kind : str, optional (default="rw")
+            Specifies the kind of Laplacian matrix to use. Options are "unnormalized", "rw", and "symmetric"."""
 
         self.n_clusters = n_clusters
         self.should_use_ae = should_use_ae
@@ -98,9 +103,10 @@ class SpectralNet:
         self.spectral_scale_k = spectral_scale_k
         self.spectral_is_local_scale = spectral_is_local_scale
         self.spectral_batch_size = spectral_batch_size
+        self.laplacian_kind = laplacian_kind
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        self._validate_spectral_hiddens()
+        # self._validate_spectral_hiddens()
 
     def _validate_spectral_hiddens(self):
         """Validates the number of hidden units in each layer of the Spectral network."""
@@ -143,6 +149,7 @@ class SpectralNet:
             "scale_k": self.spectral_scale_k,
             "is_local_scale": self.spectral_is_local_scale,
             "batch_size": self.spectral_batch_size,
+            "laplacian_kind": self.laplacian_kind,
         }
 
         if self.should_use_ae:
@@ -178,7 +185,7 @@ class SpectralNet:
                 X = self.ae_net.encode(X)
             self.embeddings_ = self.spec_net(X, should_update_orth_weights=False)
             self.embeddings_ = self.embeddings_.detach().cpu().numpy()
-
+        
         cluster_assignments = self._get_clusters_by_gmm(self.embeddings_)
         return cluster_assignments
 
@@ -225,7 +232,6 @@ class SpectralNet:
         kmeans = KMeans(n_clusters=self.n_clusters, n_init=10).fit(embeddings)
         cluster_assignments = kmeans.predict(embeddings)
         return cluster_assignments
-    
 
     def _get_clusters_by_gmm(self, embeddings: np.ndarray) -> np.ndarray:
         """Performs k-means clustering on the spectral-embedding space.
@@ -241,6 +247,6 @@ class SpectralNet:
             The cluster assignments for the given data.
         """
 
-        gmm = GaussianMixture(n_components=self.n_clusters).fit(embeddings)
+        gmm = GaussianMixture(n_components=self.n_clusters, n_init=1).fit(embeddings)
         cluster_assignments = gmm.predict_proba(embeddings)
         return cluster_assignments

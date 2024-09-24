@@ -32,7 +32,7 @@ def clean(doc):
     stop_free = " ".join([i for i in non_letters_free.lower().split() if i not in STOP])
     punc_free = "".join(ch for ch in stop_free if ch not in EXCLUDE)
     stemmered = " ".join([STEMMER.stem(word) for word in punc_free.split()])
-    long_short_free = " ".join(word for word in stemmered.split() if len(word) <= 12 and len(word) >= 2)  # Remove words longer than 10 or shorter than 2
+    long_short_free = " ".join(word for word in stemmered.split() if len(word) <= 12 and len(word) > 3)  # Remove words longer than 10 or shorter than 2
     return long_short_free
 
 
@@ -158,5 +158,20 @@ def run_BBC(file, words_path):
     save_file_txt("Results/BBCGloveFilter/clean_vocab", vocabFilter)
     save_file_txt("Results/BBCGloveFilter/labels", labels)
 
+def run_TrumpTweets():
+    pass
+
+def run_lda(datasetype):
+    if datasetype == "20NewsGroup":
+        pass
+    elif datasetype == "BBC":
+        pass
+    elif datasetype == "TrumpTweets":
+        pass
+    else:
+        print("ERORR IN DATASET TYPE!")
+        return
+    
+    return doc_term_matrix, dictionary
 # run_BBC("BBC/BBC_News_Train.csv")
 # run_20NewsGroup()

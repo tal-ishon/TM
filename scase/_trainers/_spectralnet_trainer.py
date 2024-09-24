@@ -90,6 +90,8 @@ class SpectralTrainer:
 
         print("Training SpectralNet:")
         t = trange(self.epochs, leave=True)
+        last_valid_loss = 0
+        counter = 0
         for epoch in t:
             train_loss = 0.0
             for (X_grad, _), (X_orth, _) in zip(train_loader, ortho_loader):
@@ -127,7 +129,19 @@ class SpectralTrainer:
 
             current_lr = self.optimizer.param_groups[0]["lr"]
             if current_lr <= self.spectral_config["min_lr"]:
-                break
+                self.optimizer.param_groups[0]["lr"] = self.spectral_config["min_lr"]
+
+            # make sure to break after convergennce
+            valid_loss_check = round(valid_loss, 7)
+            if valid_loss_check == last_valid_loss:
+                counter += 1
+                if counter == 5:
+                    break
+            # print(valid_loss_check)
+            # print(last_valid_loss)
+            last_valid_loss = valid_loss_check
+            
+        
             t.set_description(
                 "Train Loss: {:.7f}, Valid Loss: {:.7f}, LR: {:.6f}".format(
                     train_loss, valid_loss, current_lr

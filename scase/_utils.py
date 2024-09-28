@@ -296,7 +296,7 @@ def get_nearest_neighbors(
         k = len(X)
     X = X.cpu().detach().numpy()
     Y = Y.cpu().detach().numpy()
-    nbrs = NearestNeighbors(n_neighbors=k).fit(X)
+    nbrs = NearestNeighbors(n_neighbors=k, metric='cosine').fit(X)
     Dis, Ids = nbrs.kneighbors(X)
     return Dis, Ids
 
@@ -668,3 +668,12 @@ def normalize_data(X: torch.Tensor) -> torch.Tensor:
     X[:, X.std(axis=0) != 0] = (X[:, X.std(axis=0) != 0] - X[:, X.std(axis=0) != 0].mean(axis=0)) / X[:, X.std(
         axis=0) != 0].std(axis=0)
     return X
+
+def cosine_similarity_torch(X, Y):
+    X_norm = X / X.norm(dim=1)[:, None]
+    Y_norm = Y / Y.norm(dim=1)[:, None]
+    return torch.mm(X_norm, Y_norm.t())
+
+def cosine_distances_torch(X, Y):
+    similarity = cosine_similarity_torch(X, Y)
+    return 1 - similarity

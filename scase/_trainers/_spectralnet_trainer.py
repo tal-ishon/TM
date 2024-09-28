@@ -184,10 +184,26 @@ class SpectralTrainer:
             torch.Tensor: The affinity matrix W
         """
 
+        #####################
+        ### ORIGINAL CODE ###
+        #####################
+        # is_local = self.is_local_scale
+        # n_neighbors = self.n_nbg
+        # scale_k = self.scale_k
+        # Dx = torch.cdist(X, X)
+        # Dis, indices = get_nearest_neighbors(X, k=n_neighbors + 1)
+        # Dis -= Dis[:, 0].reshape(Dis.shape[0], 1)
+        # Dis[Dis < 0] = 0
+        # scale = compute_scale(Dis, k=scale_k, is_local=is_local)
+        # W = get_laplace_kernel(
+        #     Dx, scale, indices[:, 1:], device=self.device, is_local=is_local
+        # )
+        # return W
+
         is_local = self.is_local_scale
         n_neighbors = self.n_nbg
         scale_k = self.scale_k
-        Dx = torch.cdist(X, X)
+        Dx = cosine_distances_torch(X, X)
         Dis, indices = get_nearest_neighbors(X, k=n_neighbors + 1)
         Dis -= Dis[:, 0].reshape(Dis.shape[0], 1)
         Dis[Dis < 0] = 0

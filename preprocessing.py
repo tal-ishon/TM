@@ -10,6 +10,9 @@ from gensim import corpora
 import torch
 import csv
 
+dictionary = None
+doc_term_matrix = None
+
 # nltk.download('punkt')
 # nltk.download('stopwords')
 # Define stopwords and lemmatizer
@@ -45,6 +48,7 @@ def preprocess_text(text):
 def get_filtered_corpus(corpus, words):
     total_doc = len(corpus)
 
+    global dictionary, doc_term_matrix
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
     # values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
@@ -59,7 +63,7 @@ def get_filtered_corpus(corpus, words):
 
     # Convert the tokenized corpus to a bag-of-words representation using the filtered dictionary
     bow_corpus = [dictionary.doc2bow(sentence) for sentence in corpus]
-    
+    doc_term_matrix = bow_corpus
     # Convert back to text for visualization (optional) ensuring no duplicates
     filtered_corpus = [
         ' '.join(dictionary[word_id] for word_id, freq in bow)
@@ -158,20 +162,5 @@ def run_BBC(file, words_path):
     save_file_txt("Results/BBCGloveFilter/clean_vocab", vocabFilter)
     save_file_txt("Results/BBCGloveFilter/labels", labels)
 
-def run_TrumpTweets():
-    pass
-
-def run_lda(datasetype):
-    if datasetype == "20NewsGroup":
-        pass
-    elif datasetype == "BBC":
-        pass
-    elif datasetype == "TrumpTweets":
-        pass
-    else:
-        print("ERORR IN DATASET TYPE!")
-        return
-    
-    return doc_term_matrix, dictionary
 # run_BBC("BBC/BBC_News_Train.csv")
 # run_20NewsGroup()

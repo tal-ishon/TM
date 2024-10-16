@@ -14,7 +14,7 @@ class ScaSE:
             spectral_hiddens: list = [1024, 1024, 512],
             spectral_max_epochs: int = 100,
             spectral_lr: float = 1e-2,
-            spectral_lr_decay: float = 0.0001,
+            spectral_lr_decay: float = 0.5,
             spectral_min_lr: float = 1e-6,
             spectral_patience: int = None,
             spectral_batch_size: int = 512,

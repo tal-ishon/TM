@@ -12,6 +12,8 @@ import csv
 
 dictionary = None
 doc_term_matrix = None
+gibbs_corpus = None
+filtered_corpus = None
 
 # nltk.download('punkt')
 # nltk.download('stopwords')
@@ -25,7 +27,7 @@ STOP.update(custom_stop_words)
 EXCLUDE = set(string.punctuation)
 LEMMA = WordNetLemmatizer()
 # STEMMER = PorterStemmer()
-PATTERN = r's$|able$|ly$'
+PATTERN = r's$|able$|ly$|ed$'
 STEMMER = RegexpStemmer(PATTERN, min=4)
 words = None
 
@@ -48,7 +50,7 @@ def preprocess_text(text):
 def get_filtered_corpus(corpus, words):
     total_doc = len(corpus)
 
-    global dictionary, doc_term_matrix
+    global dictionary, doc_term_matrix, gibbs_corpus, filtered_corpus
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
     # values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
@@ -69,6 +71,8 @@ def get_filtered_corpus(corpus, words):
         ' '.join(dictionary[word_id] for word_id, freq in bow)
         for bow in bow_corpus
     ]
+
+    gibbs_corpus = [doc.split() for doc in filtered_corpus]
 
     word_to_ix = dictionary.token2id
 
@@ -117,6 +121,18 @@ def prepare_cleaner_csv_data(filename):
 
     return sentences, labels
 
+def prepare_cleaner_txt_data(corpus_path):
+    sentences = []
+    
+    with open(corpus_path, 'r') as file:
+        for line in file:
+            # Clean each line (document) using the 'clean' function
+            cleaned_line = clean(line.strip())
+            # Split the cleaned line into words
+            sentences.append(cleaned_line.split())
+    
+    return sentences
+
 
 def save_file_txt(path, list):
     with open(f'{path}.txt', 'w') as f:
@@ -130,6 +146,7 @@ def define_words(path):
         words = file.read().splitlines()
 
 FILE_PATH = "glove.6B/glove.6B.50d.txt"
+
 
 def run_20NewsGroup(words_path):
     define_words(words_path)

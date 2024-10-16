@@ -63,6 +63,8 @@ class Preprocessor:
             sentences, labels = pp.prepare_cleaner_csv_data(self.corpus_path)
         elif data_type == "json":
             sentences = pp.prepare_cleaner_data(self.corpus_path)
+        elif data_type == "txt":
+            sentences = pp.prepare_cleaner_txt_data(self.corpus_path)
         else:
             print("Can't process this data type!")
             return
@@ -174,7 +176,7 @@ class Predictor:
             model.fit(self.X)
         elif self.mode == "ScaSE":
             if not has_embed: 
-                model = ScaSE(10, spectral_lr=0.0001, spectral_max_epochs=50)
+                model = ScaSE(10, spectral_lr=0.001, spectral_max_epochs=50)
                 eigenvec = model.fit_transform(self.X)
                 eigval = model.get_eigenvalues()
                 embed = get_update_embed(eigenvec, eigval)
@@ -264,6 +266,7 @@ class Predictor:
         torch.save(self.prior.T, file_path)
 
 is_first = False
+HOME_DIR = "NewResults"
 DATASET = "20NewsGroup"
 DATASET_PATH = "20NewsGroup"
 FILE_TYPE = "json"
@@ -274,11 +277,11 @@ TOPICS = 100
 
 if is_first:
     # Create embedding according to data
-    pprocessor = Preprocessor(DATA_PATH)
+    pprocessor = Preprocessor(f'{DATA_PATH}')
     pprocessor.generate_embedding_and_dictionaty('glove.6B/glove.6B.100d.txt')
     pprocessor.process_data(FILE_TYPE)
-    torch.save(pprocessor.embedding, f"NewResults/{DATASET}/embedding")
-    torch.save(pprocessor.word_to_ix, f"NewResults/{DATASET}/word_to_ix")
+    torch.save(pprocessor.embedding, f"{HOME_DIR}/{DATASET}/embedding")
+    torch.save(pprocessor.word_to_ix, f"{HOME_DIR}/{DATASET}/word_to_ix")
 else:
     pprocessor = Preprocessor(DATA_PATH, torch.load(f"NewResults/{DATASET}/embedding"))
 

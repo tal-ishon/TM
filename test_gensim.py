@@ -26,9 +26,9 @@ np.random.seed(42)
 def compute_umass_coherence(model_name, model):
   from gensim.models.coherencemodel import CoherenceModel
   # Compute c_v coherence
-  coherence_model_cv = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='u_mass')
-  coherence_cv = coherence_model_cv.get_coherence()
-  print(f"{model_name} u_mass Coherence: {round(coherence_cv, 5)}")
+  coherence_model_umass = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='u_mass')
+  coherence_umass = coherence_model_umass.get_coherence()
+  print(f"{model_name} u_mass Coherence: {round(coherence_umass, 5)}")
 
 
 def compute_cv_coherence(model_name, model):
@@ -37,6 +37,44 @@ def compute_cv_coherence(model_name, model):
   coherence_model_cv = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='c_v')
   coherence_cv = coherence_model_cv.get_coherence()
   print(f"{model_name} c_v Coherence: {round(coherence_cv, 5)}")
+
+
+def compute_topic_diversity_coherence(model_name, model, top_n):
+    """
+    Calculate topic diversity for a given LDA model.
+
+    Parameters:
+    lda_model (gensim.models.LdaModel): Trained LDA model
+    top_n (int): Number of top words per topic to consider
+
+    Returns:
+    float: Topic diversity score
+    """
+    if model_name == "BERTopic":
+        # Get top N words for each topic
+        topics = model.get_topics()
+        
+        # Exclude the '-1' topic if present, which refers to outliers/noise
+        if -1 in topics:
+            del topics[-1]
+
+        top_words = [word for topic_id in topics for word, _ in topics[topic_id][:top_n]]
+
+    else:
+        # Get top N words for each topic
+        topics = model.show_topics(num_topics=-1, num_words=top_n, formatted=False)
+        # Flatten the list of words and calculate unique words
+        top_words = [word for topic in topics for word, _ in topic[1]]
+        
+
+    unique_words = set(top_words)
+
+    # Calculate topic diversity
+    total_words = len(top_words)
+    unique_words_count = len(unique_words)
+    topic_diversity = unique_words_count / total_words
+
+    print(f"{model_name} Topic - Diversity Coherence: {round(topic_diversity, 5)}")
 
 
 def get_intersection(list1, list2):
@@ -96,13 +134,13 @@ def create_false_prior(k, V):
 
 
 def save_learned_eta(model_type, model):
-    num_words = TOPIC_NUM  # Set the number of words per topic
+    num_words = 10  # Set the number of words per topic
 
     # Get topics in a list of tuples (topic_id, words)
     topics_words = model.show_topics(num_topics=-1, num_words=num_words, formatted=False)
 
     # Convert the list of topics and words into a list of word lists (one list per topic)
-    topics_words_list = [[word for word, prob in topic_words] for _, topic_words in topics_words]
+    topics_words_list = [[f'{word}: {round(float(prob), 5)}' for word, prob in topic_words] for _, topic_words in topics_words]
 
     # Create a pandas DataFrame with topics as rows and terms as columns
     df = pd.DataFrame(topics_words_list)
@@ -113,8 +151,8 @@ def save_learned_eta(model_type, model):
         })
 
     # Save the DataFrame to a CSV file
-    df.to_csv('{}_topic_term_matrix.csv'.format(model_type), index=False, header=False)
-    # df.to_csv('{}_check.csv'.format(model_type), index=False, header=False)
+    # df.to_csv('{}_topic_term_matrix.csv'.format(model_type), index=False, header=False)
+    df.to_csv('Learned_eta/{}/{}_10_eta.csv'.format(DATASET_NAME, model_type), index=False, header=False)
 
 
 def calculate_bertopic_coherence(topic_words, corpus):
@@ -138,7 +176,7 @@ def save_learned_topic_word_distribution(topic_words, num_topics):
         })
 
         # Save to CSV
-        topic_df.to_csv('topic_words.csv', index=False)
+        topic_df.to_csv('Learned_eta/{}/topic_words.csv'.format(DATASET_NAME), index=False)
 
 
 def run_bertopic():
@@ -158,24 +196,28 @@ def run_bertopic():
     # Create topic words list with error handling
     topic_words = []
     valid_topic_ids = []  # Keep track of valid topic IDs
+    topic_words_save = []
 
     for topic_id in range(num_topics):
         topic = bertopic_model.get_topic(topic_id)
         if isinstance(topic, list):
+            words_save = [f'{word}: {round(prob, 5)}' for word, prob in topic]
             words = [word for word, _ in topic]
             topic_words.append(words)
+            topic_words_save.append(words_save)
             valid_topic_ids.append(topic_id)  # Track valid topic IDs
         else:
             print(f"Skipping invalid topic ID: {topic_id}")
 
     calculate_bertopic_coherence(topic_words=topic_words, corpus=doc_term_matrix)
-    save_learned_topic_word_distribution(topic_words=topic_words, num_topics=valid_topic_ids)
+    compute_topic_diversity_coherence(model_name="BERTopic", model=bertopic_model, top_n=10)
+    save_learned_topic_word_distribution(topic_words=topic_words_save, num_topics=valid_topic_ids)
 
 
 def run_lda_models():
-    prior_type = ["prior_GMM"]
+    prior_type = ["random", "prior_GMM"]
     models = []
-    eta_weight = 70
+    eta_weight = 10
 
     for type in prior_type:
         if not IS_SAVED:
@@ -224,16 +266,19 @@ def run_lda_models():
             print(f"Topic {topic_id + 1}: \n{LDA.show_topic(topic_id, topn=10)}")
 
 
-    models_type = ["LDA_GMM"]
+    # models_type = ["LDA", "RANDOM", "GMM", "ScaSE"]
 
-    for model_type, model in zip(models_type, models):
+    # for model_type, model in zip(models_type, models):
         # topics = get_topics(model)
+        model = LDA
+        model_type = type
         compute_umass_coherence(model_type, model)
         compute_cv_coherence(model_type, model)
+        compute_topic_diversity_coherence(model_type, model, top_n=10)
         save_learned_eta(model_type=model_type, model=model)
 
 
-def init(topic_num = 100, home_dir='NewResults', dataset_name="20NewsGroup", is_first=False, is_model_saved=False):
+def init(topic_num = 200, home_dir='NewResults', dataset_name="Trump'sTweets", is_first=True, is_model_saved=False):
     global TOPIC_NUM, HOME, DATASET_NAME, DATASET_TYPE, CORPUS_PATH, word_to_ix, IS_FIRST, IS_SAVED
 
     TOPIC_NUM = topic_num

@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def save_topics_words(lists):
-    with open(f"{HOME}/validations/{TOP}_GMM.csv", "w") as f:
+    with open(f"{HOME}/validations/{TOP}_CHECKGMM.csv", "w") as f:
         wr = csv.writer(f)
         for list in lists:
             f.write(f'Number of words in topic: {len(list)}')
@@ -26,7 +26,7 @@ def save_df_topics_words(lists):
 
 TOP = 100
 HOME = "NewResults/20NewsGroup"
-pred_path = f"{HOME}/pred_GMM"
+pred_path = f"{HOME}/CHECKpred_GMM"
 word2ix_path = f"{HOME}/word_to_ix"
 
 pred = torch.load(pred_path).T

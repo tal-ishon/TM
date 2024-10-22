@@ -19,6 +19,8 @@ from spectralnet._utils import get_affinity_matrix
 from scase import ScaSE, SpectralNet as SN
 from sklearn.mixture import GaussianMixture as GMM
 from sklearn.manifold import SpectralEmbedding as SE
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import normalize
 
 def get_random_norm_vec(dim):
     vec = np.random.randn(dim)
@@ -189,7 +191,6 @@ class Predictor:
             # model = SN(self.n_predictions, spectral_lr=0.001)
             # model.fit(self.X)
         elif self.mode == "PCA":
-            from sklearn.decomposition import PCA
             pca = PCA(n_components=20)
             X_transformed = pca.fit_transform(self.X)
             model = GMM(self.n_predictions, n_init=1)
@@ -215,10 +216,18 @@ class Predictor:
             model.fit(embed)
             return model, embed           
         else:
-            model = GMM(self.n_predictions, n_init=1)
-            model.fit(self.X)
+            pca = PCA(n_components=75)  # You can adjust this
+            reduced_embeddings = pca.fit_transform(self.X)
+            model = GMM(
+                n_components=self.n_predictions,  # adjust based on your needs
+                covariance_type='full',
+                n_init=10,
+                max_iter=100,
+                random_state=42
+                )
+            model.fit(reduced_embeddings)
 
-        return model
+        return model, reduced_embeddings
 
     def __prediction(self, model):
         """
@@ -239,7 +248,8 @@ class Predictor:
             model, embed = model[0], model[1] 
             pred = model.predict_proba(embed)
         else:
-            pred = model.predict_proba(self.X)
+            model, embed = model[0], model[1] 
+            pred = model.predict_proba(embed)
         
         return pred
 
@@ -265,15 +275,15 @@ class Predictor:
     def save_prior_to_file(self, file_path):
         torch.save(self.prior.T, file_path)
 
-is_first = False
+is_first = True
 HOME_DIR = "NewResults"
-DATASET = "20NewsGroup"
-DATASET_PATH = "20NewsGroup"
-FILE_TYPE = "json"
+DATASET = "Trump'sTweets"
+DATASET_PATH = "Trump'sTweets"
+FILE_TYPE = "csv"
 
-MODE = "ScaSE"
+MODE = "GMM"
 DATA_PATH = f"{DATASET_PATH}.{FILE_TYPE}"
-TOPICS = 100
+TOPICS = 200
 
 if is_first:
     # Create embedding according to data

@@ -6,14 +6,14 @@ import pandas as pd
 
 
 def save_topics_words(lists):
-    with open(f"{HOME}/validations/{TOP}_CHECKGMM.csv", "w") as f:
+    with open(f"{HOME}/validations/{TOP}_GMM.csv", "w") as f:
         wr = csv.writer(f)
         for list in lists:
             f.write(f'Number of words in topic: {len(list)}')
             f.write(f'\n')
 
             for word in list:
-                f.write(word + '\n')
+                f.write(f"{word}\n")
             f.write('\n')
 
 def save_df_topics_words(lists):
@@ -24,12 +24,12 @@ def save_df_topics_words(lists):
     df.to_csv('GMM_eta_prior.csv', index=False, header=False)
 
 
-TOP = 100
-HOME = "NewResults/20NewsGroup"
-pred_path = f"{HOME}/CHECKpred_GMM"
+TOP = 200
+HOME = "BERTNewResults/Trump'sTweets"
+pred_path = f"{HOME}/prior_GMM"
 word2ix_path = f"{HOME}/word_to_ix"
 
-pred = torch.load(pred_path).T
+pred = torch.load(pred_path)
 word_to_ix = torch.load(word2ix_path)
 ix_to_word = {v: k for k, v in word_to_ix.items()}
 
@@ -46,15 +46,15 @@ for i, _ in enumerate(pred):
     sorted = np.argsort(-topic_pred)
     words_ix = sorted[:shape]
 
-    print(f"Number of words in topic = {shape}")
+    print(f"Number of words in topic {i} = {shape}")
     
     topic_words = []
     for word_ix in words_ix:
-        topic_words.append(ix_to_word[word_ix])
+        topic_words.append((ix_to_word[word_ix], topic_pred[word_ix]))
     
     words_per_topic.append(topic_words)
 
-save_df_topics_words(words_per_topic)
-
+# save_df_topics_words(words_per_topic)
+save_topics_words(words_per_topic)
 
 

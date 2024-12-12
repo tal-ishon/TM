@@ -1,0 +1,10 @@
+### 5 Topics ###
+prior_GMM u_mass Coherence: -4.05912
+prior_GMM c_v Coherence: 0.6523
+prior_GMM Topic - Diversity Coherence: 0.84
+
+Topic 0,"year: 0.00568, market: 0.00467, firm: 0.00461, growth: 0.00349, sale: 0.00346, bank: 0.00339, price: 0.00331, share: 0.00317, month: 0.00309, rate: 0.00296"
+Topic 1,"year: 0.00869, time: 0.00474, game: 0.00451, first: 0.00443, government: 0.00438, last: 0.00424, world: 0.00412, back: 0.00346, labour: 0.00343, election: 0.00342"
+Topic 2,"people: 0.00098, domain: 0.00077, director: 0.00065, service: 0.00056, film: 0.00053, berlin: 0.0005, language: 0.00049, library: 0.00048, work: 0.00047, supplier: 0.00046"
+Topic 3,"people: 0.00703, mobile: 0.00457, music: 0.00454, phone: 0.00426, year: 0.00419, service: 0.00387, show: 0.00353, film: 0.00327, like: 0.00327, number: 0.00305"
+Topic 4,"film: 0.00926, award: 0.00619, best: 0.00592, actor: 0.0031, director: 0.00292, oscar: 0.0027, nomination: 0.00192, year: 0.00156, hunt: 0.00143, lord: 0.00137"

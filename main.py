@@ -75,7 +75,7 @@ class Preprocessor:
         words_corpus = list(chain(*sentences))
         words = get_intersection(words_embed, words_corpus)
         # pp.save_file_txt("20NewsGroupWords", words)
-        _, corpus = pp.get_filtered_corpus(sentences, words)
+        _, corpus = pp.get_filtered_corpus(sentences, words, word_embed_type="glove")
         corpus_input = [doc.split() for doc in corpus]
         vocabFilter = pp.get_filtered_vocabulary(corpus_input)
         self.vocabulary = list(vocabFilter)
@@ -185,7 +185,11 @@ class Predictor:
                 np.save("embed.npy", embed)
             else:
                 embed = np.load("embed.npy")
-            model = GMM(self.n_predictions, n_init=1)
+            model = GMM(self.n_predictions, 
+                    covariance_type="spherical",
+                    n_init=10,
+                    max_iter=100,
+                    random_state=42)
             model.fit(embed)
             return model, embed
             # model = SN(self.n_predictions, spectral_lr=0.001)
@@ -216,8 +220,8 @@ class Predictor:
             model.fit(embed)
             return model, embed           
         else:
-            pca = PCA(n_components=75)  # You can adjust this
-            reduced_embeddings = pca.fit_transform(self.X)
+            # pca = PCA(n_components=75)  # You can adjust this
+            # reduced_embeddings = pca.fit_transform(self.X)
             model = GMM(
                 n_components=self.n_predictions,  # adjust based on your needs
                 covariance_type='full',
@@ -225,9 +229,9 @@ class Predictor:
                 max_iter=100,
                 random_state=42
                 )
-            model.fit(reduced_embeddings)
+            model.fit(self.X)
 
-        return model, reduced_embeddings
+        return model, self.X
 
     def __prediction(self, model):
         """
@@ -287,12 +291,13 @@ TOPICS = 200
 
 if is_first:
     # Create embedding according to data
-    pprocessor = Preprocessor(f'{DATA_PATH}')
+    pprocessor = Preprocessor(DATA_PATH)
     pprocessor.generate_embedding_and_dictionaty('glove.6B/glove.6B.100d.txt')
     pprocessor.process_data(FILE_TYPE)
     torch.save(pprocessor.embedding, f"{HOME_DIR}/{DATASET}/embedding")
     torch.save(pprocessor.word_to_ix, f"{HOME_DIR}/{DATASET}/word_to_ix")
-else:
+    exit(0)
+else: 
     pprocessor = Preprocessor(DATA_PATH, torch.load(f"NewResults/{DATASET}/embedding"))
 
 # Calculate topics-words distribution (prior)

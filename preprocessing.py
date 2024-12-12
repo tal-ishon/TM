@@ -47,14 +47,15 @@ def preprocess_text(text):
     return tokens
 
 
-def get_filtered_corpus(corpus, words):
+def get_filtered_corpus(corpus, words, word_embed_type="other"):
     total_doc = len(corpus)
 
     global dictionary, doc_term_matrix, gibbs_corpus, filtered_corpus
     # Creating document-term matrix
     dictionary = corpora.Dictionary(corpus)
     # values = list(dictionary.values()) # make sure words we keep from glove embed actually in corpus
-    dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words if word in words])
+    if word_embed_type == "glove":
+        dictionary.filter_tokens(good_ids=[dictionary.token2id[word] for word in words if word in words])
 
     min_freq = total_doc * 0.0001
     max_freq = total_doc * 0.999

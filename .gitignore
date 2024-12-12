@@ -1,0 +1,18 @@
+# Ignore specific files
+20NewsGroup.json
+BBC.csv
+Trump'sTweets.csv
+TrumpWords.txt
+embed.npy
+filtered_corpus.txt
+myWords.txt
+word_intrusion.json
+words.pkl
+*.pt
+
+# Ignore specific directories
+/BBC/
+__pycache__/
+glove.6B/
+mallet-2.0.8/
+spectralnet/

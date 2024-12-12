@@ -13,30 +13,103 @@ import random
 import pandas as pd
 from gensim import corpora
 import pickle
-
+import os
+import little_mallet_wrapper as lmw
+from bertopic import BERTopic
+    
 
 CORPUS_PATH = None
 IS_FIRST = None
 IS_SAVED = None
+MODEL_TYPE = None
 
 # Setting seeds for reproducibility
 random.seed(42)
 np.random.seed(42)
+# Set environment variable for Python hash seed
+os.environ['PYTHONHASHSEED'] = str(42)
+
+# Force single thread operation
+os.environ['GOTO_NUM_THREADS'] = '1'
+os.environ['OMP_NUM_THREADS'] = '1'
+os.environ['MKL_NUM_THREADS'] = '1'
+
+
+def save_distributions(model, model_type, corpus):
+    path = f"Distributions-Results/{DATASET_NAME}"
+    # topic-word
+
+    # Get topic-word matrix
+    topic_word_matrix = model.get_topics()  # shape (num_topics, num_words)
+
+    # Save to CSV
+    topic_word_df = pd.DataFrame(topic_word_matrix, columns=[dictionary[i] for i in range(topic_word_matrix.shape[1])])
+    topic_word_df.to_csv(f"{path}/{model_type}_topic_word_distribution.csv", index_label="Topic")
+
+    # document-topic
+    # Convert to dense matrix
+    doc_topic_matrix = np.zeros((len(corpus), model.num_topics))
+    for i, bow in enumerate(corpus):
+        for topic_id, prob in model.get_document_topics(bow):
+            doc_topic_matrix[i, topic_id] = prob.round(5)
+
+    # Save to CSV
+    doc_topic_df = pd.DataFrame(doc_topic_matrix)
+    doc_topic_df.to_csv(f"{path}/{model_type}_document_topic_distribution.csv", index_label="Document")
+
+
+def saveBERTopic_distributions(model, probs):
+    # Assume `documents` is your list of original documents
+
+    path = f"Distributions-Results/{DATASET_NAME}"
+
+   # Initialize dictionary to hold topic-word distributions
+    topic_word_distributions = {}
+    for topic_id in model.get_topic_info().Topic:
+        if topic_id != -1:  # -1 usually represents outliers in BERTopic
+            words, scores = zip(*model.get_topic(topic_id))  # Get words and their scores for the topic
+            topic_word_distributions[topic_id] = dict(zip(words, scores))
+
+    # Convert to DataFrame for saving
+    topic_word_df = pd.DataFrame(topic_word_distributions).fillna(0)  # Replace NaN with 0 for missing words
+    topic_word_df = topic_word_df.transpose()  # Transpose to have topics as rows
+
+    # Save to CSV
+    topic_word_df.to_csv(f"{path}/BERTopic_topic_word_distribution.csv", index_label="Topic")
+
+    # Convert to DataFrame
+    doc_topic_df = pd.DataFrame(probs.round(5))
+    doc_topic_df.columns = [i for i in range(probs.shape[1])]  # Name columns by topic
+    
+    # Save to CSV
+    doc_topic_df.to_csv(f"{path}/BERTopic_document_topic_distribution.csv", index_label="Document")
+
+# Function to calculate perplexity
+def calculate_perplexity(model, test_corpus):
+    return model.log_perplexity(test_corpus)
+
+
+# Function to calculate NPMI
+def calculate_npmi(topics, texts, model_name):
+    npmi_metric = CoherenceModel(topics=topics, texts=texts, dictionary=dictionary, coherence='c_npmi') 
+    cohenrence_npmi = npmi_metric.get_coherence()
+    print(f"{model_name} npmi Coherence: {round(cohenrence_npmi, 5)}")
+    return cohenrence_npmi
+
 
 def compute_umass_coherence(model_name, model):
-  from gensim.models.coherencemodel import CoherenceModel
-  # Compute c_v coherence
-  coherence_model_umass = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='u_mass')
-  coherence_umass = coherence_model_umass.get_coherence()
-  print(f"{model_name} u_mass Coherence: {round(coherence_umass, 5)}")
+    from gensim.models.coherencemodel import CoherenceModel
+    # Compute u_mass coherence
+    coherence_model_umass = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='u_mass')
+    coherence_umass = coherence_model_umass.get_coherence()
+    print(f"{model_name} u_mass Coherence: {round(coherence_umass, 5)}")
 
 
 def compute_cv_coherence(model_name, model):
-  # Compute c_v coherence
-#   coherence_model_cv = CoherenceModel(topics=topics, texts=texts, dictionary=pp.dictionary, coherence='c_v')
-  coherence_model_cv = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='c_v')
-  coherence_cv = coherence_model_cv.get_coherence()
-  print(f"{model_name} c_v Coherence: {round(coherence_cv, 5)}")
+    coherence_model_cv = CoherenceModel(model=model, texts=texts, dictionary=dictionary, coherence='c_v')
+    coherence_cv = coherence_model_cv.get_coherence()
+    print(f"{model_name} c_v Coherence: {round(coherence_cv, 5)}")
+    cv.append(coherence_cv)
 
 
 def compute_topic_diversity_coherence(model_name, model, top_n):
@@ -72,9 +145,10 @@ def compute_topic_diversity_coherence(model_name, model, top_n):
     # Calculate topic diversity
     total_words = len(top_words)
     unique_words_count = len(unique_words)
-    topic_diversity = unique_words_count / total_words
+    topic_diversity_coherence = unique_words_count / total_words
 
-    print(f"{model_name} Topic - Diversity Coherence: {round(topic_diversity, 5)}")
+    print(f"{model_name} Topic - Diversity Coherence: {round(topic_diversity_coherence, 5)}")
+    topic_diversity.append(topic_diversity_coherence)
 
 
 def get_intersection(list1, list2):
@@ -107,6 +181,19 @@ def process_data(corpus_path, word_to_ix, data_type):
 
 def get_topics(LDA):
    return [[word for word, _ in LDA.show_topic(topicid, topn=10)] for topicid in range(LDA.num_topics)]
+
+def calculate_avg_std(type, values):
+    import statistics
+
+    # Calculate the mean
+    average = statistics.mean(values)
+
+    # Calculate the standard deviation
+    std_dev = statistics.stdev(values)
+
+    print("### Type: {} ###".format(type))
+    print("Average:", average)
+    print("Standard Deviation:", std_dev)
 
 
 def create_random_prior():
@@ -152,7 +239,7 @@ def save_learned_eta(model_type, model):
 
     # Save the DataFrame to a CSV file
     # df.to_csv('{}_topic_term_matrix.csv'.format(model_type), index=False, header=False)
-    df.to_csv('Learned_eta/{}/{}_10_eta.csv'.format(DATASET_NAME, model_type), index=False, header=False)
+    df.to_csv('Learned_eta/{}/200{}_100_eta.csv'.format(DATASET_NAME, model_type), index=False, header=False)
 
 
 def calculate_bertopic_coherence(topic_words, corpus):
@@ -166,6 +253,7 @@ def calculate_bertopic_coherence(topic_words, corpus):
 
     print(f"c_v Coherence: {coherence_cv}")
     print(f"u_mass Coherence: {coherence_umass}")
+    cv.append(coherence_cv)
 
 
 def save_learned_topic_word_distribution(topic_words, num_topics):
@@ -180,12 +268,9 @@ def save_learned_topic_word_distribution(topic_words, num_topics):
 
 
 def run_bertopic():
-    from bertopic import BERTopic
-    import os
-
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-    bertopic_model = BERTopic()
+    bertopic_model = BERTopic(calculate_probabilities=True)
     topics, probabilities = bertopic_model.fit_transform(filtered_corpus)
 
     for topic_id in range(5):
@@ -209,76 +294,74 @@ def run_bertopic():
         else:
             print(f"Skipping invalid topic ID: {topic_id}")
 
-    calculate_bertopic_coherence(topic_words=topic_words, corpus=doc_term_matrix)
-    compute_topic_diversity_coherence(model_name="BERTopic", model=bertopic_model, top_n=10)
-    save_learned_topic_word_distribution(topic_words=topic_words_save, num_topics=valid_topic_ids)
+    # calculate_bertopic_coherence(topic_words=topic_words, corpus=doc_term_matrix)
+    # compute_topic_diversity_coherence(model_name="BERTopic", model=bertopic_model, top_n=10)
+    # save_learned_topic_word_distribution(topic_words=topic_words_save, num_topics=valid_topic_ids)
+    # calculate_npmi(topics=topic_words, texts=texts, model_name="BERTopic")
+    saveBERTopic_distributions(model=bertopic_model, probs=probabilities)
 
-
-def run_lda_models():
-    prior_type = ["random", "prior_GMM"]
-    models = []
+def run_lda_models(prior_type="lda"):
     eta_weight = 10
-
-    for type in prior_type:
-        if not IS_SAVED:
-            alpha = "auto"
-            if type == "lda":
-                LDA = LdaModel(doc_term_matrix, 
-                            num_topics=TOPIC_NUM, 
-                            id2word=dictionary.id2token, 
-                            passes=10, 
-                            alpha=alpha)
-            elif type == "random":
-                random_prior = create_random_prior()
-                LDA = LdaModel(doc_term_matrix, 
-                            num_topics=TOPIC_NUM, 
-                            id2word=dictionary.id2token, 
-                            passes=10, 
-                            eta=random_prior * eta_weight, 
-                            alpha=alpha)
-            elif type == "false":
-                false_prior = create_false_prior(k=TOPIC_NUM, V=len(dictionary.id2token))
-                print("FINISH CREATING FALSE PRIOR")
-                LDA = LdaModel(doc_term_matrix, 
-                            num_topics=TOPIC_NUM, 
-                            id2word=dictionary.id2token, 
-                            passes=10, 
-                            eta=false_prior * eta_weight, 
-                            alpha=alpha)
-            else:
-                prior = torch.load(f"{HOME}/{type}")
-                LDA = LdaModel(doc_term_matrix, 
-                            num_topics=TOPIC_NUM, 
-                            id2word=dictionary.id2token, 
-                            passes=10, 
-                            eta=prior * eta_weight, 
-                            alpha=alpha)
+    
+    alpha = "auto"
+    if prior_type == "lda":
+        LDA = LdaModel(doc_term_matrix, 
+                    num_topics=TOPIC_NUM, 
+                    id2word=dictionary.id2token, 
+                    passes=10, 
+                    alpha=alpha)
+    elif prior_type == "random":
+        random_prior = create_random_prior()
+        LDA = LdaModel(doc_term_matrix, 
+                    num_topics=TOPIC_NUM, 
+                    id2word=dictionary.id2token, 
+                    passes=10, 
+                    eta=random_prior * eta_weight, 
+                    alpha=alpha)
+    elif prior_type == "false":
+        false_prior = create_false_prior(k=TOPIC_NUM, V=len(dictionary.id2token))
+        print("FINISH CREATING FALSE PRIOR")
+        LDA = LdaModel(doc_term_matrix, 
+                    num_topics=TOPIC_NUM, 
+                    id2word=dictionary.id2token, 
+                    passes=10, 
+                    eta=false_prior * eta_weight, 
+                    alpha=alpha)
+    else:
+        prior = torch.load(f"{HOME}/{prior_type}")
+        LDA = LdaModel(doc_term_matrix, 
+                    num_topics=TOPIC_NUM, 
+                    id2word=dictionary.id2token, 
+                    passes=10, 
+                    eta=prior * eta_weight, 
+                    alpha=alpha)
             
             # LDA.save(f"{type}")
-
-        else:
-            LDA = LdaModel.load(f"{type}")
-
-        models.append(LDA)
-        
-        print("\n ###### {} ###### \n ".format(type))
-        for topic_id in range(5):
-            print(f"Topic {topic_id + 1}: \n{LDA.show_topic(topic_id, topn=10)}")
+    # else:
+    #     LDA = LdaModel.load(f"{prior_type}")
+    
+    print("\n ###### {} ###### \n ".format(prior_type))
+    for topic_id in range(5):
+        print(f"Topic {topic_id + 1}: \n{LDA.show_topic(topic_id, topn=10)}")
 
 
     # models_type = ["LDA", "RANDOM", "GMM", "ScaSE"]
 
-    # for model_type, model in zip(models_type, models):
-        # topics = get_topics(model)
-        model = LDA
-        model_type = type
-        compute_umass_coherence(model_type, model)
-        compute_cv_coherence(model_type, model)
-        compute_topic_diversity_coherence(model_type, model, top_n=10)
-        save_learned_eta(model_type=model_type, model=model)
+# for model_type, model in zip(models_type, models):
+    # topics = get_topics(model)
+    model = LDA
+    model_type = prior_type
+    # compute_umass_coherence(model_type, model)
+    # compute_cv_coherence(model_type, model)
+
+    # compute_topic_diversity_coherence(model_type, model, top_n=10)
+    # calculate_npmi(topics=get_topics(model), texts=texts, model_name=model_type)
+    # save_learned_eta(model_type=model_type, model=model)
+    save_distributions(model=model, model_type=model_type, corpus=bow_corpus)
 
 
-def init(topic_num = 200, home_dir='NewResults', dataset_name="Trump'sTweets", is_first=True, is_model_saved=False):
+
+def init(topic_num = 200, home_dir='NewResults', dataset_name="Trump'sTweets", is_first=False, is_model_saved=False):
     global TOPIC_NUM, HOME, DATASET_NAME, DATASET_TYPE, CORPUS_PATH, word_to_ix, IS_FIRST, IS_SAVED
 
     TOPIC_NUM = topic_num
@@ -300,33 +383,61 @@ def init(topic_num = 200, home_dir='NewResults', dataset_name="Trump'sTweets", i
 
 
 def main():
-    argv = sys.argv
-    argc = len(argv)
+    """
+    Params -
+        argv[1]: dataset name
+        argv[2]: number of topics
+        argv[3]: is first - deafult True
+    """
+    # argv = sys.argv
+    # argc = len(argv)
 
-    if argc == 2:
-        topic_num = argv[1]
-        init(topic_num=topic_num)
-    elif argc == 3:
-        topic_num, home_dir = int(argv[1]), argv[2]
-        init(topic_num=topic_num, home_dir=home_dir)
-    elif argc == 4:
-        topic_num, home_dir, dataset_name = argv[1], argv[2], argv[3]
-        init(topic_num=topic_num, home_dir=home_dir, dataset_name=dataset_name)
-    elif argc == 5:
-        topic_num, home_dir, dataset_name, is_first = argv[1], argv[2], argv[3], argv[4]
-        init(topic_num=topic_num, home_dir=home_dir, dataset_name=dataset_name, is_first=bool(is_first))
-    else:
-        init()
+    # if argc == 2:
+    #     dataset_name = argv[1]
+    #     init(dataset_name=dataset_name)
+    # elif argc == 3:
+    #     dataset_name = argv[1]
+    #     topic_num = int(argv[2])
+    #     init(dataset_name=dataset_name, topic_num=topic_num)
+    # elif argc == 4:
+    #     dataset_name = argv[1]
+    #     topic_num = int(argv[2])
+    #     is_first=bool(int(argv[3]))
+    #     init(dataset_name=dataset_name, topic_num=topic_num, is_first=is_first)
+    # else:
+    #     init()
 
+    import argparse
 
+    # Initialize the argument parser
+    parser = argparse.ArgumentParser(description="Run a model with the specified parameters.")
+    parser.add_argument("--model_type", type=str, required=True, help="The type of model to run")
+    parser.add_argument("--dataset", type=str, required=True, help="The dataset to use")
+    parser.add_argument("--num_of_topics", type=int, required=True, help="The number of topics")
+
+    global MODEL_TYPE, TOPIC_NUM
+    # Parse the arguments
+    args = parser.parse_args()
+    MODEL_TYPE = args.model_type
+    dataset = args.dataset
+    TOPIC_NUM = args.num_of_topics
+
+    print(f"Dataset: {dataset}")
+
+    init(dataset_name=dataset, topic_num=TOPIC_NUM)
+
+        
+        
 main()
+
+path_save_data = f"ProcessedData/{DATASET_NAME}"
 
 if IS_FIRST:
     process_data(corpus_path=CORPUS_PATH, word_to_ix=word_to_ix, data_type=DATASET_TYPE)
     print("FINISH PROCESSING")
-    pp.dictionary.save("lda_dictionary.gensim")
-    corpora.MmCorpus.serialize("lda_corpus.mm" ,pp.doc_term_matrix)
-    with open('filtered_corpus.pkl', 'wb') as f:
+    pp.dictionary.save(f"{path_save_data}/lda_dictionary.gensim")
+    corpora.MmCorpus.serialize(f"{path_save_data}/lda_corpus.mm" ,pp.doc_term_matrix)
+    with open(f'{path_save_data}/filtered_corpus.pkl', 'wb') as f:
         pickle.dump(pp.filtered_corpus, f)
 
     doc_term_matrix = pp.doc_term_matrix
@@ -336,13 +447,13 @@ if IS_FIRST:
 
 else:
     # Load the dictionary from a file
-    dictionary = corpora.Dictionary.load('lda_dictionary.gensim')
+    dictionary = corpora.Dictionary.load(f'{path_save_data}/lda_dictionary.gensim')
 
     # Load the BoW corpus from a Matrix Market format file
-    bow_corpus = corpora.MmCorpus('lda_corpus.mm')
+    bow_corpus = corpora.MmCorpus(f'{path_save_data}/lda_corpus.mm')
     doc_term_matrix = [list(doc) for doc in bow_corpus]
 
-    with open('filtered_corpus.pkl', 'rb') as f:
+    with open(f'{path_save_data}/filtered_corpus.pkl', 'rb') as f:
         filtered_corpus = pickle.load(f)
 
 
@@ -351,12 +462,22 @@ texts = [
         for bow in doc_term_matrix
     ]
 
-run_lda_models()
-# run_bertopic()
+topic_diversity = []
+cv = []
+
+if MODEL_TYPE == "BERTopic":
+    run_bertopic()
+else:
+    run_lda_models(prior_type=MODEL_TYPE)
+
+
+
+
+# calculate_avg_std("TD", topic_diversity)
+# calculate_avg_std("cv", cv)
+
 
 
 # prior : topic - word distribution. 
 # For a given word, we first calculate the probability of being "clustered" to each topic.
 # Thus, the sum of the column which represents the word should be 1. The topic sum can be much higher.
-
-    

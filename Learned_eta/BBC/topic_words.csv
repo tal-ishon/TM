@@ -1,19 +1,14 @@
-## 13 Topics ##
-c_v Coherence: 0.7878
-u_mass Coherence: -1.37253
-BERTopic Topic - Diversity Coherence: 0.87692
-
 Topic,Words
 Topic 0,"game: 0.01933, player: 0.01703, time: 0.01656, play: 0.0164, first: 0.01548, year: 0.01528, back: 0.01519, side: 0.01466, team: 0.01442, champion: 0.01426"
-Topic 1,"minister: 0.01851, government: 0.01831, labour: 0.017, election: 0.01667, party: 0.01531, blair: 0.01494, leader: 0.0143, tony: 0.01389, people: 0.0135, secretary: 0.01313"
-Topic 2,"market: 0.02044, year: 0.01981, analyst: 0.01612, price: 0.01611, month: 0.01575, firm: 0.01565, however: 0.01509, growth: 0.01502, expect: 0.01498, economy: 0.01416"
-Topic 3,"people: 0.01581, digital: 0.01547, technology: 0.01477, make: 0.0127, music: 0.01229, like: 0.01216, user: 0.01215, year: 0.01203, video: 0.01151, service: 0.0115"
-Topic 4,"film: 0.03566, actor: 0.02589, star: 0.02578, oscar: 0.02401, award: 0.02244, director: 0.02208, comedy: 0.01996, movie: 0.01929, best: 0.01872, year: 0.0183"
-Topic 5,"band: 0.02964, album: 0.0291, music: 0.02878, song: 0.02564, singer: 0.0235, rock: 0.0216, year: 0.02124, single: 0.02048, chart: 0.01913, record: 0.01876"
-Topic 6,"user: 0.02648, security: 0.02599, viru: 0.02373, computer: 0.02316, software: 0.02287, program: 0.02198, firm: 0.02068, website: 0.02064, people: 0.02037, mail: 0.02032"
-Topic 7,"accounting: 0.02958, company: 0.02937, fraud: 0.02819, firm: 0.02507, financial: 0.0242, former: 0.02414, account: 0.02371, auditor: 0.02254, chief: 0.02128, executive: 0.02004"
-Topic 8,"economic: 0.01891, government: 0.01529, india: 0.01505, country: 0.01443, growth: 0.01395, people: 0.01264, lanka: 0.01215, many: 0.0121, economy: 0.01169, state: 0.01093"
-Topic 9,"bankruptcy: 0.03818, company: 0.03017, khodorkovsky: 0.03014, mikhail: 0.02923, yuko: 0.02872, auction: 0.02517, bank: 0.02408, protection: 0.02347, asset: 0.02323, russia: 0.02303"
-Topic 10,"doping: 0.0467, drug: 0.04416, sprinter: 0.04015, olympic: 0.03801, test: 0.03686, federation: 0.03602, iaaf: 0.03585, bann: 0.03534, sport: 0.03505, athlete: 0.0342"
-Topic 11,"celebrity: 0.04477, serie: 0.03858, viewer: 0.03544, show: 0.03344, contestant: 0.03133, audience: 0.02803, last: 0.02591, channel: 0.02531, brother: 0.02379, ladbroke: 0.02378"
-Topic 12,"jail: 0.03226, charge: 0.02638, conviction: 0.02563, music: 0.02467, lawyer: 0.02424, musician: 0.02411, court: 0.02309, guilty: 0.02179, found: 0.0216, convict: 0.02024"
+Topic 1,"minister: 0.01883, government: 0.01877, labour: 0.01758, election: 0.01724, party: 0.01567, blair: 0.01499, leader: 0.01449, tony: 0.01404, secretary: 0.01351, people: 0.0135"
+Topic 2,"market: 0.02013, year: 0.01969, firm: 0.0158, month: 0.0157, analyst: 0.01568, price: 0.01549, growth: 0.01516, expect: 0.015, however: 0.01483, share: 0.01367"
+Topic 3,"people: 0.01515, digital: 0.01445, technology: 0.01409, make: 0.01223, like: 0.01218, year: 0.01213, user: 0.01151, million: 0.01118, music: 0.01115, service: 0.01108"
+Topic 4,"film: 0.03474, star: 0.0259, actor: 0.02531, oscar: 0.02423, award: 0.02365, director: 0.02159, comedy: 0.0198, best: 0.01858, year: 0.01856, movie: 0.01841"
+Topic 5,"band: 0.02987, album: 0.02944, music: 0.0282, song: 0.02529, singer: 0.02325, rock: 0.02147, year: 0.02146, single: 0.0203, chart: 0.0191, record: 0.01798"
+Topic 6,"user: 0.02626, security: 0.02583, viru: 0.02293, computer: 0.02238, software: 0.0221, program: 0.02124, website: 0.02123, firm: 0.02106, people: 0.02015, mail: 0.01963"
+Topic 7,"economic: 0.01539, government: 0.01441, india: 0.01354, country: 0.01298, least: 0.01254, many: 0.01216, growth: 0.01176, people: 0.01137, world: 0.01135, area: 0.01079"
+Topic 8,"accounting: 0.03431, fraud: 0.03036, financial: 0.02806, company: 0.02758, auditor: 0.02614, firm: 0.02601, account: 0.02553, former: 0.02305, chief: 0.02303, guilty: 0.02146"
+Topic 9,"doping: 0.0467, drug: 0.04416, sprinter: 0.04015, olympic: 0.03801, test: 0.03686, federation: 0.03602, iaaf: 0.03585, bann: 0.03534, sport: 0.03505, athlete: 0.0342"
+Topic 10,"khodorkovsky: 0.03756, mikhail: 0.03643, yuko: 0.03578, auction: 0.03137, bankruptcy: 0.02908, russia: 0.0287, fraud: 0.02835, russian: 0.02835, company: 0.02685, political: 0.02616"
+Topic 11,"celebrity: 0.04717, serie: 0.04064, contestant: 0.033, viewer: 0.03267, show: 0.0323, audience: 0.02953, last: 0.0273, channel: 0.02666, brother: 0.02506, ladbroke: 0.02505"
+Topic 12,"jail: 0.03725, charge: 0.03481, lawyer: 0.03085, music: 0.02848, woman: 0.02629, court: 0.02571, conviction: 0.02537, assault: 0.02465, year: 0.02457, police: 0.02399"

@@ -22,6 +22,8 @@ from sklearn.manifold import SpectralEmbedding as SE
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import normalize
 
+np.random.seed(42)
+
 def get_random_norm_vec(dim):
     vec = np.random.randn(dim)
     return vec
@@ -220,15 +222,12 @@ class Predictor:
             model.fit(embed)
             return model, embed           
         else:
-            # pca = PCA(n_components=75)  # You can adjust this
-            # reduced_embeddings = pca.fit_transform(self.X)
+            pca = PCA(n_components=50)  # You can adjust this
+            self.X = pca.fit_transform(self.X)
             model = GMM(
                 n_components=self.n_predictions,  # adjust based on your needs
-                covariance_type='full',
-                n_init=10,
-                max_iter=100,
                 random_state=42
-                )
+            )
             model.fit(self.X)
 
         return model, self.X
@@ -279,11 +278,11 @@ class Predictor:
     def save_prior_to_file(self, file_path):
         torch.save(self.prior.T, file_path)
 
-is_first = True
+is_first = False
 HOME_DIR = "NewResults"
-DATASET = "Trump'sTweets"
-DATASET_PATH = "Trump'sTweets"
-FILE_TYPE = "csv"
+DATASET = "20NewsGroup"
+DATASET_PATH = "20NewsGroup"
+FILE_TYPE = "json"
 
 MODE = "GMM"
 DATA_PATH = f"{DATASET_PATH}.{FILE_TYPE}"
@@ -296,7 +295,6 @@ if is_first:
     pprocessor.process_data(FILE_TYPE)
     torch.save(pprocessor.embedding, f"{HOME_DIR}/{DATASET}/embedding")
     torch.save(pprocessor.word_to_ix, f"{HOME_DIR}/{DATASET}/word_to_ix")
-    exit(0)
 else: 
     pprocessor = Preprocessor(DATA_PATH, torch.load(f"NewResults/{DATASET}/embedding"))
 
@@ -305,5 +303,5 @@ has_embed = False
 predictor = Predictor(mode=MODE, X=pprocessor.embedding, n_predictions=TOPICS)
 predictor.predict()
 predictor.calculte_prior()
-predictor.save_predictions(f"NewResults/{DATASET}/pred_{MODE}")
-predictor.save_prior_to_file(f"NewResults/{DATASET}/prior_{MODE}")
+predictor.save_predictions(f"NewResults/{DATASET}/200_pca_pred_{MODE}")
+predictor.save_prior_to_file(f"NewResults/{DATASET}/200_pca_prior_{MODE}")

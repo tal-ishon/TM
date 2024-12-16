@@ -15,7 +15,7 @@ from gensim import corpora
 import pickle
 import os
 import little_mallet_wrapper as lmw
-from bertopic import BERTopic
+# from bertopic import BERTopic
     
 
 CORPUS_PATH = None
@@ -176,7 +176,7 @@ def process_data(corpus_path, word_to_ix, data_type):
     words_corpus = list(chain(*sentences))
     words = get_intersection(words_embed, words_corpus)
     # pp.save_file_txt("20NewsGroupWords", words)
-    _, _ = pp.get_filtered_corpus(sentences, words)
+    _, _ = pp.get_filtered_corpus(sentences, words, "glove")
 
 
 def get_topics(LDA):
@@ -361,7 +361,7 @@ def run_lda_models(prior_type="lda"):
 
 
 
-def init(topic_num = 200, home_dir='NewResults', dataset_name="Trump'sTweets", is_first=False, is_model_saved=False):
+def init(topic_num = 100, home_dir='NewResults', dataset_name="20NewsGroup", is_first=False, is_model_saved=False):
     global TOPIC_NUM, HOME, DATASET_NAME, DATASET_TYPE, CORPUS_PATH, word_to_ix, IS_FIRST, IS_SAVED
 
     TOPIC_NUM = topic_num
@@ -393,17 +393,17 @@ def main():
     # argc = len(argv)
 
     # if argc == 2:
-    #     dataset_name = argv[1]
-    #     init(dataset_name=dataset_name)
+    #     dataset = argv[1]
+    #     init(dataset_name=dataset)
     # elif argc == 3:
-    #     dataset_name = argv[1]
+    #     dataset = argv[1]
     #     topic_num = int(argv[2])
-    #     init(dataset_name=dataset_name, topic_num=topic_num)
+    #     init(dataset_name=dataset, topic_num=topic_num)
     # elif argc == 4:
-    #     dataset_name = argv[1]
+    #     dataset = argv[1]
     #     topic_num = int(argv[2])
     #     is_first=bool(int(argv[3]))
-    #     init(dataset_name=dataset_name, topic_num=topic_num, is_first=is_first)
+    #     init(dataset_name=dataset, topic_num=topic_num, is_first=is_first)
     # else:
     #     init()
 

@@ -3,9 +3,9 @@
 cd ~/TM || exit 1
 
 # Define arrays of dataset names, models, and corresponding number of topics
-datasets=("20NewsGroup" "BBC")
-models=("lda" "prior_GMM" "prior_ScaSE")  # Replace with your actual model names
-num_topics=("100" "10")  # Replace with the actual number of topics for each dataset
+datasets=("20NewsGroup")
+models=("prior_GMM")  # Replace with your actual model names
+num_topics=("100")  # Replace with the actual number of topics for each dataset
 
 # Path to your Python file
 python_file="test_gensim.py"

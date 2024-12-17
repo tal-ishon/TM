@@ -6,7 +6,7 @@ import pandas as pd
 
 
 def save_topics_words(lists):
-    with open(f"{HOME}/validations/{TOP}_{prior_type}_pca.csv", "w") as f:
+    with open(f"{HOME}/validations/{TOP}_{prior_type}.csv", "w") as f:
         wr = csv.writer(f)
         for list in lists:
             f.write(f'Number of words in topic: {len(list)}')
@@ -21,7 +21,7 @@ def save_df_topics_words(lists):
     df = pd.DataFrame(lists)
 
     # Save to CSV file (index=False to avoid saving index numbers)
-    df.to_csv(f'{prior_type}_prior.csv', index=False, header=False)
+    df.to_csv(f'{TOP}{prior_type}_prior.csv', index=False, header=False)
 
 
 def save_topic_word_distributions():
@@ -42,7 +42,7 @@ def save_topic_word_distributions():
 
     print(f"Topic-word distribution saved to {output_file}")
 
-prior_type = "GMM"
+prior_type = "ScaSE"
 TOP = 200
 HOME = "NewResults/20NewsGroup"
 pred_path = f"{HOME}/200prior_{prior_type}"
@@ -73,8 +73,8 @@ for i, _ in enumerate(pred):
     
     words_per_topic.append(topic_words)
 
-save_df_topics_words(words_per_topic)
-# save_topics_words(words_per_topic)
+# save_df_topics_words(words_per_topic)
+save_topics_words(words_per_topic)
 
 # if want to save topic-word distribution of prior file (before using LDA)
 # save_topic_word_distributions()

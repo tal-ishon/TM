@@ -183,15 +183,13 @@ class Predictor:
                 model = ScaSE(10, spectral_lr=0.001, spectral_max_epochs=50)
                 eigenvec = model.fit_transform(self.X)
                 eigval = model.get_eigenvalues()
-                embed = get_update_embed(eigenvec, eigval)
-                np.save("embed.npy", embed)
+                # embed = get_update_embed(eigenvec, eigval)
+                # np.save("embed.npy", embed)
+                embed = eigenvec
             else:
                 embed = np.load("embed.npy")
-            model = GMM(self.n_predictions, 
-                    covariance_type="spherical",
-                    n_init=10,
-                    max_iter=100,
-                    random_state=42)
+            model = GMM(n_components=self.n_predictions, 
+                        random_state=42)
             model.fit(embed)
             return model, embed
             # model = SN(self.n_predictions, spectral_lr=0.001)
@@ -208,19 +206,7 @@ class Predictor:
             X_transformed = model.fit_transform(self.X)
             gmm = GMM(self.n_predictions, n_init=1)
             gmm.fit(X_transformed)
-            return gmm, X_transformed
-        elif self.mode == "RW":
-            from scipy.linalg import eigh
-            A = np.array(get_affinity_matrix(X=self.X, n_neighbors=10, device="cpu"))
-            degree_matrix = np.diag(A.sum(axis=1))
-            D_inv = np.linalg.inv(degree_matrix)  # Inverse of the degree matrix
-            I = np.eye(A.shape[0])  # Identity matrix
-            L_rw = I - D_inv @ A  # Random walk Laplacian
-            eigenvalues, eigenvectors = eigh(L_rw)
-            embed = get_update_embed(eigenvectors, eigenvalues)
-            model = GMM(self.n_predictions, n_init=1)
-            model.fit(embed)
-            return model, embed           
+            return gmm, X_transformed          
         else:
             pca = PCA(n_components=50)  # You can adjust this
             self.X = pca.fit_transform(self.X)
@@ -237,6 +223,7 @@ class Predictor:
         This function predict according to models mode.
         """
         if self.mode == "SN":
+            model, embed = model[0], model[1] 
             pred = model.predict(self.X)
         elif self.mode == "ScaSE":
             model, embed = model[0], model[1] 
@@ -284,9 +271,9 @@ DATASET = "20NewsGroup"
 DATASET_PATH = "20NewsGroup"
 FILE_TYPE = "json"
 
-MODE = "GMM"
+MODE = "ScaSE"
 DATA_PATH = f"{DATASET_PATH}.{FILE_TYPE}"
-TOPICS = 200
+TOPICS = 100
 
 if is_first:
     # Create embedding according to data
@@ -303,5 +290,5 @@ has_embed = False
 predictor = Predictor(mode=MODE, X=pprocessor.embedding, n_predictions=TOPICS)
 predictor.predict()
 predictor.calculte_prior()
-predictor.save_predictions(f"NewResults/{DATASET}/200_pca_pred_{MODE}")
-predictor.save_prior_to_file(f"NewResults/{DATASET}/200_pca_prior_{MODE}")
+predictor.save_predictions(f"NewResults/{DATASET}/pred_{MODE}")
+predictor.save_prior_to_file(f"NewResults/{DATASET}/prior_{MODE}")

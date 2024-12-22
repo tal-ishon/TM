@@ -8,6 +8,7 @@ import torch
 import re
 
 os.environ["HUGGINGFACE_API_TOKEN"] = "TI_access_model"
+os.environ['HF_HOME'] =  '/data/users/ishonta/cache/'
 
 # Initialize the LLM pipeline
 model_name="meta-llama/Llama-3.3-70B-Instruct"
@@ -106,7 +107,7 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
         numbered_word_list = ""
         for j, word in enumerate(word_list):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
-        input_text = f"You are an assistant in understanding which word is the intruder among other words in a given list. Identify from the following list of words, which word does not belong with the others: {numbered_word_list}. In your response, return only the number of the intruder word from the list.\nFor example - Given the following list: ['card', 'driver', 'ethernet', 'mode', 'bothering', 'resolution', 'support', 'detector', 'radar'] the intruder word is: 'bothering'.\nAnother example - Given the following list of words: ['weapon', 'crime', 'rate', 'sickle', 'bill', 'license', 'control', 'carry', 'firearm'] the intruder word is: 'sickle'."       
+        input_text = f"You are an assistant in understanding which word is the intruder among other words in a given list. Identify from the following list of words, which word does not belong with the others: {numbered_word_list}. In your response, return only the index of the intruder word from the list.\nFor example - Given the following list: '1. card 2. driver 3. ethernet 4. mode 5. bothering 6. resolution 7. support 8. detector 9. radar' the intruder word is: bothering, so your respond should be index 5.\nAnother example - Given the following list of words: '1. weapon 2. crime 3. rate 4. sickle 5. bill 6. license 7. control 8. carry 9. firearm' the intruder word is: sickle so your respond should be index 4. In your respond return only the intruder's index with no additional explanations"       
         messages = [
             {"role": "user", "content": f"{input_text}"},
         ]

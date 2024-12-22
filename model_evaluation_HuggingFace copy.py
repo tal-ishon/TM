@@ -11,8 +11,6 @@ from huggingface_hub import login
 os.chdir("/")
 login("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")
 
-# os.environ["HUGGINGFACE_API_TOKEN"] = "TI_access_model"
-
 # Set custom cache directory for Hugging Face resources
 os.environ["TRANSFORMERS_CACHE"] = "/data/users/ishonta/cache/models"
 os.environ["HF_HOME"] = "/data/users/ishonta/cache"
@@ -58,6 +56,9 @@ def load_topic_word_distribution(filepath):
     return pd.read_csv(filepath)
 
 def load_doc_topic_distribution(filepath):
+    return pd.read_csv(filepath)
+
+def load_topics_with_intruders(filepath):
     return pd.read_csv(filepath)
 
 # -------------------------
@@ -106,29 +107,19 @@ def get_doc_topics(doc_topic_df, prob_threshold=0.0):
     
     return doc_topics
 
-# -------------------------
-# Word Intrusion Task
-# -------------------------
 
-def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
+def updated_word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
+    """
+    Function already gets the words of each topic with its assigned intruder.
+    """
     word_intrusion_results = []
 
     for topic_id, words in top_words_by_topic.items():
         
-        # Add an intruder word that does not belong
-        all_other_words = sum(bottom_words_by_topic.values(), [])
-        intruder_word = random.choice([word for word in all_other_words if word not in words])
-        
-        # Setup words including intruder
-        word_list = words + [intruder_word]
-        random.shuffle(word_list)
-        
         numbered_word_list = ""
         for j, word in enumerate(word_list):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
-
-        input_text = f"From the following list of tokens, identify the one token that does not belong with the others. For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nI expect the answer 3. Here are the words:\r\n {numbered_word_list}.\n In your response, provide only the intruder word's index without any additional explanation"
-
+        input_text = f"You are an assistant in understanding which word is the intruder among other words in a given list. Identify from the following list of words, which word does not belong with the others: {numbered_word_list}. In your response, return only the index of the intruder word from the list.\nFor example - Given the following list: '1. card 2. driver 3. ethernet 4. mode 5. bothering 6. resolution 7. support 8. detector 9. radar' the intruder word is: bothering, so your respond should be index 5.\nAnother example - Given the following list of words: '1. weapon 2. crime 3. rate 4. sickle 5. bill 6. license 7. control 8. carry 9. firearm' the intruder word is: sickle so your respond should be index 4. In your respond return only the intruder's index with no additional explanations"       
         messages = [
             {"role": "user", "content": f"{input_text}"},
         ]
@@ -154,7 +145,7 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
         }
         
         print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(word_list, word_result, intruder_word))
-        
+
     # Optionally save for human evaluation   
     if save_for_human_eval:
         with open("word_intrusion_results.json", "w") as f:
@@ -162,17 +153,52 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
 
     return word_intrusion_results
 
-def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_eval=False):
+# -------------------------
+# Word Intrusion Task
+# -------------------------
+
+def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
     word_intrusion_results = []
 
-    for topic_id, words, intruder in zip(top_words_by_topic.items(), intruders):
+    for topic_id, words in top_words_by_topic.items():
+        
+        # Add an intruder word that does not belong
+        all_other_words = sum(bottom_words_by_topic.values(), [])
+        intruder_word = random.choice([word for word in all_other_words if word not in words])
+        
+        # Setup words including intruder
+        word_list = words + [intruder_word]
+        random.shuffle(word_list)
         
         numbered_word_list = ""
-        for j, word in enumerate(words):
+        for j, word in enumerate(word_list):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
+        prompt = f"""
+        You are an intelligent assistant tasked with identifying the "intruder" word from a given list. The intruder word is the one that does not belong with the others based on a logical or contextual mismatch.
 
-        input_text = f"From the following list of tokens, identify the one token that does not belong with the others. For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nI expect the answer 3. Here are the words:\r\n {numbered_word_list}.\n In your response, provide only the intruder word's index without any additional explanation"
+        ### Instructions:
+        - You will be provided with a numbered list of words.
+        - Your job is to identify the index of the intruder word from the list.
+        - Respond **only with the index** of the intruder word and nothing else.
 
+        ### Examples:
+        1. For the list: 
+        '1. card 2. driver 3. ethernet 4. mode 5. bothering 6. resolution 7. support 8. detector 9. radar'
+        - The intruder word is **bothering** because all the other words are related to technical or electronic terms, while "bothering" is unrelated to this context.
+        - Your response should be: **5**
+
+        2. For the list: 
+        '1. weapon 2. crime 3. rate 4. sickle 5. bill 6. license 7. control 8. carry 9. firearm'
+        - The intruder word is **sickle** because all the other words are related to weapons, crime, or firearms, while "sickle" is an agricultural tool unrelated to this context.
+        - Your response should be: **4**
+
+        ### Task:
+        Here is your list of words:
+        {numbered_word_list}
+
+        Identify the intruder word and respond **only with the index** of that word.
+        """
+        
         messages = [
             {"role": "user", "content": f"{input_text}"},
         ]
@@ -189,18 +215,16 @@ def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_
 
         clean_result = result[0]['generated_text'].strip()
         answer_ix = int(re.sub(r'[^0-9]', '', clean_result)) - 1
-        word_result = words[answer_ix]
+        word_result = word_list[answer_ix]
         intrusion_result = {
             "topic_id": topic_id,
             "prompt": input_text,
             "model_response": word_result,
-            "intruder": intruder
+            "intruder": intruder_word
         }
+        
+        print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(word_list, word_result, intruder_word))
 
-        word_intrusion_results.append(intrusion_result)
-        
-        print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(words, word_result, intruder))
-        
     # Optionally save for human evaluation   
     if save_for_human_eval:
         with open("word_intrusion_results.json", "w") as f:
@@ -258,7 +282,7 @@ def topic_intrusion(doc_topics, top_words_by_topic, model, save_for_human_eval=F
 # Evaluate Model Performance
 # -------------------------
 
-def evaluate_word_intrusion_tasks(word_intrusion_results):
+def evaluate_word_intrusion_tasks(word_intrusion_results, topic_intrusion_results):
     word_intrusion_correct = sum(1 for res in word_intrusion_results if res['model_response'] == res['intruder'])
     word_intrusion_accuracy = word_intrusion_correct / len(word_intrusion_results)
 
@@ -269,8 +293,9 @@ def evaluate_word_intrusion_tasks(word_intrusion_results):
     }
 
 
-def evaluate_topic_intrusion_tasks(topic_intrusion_results):
+def evaluate_topic_intrusion_tasks(word_intrusion_results, topic_intrusion_results):
     topic_intrusion_correct = sum(1 for res in topic_intrusion_results if res['model_response'] == str(res['intruder_topic_id']))
+
     topic_intrusion_accuracy = topic_intrusion_correct / len(topic_intrusion_results)
 
     print(f"Topic Intrusion Task Accuracy: {topic_intrusion_accuracy * 100:.2f}%")
@@ -278,7 +303,6 @@ def evaluate_topic_intrusion_tasks(topic_intrusion_results):
     return {
         "topic_intrusion_accuracy": topic_intrusion_accuracy
     }
-
 # -------------------------
 # Test LLM
 # -------------------------
@@ -289,19 +313,19 @@ def test_llm_performance(words_lists, intruders):
         numbered_word_list = ""
         for j, word in enumerate(word_list):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
-        input_text = f"From the following list of tokens, identify the one token that does not belong with the others. For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nI expect the answer 3. Here are the words:\r\n {numbered_word_list}.\n In your response, provide only the intruder word's index without any additional explanation"
+        input_text = f"Your task is understanding which word is the intruder among other words in a given list. Identify from the following list of words, which word is least related to the others: {numbered_word_list}.\nFor example - Given the following list: ['card', 'driver', 'ethernet', 'mode', 'bothering', 'resolution', 'support', 'detector', 'radar'] the intruder word is: 'bothering'.\nAnother example - Given the following list of words: ['weapon', 'crime', 'rate', 'sickle', 'bill', 'license', 'control', 'carry', 'firearm'] the intruder word is: 'sickle'. Your response should be only the word you believe to be the intruder word. No additional explanations"
         messages = [
             {"role": "user", "content": f"{input_text}"},
         ]
         # Initialize pipeline with the loaded model
 
         # Generate output with constraints
-        result = llm_model(
+        result = pipeline(
             messages,
-            max_new_tokens=20,  # Limit to short responses
+            max_new_tokens=20,  # Limit to a few tokens to get a short response
             no_repeat_ngram_size=2,
-            return_full_text=False,  # Only return generated text
-            temperature=temp,
+            return_full_text=False,  # Only show generated text, not the prompt
+            temperature = temp
         )
 
         clean_result = result[0]['generated_text'].strip()
@@ -317,18 +341,6 @@ def test_llm_performance(words_lists, intruders):
         print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(word_list, clean_result, intruder))
 
 
-def run_test():
-    list_of_words = [['weapon', 'crime', 'rate', 'table', 'bill', 'license', 'control', 'carry', 'firearm'],
-                    ['manager', 'window', 'problem', 'program', 'application', 'display', 'file', 'widget', 'blessing'],
-                    ['peace', 'israel', 'israeli', 'taught', 'jewish', 'palestinian', 'muslim', 'arab', 'bosnia'],
-                    ['medical', 'effect', 'slot', 'disease', 'cause', 'patient', 'treatment', 'food', 'doctor'],
-                    ['hockey', 'team', 'baseball', 'game', 'information', 'season', 'player', 'play', 'league']]
-
-    intruders = ['table', 'running', 'taught', 'slot', 'information']
-
-    test_llm_performance(list_of_words, intruders)
-
-
 # -------------------------
 # Main Execution
 # -------------------------
@@ -338,8 +350,6 @@ if len(sys.argv) < 2:
     dataset = "20NewsGroup"
 else:
     dataset = sys.argv[1]
-
-intruders = True
 
 if not intruders:
     path = "Distributions-Results/{}".format(dataset)
@@ -366,33 +376,24 @@ else:
 
 # Evaluate results
 evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
+
 # Save evaluation results to a file
 with open("evaluation_results.json", "w") as f:
     json.dump(evaluation_results, f)
 
 
-# path = "Distributions-Results/{}".format(dataset)
-# # Load distributions
-# topic_word_df = load_topic_word_distribution(f"{path}/lda_topic_word_distribution.csv")
-# doc_topic_df = load_doc_topic_distribution(f"{path}/lda_document_topic_distribution.csv")
+# # # # # # # # # # # # # # # # # # # #
+# #    Evaluate Model Performance   # #
+# # # # # # # # # # # # # # # # # # # #
 
-# # Prepare data
-# top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
-# bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
-# doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
+# list_of_words = [['weapon', 'crime', 'rate', 'sickle', 'bill', 'license', 'control', 'carry', 'firearm'],
+#                  ['manager', 'window', 'problem', 'program', 'application', 'display', 'file', 'widget', 'sensor'],
+#                  ['peace', 'israel', 'israeli', 'taught', 'jewish', 'palestinian', 'muslim', 'arab', 'bosnia'],
+#                  ['medical', 'effect', 'slot', 'disease', 'cause', 'patient', 'treatment', 'food', 'doctor'],
+#                  ['hockey', 'team', 'baseball', 'game', 'information', 'season', 'player', 'play', 'league']]
 
-# # Run word intrusion task
-# word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
+# intruders = ['sickle', 'sensor', 'taught', 'slot', 'information']
 
-# # Run topic intrusion task
-# topic_intrusion_results = topic_intrusion(doc_topics, top_words_by_topic, model=llm_model, save_for_human_eval=True)
-
-# # Evaluate results
-# evaluation_results = evaluate_intrusion_tasks(word_intrusion_results, topic_intrusion_results)
-
-# # Save evaluation results to a file
-# with open("evaluation_results.json", "w") as f:
-#     json.dump(evaluation_results, f)
-
+# test_llm_performance(list_of_words, intruders)
 
 

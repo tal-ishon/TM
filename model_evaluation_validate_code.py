@@ -7,48 +7,26 @@ import sys
 import torch
 import re
 
-from huggingface_hub import login
-os.chdir("/")
-login("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")
-
-# os.environ["HUGGINGFACE_API_TOKEN"] = "TI_access_model"
-
-# Set custom cache directory for Hugging Face resources
-os.environ["TRANSFORMERS_CACHE"] = "/data/users/ishonta/cache/models"
-os.environ["HF_HOME"] = "/data/users/ishonta/cache"
+os.environ["HUGGINGFACE_API_TOKEN"] = "TI_access_model"
 
 # Initialize the LLM pipeline
-model_name = "meta-llama/Llama-3.3-70B-Instruct"
+model_name="meta-llama/Llama-3.2-3B-Instruct"
+model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.bfloat16, device_map="auto")
 
-# Load the model with specified settings
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype=torch.bfloat16,   # Use bfloat16 for reduced memory usage
-    device_map="auto",           # Automatically map model across GPUs
-    cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
-)
-
-# Load the tokenizer
-tokenizer = AutoTokenizer.from_pretrained(
-    model_name,
-    cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
-)
-
-# Ensure the tokenizer has a padding token
+tokenizer = AutoTokenizer.from_pretrained(model_name)
 if tokenizer.pad_token_id is None:
     tokenizer.pad_token_id = tokenizer.eos_token_id
 
-# Define generation settings
-temp = 0.7
+# Define prompt
+temp=0.7
+llm_model = pipeline = pipeline(
+                "text-generation",
+                model=model,
+                tokenizer=tokenizer,
+                device_map="auto",
+                model_kwargs={"torch_dtype": torch.bfloat16},
+            )
 
-# Initialize the text-generation pipeline
-llm_model = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    device_map="auto",            # Automatically map model across GPUs
-    model_kwargs={"torch_dtype": torch.bfloat16},  # Use bfloat16
-)
 
 # -------------------------
 # Load Data from CSV Files
@@ -113,6 +91,8 @@ def get_doc_topics(doc_topic_df, prob_threshold=0.0):
 def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
     word_intrusion_results = []
 
+    print("\nPrompt #2:\n")
+    i = 0
     for topic_id, words in top_words_by_topic.items():
         
         # Add an intruder word that does not belong
@@ -126,9 +106,7 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
         numbered_word_list = ""
         for j, word in enumerate(word_list):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
-
-        input_text = f"From the following list of tokens, identify the one token that does not belong with the others. For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nI expect the answer 3. Here are the words:\r\n {numbered_word_list}.\n In your response, provide only the intruder word's index without any additional explanation"
-
+        input_text = f"You are an assistant in understanding which word is the intruder among other words in a given list. Identify from the following list of words, which word does not belong with the others: {numbered_word_list}. In your response, return only the number of the intruder word from the list.\nFor example - Given the following list: ['card', 'driver', 'ethernet', 'mode', 'bothering', 'resolution', 'support', 'detector', 'radar'] the intruder word is: 'bothering'.\nAnother example - Given the following list of words: ['weapon', 'crime', 'rate', 'sickle', 'bill', 'license', 'control', 'carry', 'firearm'] the intruder word is: 'sickle'."       
         messages = [
             {"role": "user", "content": f"{input_text}"},
         ]
@@ -154,6 +132,12 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
         }
         
         print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(word_list, word_result, intruder_word))
+        if i > 5:
+            print("\nDone! Examples for word intrution task appear above\n")
+            exit(0)
+        
+        # word_intrusion_results.append(intrusion_result)
+        i+=1
         
     # Optionally save for human evaluation   
     if save_for_human_eval:
@@ -162,11 +146,13 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
 
     return word_intrusion_results
 
-def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_eval=False):
+def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=False):
     word_intrusion_results = []
+    topic_word_df = topic_word_df.drop(topic_word_df.columns[0], axis=1)
 
-    for topic_id, words, intruder in zip(top_words_by_topic.items(), intruders):
-        
+    for topic_id, intruder in enumerate(intruders):
+        words = topic_word_df.iloc[:, topic_id]
+
         numbered_word_list = ""
         for j, word in enumerate(words):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
@@ -192,7 +178,7 @@ def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_
         word_result = words[answer_ix]
         intrusion_result = {
             "topic_id": topic_id,
-            "prompt": input_text,
+            "word_list": numbered_word_list,
             "model_response": word_result,
             "intruder": intruder
         }
@@ -356,12 +342,16 @@ if not intruders:
     word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
 
 else:
-    path = "helpr/{}".format(dataset)
+    path = "helper/{}".format(dataset)
     model = "200GMM"
     topic_word_df = load_topic_word_distribution(f"{path}/{model}_intruder_check.csv")
 
+    # Convert intruders pd to a list
+    intruders = pd.read_csv(f"{path}/{model}_the_intruders.csv")
+    intruders = list(intruders.drop(intruders.columns[0], axis=1).values[0])
+
     # Run word intrusion task
-    word_intrusion_results = updated_word_intrusion(topic_word_df, model=llm_model, save_for_human_eval=True)
+    word_intrusion_results = updated_word_intrusion(topic_word_df, intruders=intruders, model=llm_model, save_for_human_eval=True)
 
 
 # Evaluate results

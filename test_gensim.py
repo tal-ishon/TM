@@ -44,7 +44,7 @@ def save_distributions(model, model_type, corpus):
 
     # Save to CSV
     topic_word_df = pd.DataFrame(topic_word_matrix, columns=[dictionary[i] for i in range(topic_word_matrix.shape[1])])
-    topic_word_df.to_csv(f"{path}/{model_type}_topic_word_distribution.csv", index_label="Topic")
+    topic_word_df.to_csv(f"{path}/{TOPIC_NUM}{model_type}_topic_word_distribution.csv", index_label="Topic")
 
     # document-topic
     # Convert to dense matrix
@@ -55,7 +55,7 @@ def save_distributions(model, model_type, corpus):
 
     # Save to CSV
     doc_topic_df = pd.DataFrame(doc_topic_matrix)
-    doc_topic_df.to_csv(f"{path}/{model_type}_document_topic_distribution.csv", index_label="Document")
+    doc_topic_df.to_csv(f"{path}/{TOPIC_NUM}{model_type}_document_topic_distribution.csv", index_label="Document")
 
 
 def saveBERTopic_distributions(model, probs):
@@ -328,7 +328,7 @@ def run_lda_models(prior_type="lda"):
                     eta=false_prior * eta_weight, 
                     alpha=alpha)
     else:
-        prior = torch.load(f"{HOME}/{prior_type}")
+        prior = torch.load(f"{HOME}/{TOPIC_NUM}{prior_type}")
         LDA = LdaModel(doc_term_matrix, 
                     num_topics=TOPIC_NUM, 
                     id2word=dictionary.id2token, 
@@ -444,6 +444,7 @@ if IS_FIRST:
     dictionary = pp.dictionary
     filtered_corpus = pp.filtered_corpus
     print("finish")
+    exit(0)
 
 else:
     # Load the dictionary from a file

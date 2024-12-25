@@ -21,7 +21,7 @@ def save_df_topics_words(lists):
     df = pd.DataFrame(lists)
 
     # Save to CSV file (index=False to avoid saving index numbers)
-    df.to_csv(f'{TOP}{prior_type}_prior.csv', index=False, header=False)
+    df.to_csv(f'{SAVE_DIR}/{TOP}{prior_type}_topic_word_distribution.csv', index=False, header=True)
 
 
 def save_topic_word_distributions():
@@ -42,11 +42,17 @@ def save_topic_word_distributions():
 
     print(f"Topic-word distribution saved to {output_file}")
 
-prior_type = "ScaSE"
-TOP = 200
+prior_type = "GMM"
+TOP = 100
 HOME = "NewResults/20NewsGroup"
-pred_path = f"{HOME}/200prior_{prior_type}"
+SAVE_DIR = "Distributions-Results/20NewsGroup"
+
+# insert number of topics before "prior_{prior_type}" if TOP != 100
+pred_path = f"{HOME}/100prior_{prior_type}"
 word2ix_path = f"{HOME}/word_to_ix"
+
+# If want to get GMM distribution - set to True, otherwise False
+for_distribution = True
 
 pred = torch.load(pred_path)
 word_to_ix = torch.load(word2ix_path)
@@ -64,17 +70,23 @@ for i, _ in enumerate(pred):
     shape = x[0].shape[0]
     sorted = np.argsort(-topic_pred)
     words_ix = sorted[:shape]
+    words_ix_for_distribution = sorted
 
     print(f"Number of words in topic {i} = {shape}")
     
     topic_words = []
-    for word_ix in words_ix:
-        topic_words.append((ix_to_word[word_ix])) # use also topic_pred[word_ix] to know the probability of that word in that topic
+    
+    if not for_distribution:
+        for word_ix in words_ix:
+            topic_words.append((ix_to_word[word_ix])) # use also topic_pred[word_ix] to know the probability of that word in that topic
+    else:
+        for word_ix in words_ix_for_distribution:
+            topic_words.append(ix_to_word[word_ix])
     
     words_per_topic.append(topic_words)
 
-# save_df_topics_words(words_per_topic)
-save_topics_words(words_per_topic)
+save_df_topics_words(words_per_topic)
+# save_topics_words(words_per_topic)
 
 # if want to save topic-word distribution of prior file (before using LDA)
 # save_topic_word_distributions()

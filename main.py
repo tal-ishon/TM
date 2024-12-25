@@ -9,6 +9,7 @@
 # save the words in topics in a csv file
 
 import string
+import json
 import preprocessing as pp
 import numpy as np
 from collections import defaultdict
@@ -84,7 +85,16 @@ class Preprocessor:
         self.corpus = corpus
         self.__update_embed_dict(self.vocabulary)
 
+
+    def get_corpus(self):
+        return self.corpus
     
+
+    def save_corpus(self):
+        with open(f"{DATASET}_corpus.json", "w") as f:
+            json.dump(self.corpus, f)
+
+
     def generate_embedding_and_dictionaty(self, embed_path):
         """
         This function load the Embedding in the given path.
@@ -271,24 +281,28 @@ DATASET = "20NewsGroup"
 DATASET_PATH = "20NewsGroup"
 FILE_TYPE = "json"
 
-MODE = "ScaSE"
+MODES = ["GMM"]
+TOPICS_LIST = [100]
 DATA_PATH = f"{DATASET_PATH}.{FILE_TYPE}"
-TOPICS = 100
 
-if is_first:
-    # Create embedding according to data
-    pprocessor = Preprocessor(DATA_PATH)
-    pprocessor.generate_embedding_and_dictionaty('glove.6B/glove.6B.100d.txt')
-    pprocessor.process_data(FILE_TYPE)
-    torch.save(pprocessor.embedding, f"{HOME_DIR}/{DATASET}/embedding")
-    torch.save(pprocessor.word_to_ix, f"{HOME_DIR}/{DATASET}/word_to_ix")
-else: 
-    pprocessor = Preprocessor(DATA_PATH, torch.load(f"NewResults/{DATASET}/embedding"))
+for MODE in MODES:
+    for TOPICS in TOPICS_LIST:
 
-# Calculate topics-words distribution (prior)
-has_embed = False
-predictor = Predictor(mode=MODE, X=pprocessor.embedding, n_predictions=TOPICS)
-predictor.predict()
-predictor.calculte_prior()
-predictor.save_predictions(f"NewResults/{DATASET}/pred_{MODE}")
-predictor.save_prior_to_file(f"NewResults/{DATASET}/prior_{MODE}")
+        if is_first:
+            # Create embedding according to data
+            pprocessor = Preprocessor(DATA_PATH)
+            pprocessor.generate_embedding_and_dictionaty('glove.6B/glove.6B.100d.txt')
+            pprocessor.process_data(FILE_TYPE)
+            torch.save(pprocessor.embedding, f"{HOME_DIR}/{DATASET}/embedding")
+            torch.save(pprocessor.word_to_ix, f"{HOME_DIR}/{DATASET}/word_to_ix")
+            is_first = False
+        else: 
+            pprocessor = Preprocessor(DATA_PATH, torch.load(f"NewResults/{DATASET}/embedding"))
+
+        # Calculate topics-words distribution (prior)
+        has_embed = False
+        predictor = Predictor(mode=MODE, X=pprocessor.embedding, n_predictions=TOPICS)
+        predictor.predict()
+        predictor.calculte_prior()
+        predictor.save_predictions(f"NewResults/{DATASET}/{TOPICS}pred_{MODE}")
+        predictor.save_prior_to_file(f"NewResults/{DATASET}/{TOPICS}prior_{MODE}")

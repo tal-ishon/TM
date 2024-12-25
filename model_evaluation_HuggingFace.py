@@ -6,6 +6,7 @@ import os
 import sys
 import torch
 import re
+from tqdm import tqdm
 
 from huggingface_hub import login
 os.chdir("/")
@@ -162,16 +163,27 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
 
     return word_intrusion_results
 
-def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_eval=False):
+def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=False):
     word_intrusion_results = []
+    topic_word_df = topic_word_df.drop(topic_word_df.columns[0], axis=1)
 
-    for topic_id, words, intruder in zip(top_words_by_topic.items(), intruders):
-        
+    for topic_id, intruder in enumerate(tqdm(intruders, desc="Processing topics")):
+        # topic_id = 180
+        words = topic_word_df.iloc[:, topic_id]
+        words_list = list(words)
+
         numbered_word_list = ""
         for j, word in enumerate(words):
                 numbered_word_list += f"{j + 1}. {word}\r\n"
 
-        input_text = f"From the following list of tokens, identify the one token that does not belong with the others. For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nI expect the answer 3. Here are the words:\r\n {numbered_word_list}.\n In your response, provide only the intruder word's index without any additional explanation"
+        input_text = f"""From the following list of tokens, identify the one token that does not belong with the others. 
+        For example: for\r\n1. Banana\r\n2. Orange\r\n3. Japan\r\n4. Strawberry\r\n5. Tree\r\nThe expected answer is index 3. 
+        The reason 3 is the intruder's index is since Banana, Orange, Strawberry and Tree are related to fruits in a way, but Japan is a country.
+        Another example: for\r\n1. Dog\r\n2. Cat\r\n3. Horse\r\n4. Apple\r\n5. Pig\r\nThe expected answer is index 4.
+        The reason 4 is the intruder's index is since Dog, Cat, Horse and Pig are different kinds of animals, while Apple is a fruit.
+
+        Here are your words:\r\n {numbered_word_list}.\n 
+        In your response, provide only one index between 1 to {len(words_list)}, where the index is the intruder word's index from the given list. Without any additional explanation"""
 
         messages = [
             {"role": "user", "content": f"{input_text}"},
@@ -179,7 +191,7 @@ def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_
         # Initialize pipeline with the loaded model
 
         # Generate output with constraints
-        result = pipeline(
+        result = llm_model(
             messages,
             max_new_tokens=20,  # Limit to a few tokens to get a short response
             no_repeat_ngram_size=2,
@@ -188,23 +200,25 @@ def updated_word_intrusion(top_words_by_topic, intruders, model, save_for_human_
         )
 
         clean_result = result[0]['generated_text'].strip()
+        # print(clean_result)
         answer_ix = int(re.sub(r'[^0-9]', '', clean_result)) - 1
         word_result = words[answer_ix]
+    
         intrusion_result = {
-            "topic_id": topic_id,
-            "prompt": input_text,
-            "model_response": word_result,
-            "intruder": intruder
+            "Topic_id": topic_id,
+            "Word List": words_list,
+            "Model Response": word_result,
+            "Real Intruder": intruder
         }
 
         word_intrusion_results.append(intrusion_result)
         
-        print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(words, word_result, intruder))
+        # print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(words_list, word_result, intruder))
         
     # Optionally save for human evaluation   
     if save_for_human_eval:
-        with open("word_intrusion_results.json", "w") as f:
-            json.dump(word_intrusion_results, f)
+        with open(f"{TM_model}_prompt2_word_intrusion_results.json", "w") as f:
+            json.dump(word_intrusion_results, f, indent=4)
 
     return word_intrusion_results
 
@@ -259,13 +273,14 @@ def topic_intrusion(doc_topics, top_words_by_topic, model, save_for_human_eval=F
 # -------------------------
 
 def evaluate_word_intrusion_tasks(word_intrusion_results):
-    word_intrusion_correct = sum(1 for res in word_intrusion_results if res['model_response'] == res['intruder'])
+    word_intrusion_correct = sum(1 for res in word_intrusion_results if res['Model Response'] == res['Real Intruder'])
     word_intrusion_accuracy = word_intrusion_correct / len(word_intrusion_results)
 
     print(f"Word Intrusion Task Accuracy: {word_intrusion_accuracy * 100:.2f}%")
     
     return {
-        "word_intrusion_accuracy": word_intrusion_accuracy,
+        "Evaluated Model:": TM_model,
+        "word_intrusion_accuracy": round(word_intrusion_accuracy, 5)
     }
 
 
@@ -275,7 +290,8 @@ def evaluate_topic_intrusion_tasks(topic_intrusion_results):
 
     print(f"Topic Intrusion Task Accuracy: {topic_intrusion_accuracy * 100:.2f}%")
     
-    return {
+    return {        
+        "Evaluated Model:": TM_model,
         "topic_intrusion_accuracy": topic_intrusion_accuracy
     }
 
@@ -333,66 +349,67 @@ def run_test():
 # Main Execution
 # -------------------------
 
+import argparse
 
+# Initialize the argument parser
+# parser = argparse.ArgumentParser(description="Run a model with the specified parameters.")
+# parser.add_argument("--model_type", type=str, required=True, help="The type of model to run")
+# parser.add_argument("--dataset", type=str, required=True, help="The dataset to use")
+
+# args = parser.parse_args()
+# TM_model = args.model_type
+# dataset = args.dataset
+
+intruders = True
+full_evaluation_results = []
+
+# # # # # # # # # # # # # # # # #
+# USE WHEN DONT RUN VIA SCRIPT  #
+# # # # # # # # # # # # # # # # #
+#                           
 if len(sys.argv) < 2:
     dataset = "20NewsGroup"
 else:
     dataset = sys.argv[1]
 
-intruders = True
+TM_models = ["100GMM"] 
+#
+# # # # # # # # # # # # # # # # #
 
-if not intruders:
-    path = "Distributions-Results/{}".format(dataset)
-    # Load distributions
-    topic_word_df = load_topic_word_distribution(f"{path}/lda_topic_word_distribution.csv")
-    doc_topic_df = load_doc_topic_distribution(f"{path}/lda_document_topic_distribution.csv")
+for TM_model in TM_models:
+    if not intruders:
+        path = "Distributions-Results/{}".format(dataset)
+        # Load distributions
+        topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_topic_word_distribution.csv")
+        doc_topic_df = load_doc_topic_distribution(f"{path}/{TM_model}_document_topic_distribution.csv")
 
-    # Prepare data
-    top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
-    bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
-    doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
+        # Prepare data
+        top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
+        bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
+        doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
 
-    # Run word intrusion task
-    word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
+        # Run word intrusion task
+        word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
 
-else:
-    path = "helpr/{}".format(dataset)
-    model = "200GMM"
-    topic_word_df = load_topic_word_distribution(f"{path}/{model}_intruder_check.csv")
+    else:
+        os.chdir("/home/dsi/ishonta/TM")
+        dir_path = "helper"
+        path = "{}/{}".format(dir_path, dataset)
+        topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_intruder_check.csv")
 
-    # Run word intrusion task
-    word_intrusion_results = updated_word_intrusion(topic_word_df, model=llm_model, save_for_human_eval=True)
+        # Convert intruders pd to a list
+        intruders = pd.read_csv(f"{path}/{TM_model}_the_intruders.csv")
+        intruders = list(intruders.drop(intruders.columns[0], axis=1).values[0])
 
-
-# Evaluate results
-evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
-# Save evaluation results to a file
-with open("evaluation_results.json", "w") as f:
-    json.dump(evaluation_results, f)
-
-
-# path = "Distributions-Results/{}".format(dataset)
-# # Load distributions
-# topic_word_df = load_topic_word_distribution(f"{path}/lda_topic_word_distribution.csv")
-# doc_topic_df = load_doc_topic_distribution(f"{path}/lda_document_topic_distribution.csv")
-
-# # Prepare data
-# top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
-# bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
-# doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
-
-# # Run word intrusion task
-# word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
-
-# # Run topic intrusion task
-# topic_intrusion_results = topic_intrusion(doc_topics, top_words_by_topic, model=llm_model, save_for_human_eval=True)
-
-# # Evaluate results
-# evaluation_results = evaluate_intrusion_tasks(word_intrusion_results, topic_intrusion_results)
-
-# # Save evaluation results to a file
-# with open("evaluation_results.json", "w") as f:
-#     json.dump(evaluation_results, f)
+        # Run word intrusion task
+        word_intrusion_results = updated_word_intrusion(topic_word_df, intruders=intruders, model=llm_model, save_for_human_eval=True)
 
 
+    # Evaluate results
+    evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
+    full_evaluation_results.append(evaluation_results)
 
+path_save_eval_result = "model_eval_results"
+# Save evaluation results of all models to a file
+with open(f"{path_save_eval_result}/_prompt2_evaluation_results.json", "w") as f:
+    json.dump(full_evaluation_results, f, indent=4)

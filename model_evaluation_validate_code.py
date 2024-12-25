@@ -1,3 +1,9 @@
+"""
+! Having problems in debugging llama-70B.
+! Using same code with different llama model for easy debugging.
+
+"""
+
 from transformers import pipeline, AutoModelForCausalLM, AutoTokenizer
 import pandas as pd
 import random
@@ -91,8 +97,6 @@ def get_doc_topics(doc_topic_df, prob_threshold=0.0):
 def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
     word_intrusion_results = []
 
-    print("\nPrompt #2:\n")
-    i = 0
     for topic_id, words in top_words_by_topic.items():
         
         # Add an intruder word that does not belong
@@ -132,12 +136,6 @@ def word_intrusion(top_words_by_topic, model, save_for_human_eval=False):
         }
         
         print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(word_list, word_result, intruder_word))
-        if i > 5:
-            print("\nDone! Examples for word intrution task appear above\n")
-            exit(0)
-        
-        # word_intrusion_results.append(intrusion_result)
-        i+=1
         
     # Optionally save for human evaluation   
     if save_for_human_eval:
@@ -185,7 +183,7 @@ def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=
 
         word_intrusion_results.append(intrusion_result)
         
-        print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(words, word_result, intruder))
+        print("Words List: {}\nModel Intuder: {}\nReal Intruder: {}".format(numbered_word_list, word_result, intruder))
         
     # Optionally save for human evaluation   
     if save_for_human_eval:
@@ -251,7 +249,8 @@ def evaluate_word_intrusion_tasks(word_intrusion_results):
     print(f"Word Intrusion Task Accuracy: {word_intrusion_accuracy * 100:.2f}%")
     
     return {
-        "word_intrusion_accuracy": word_intrusion_accuracy,
+        "Evaluated Model:": TM_model,
+        "word_intrusion_accuracy": word_intrusion_accuracy
     }
 
 
@@ -261,7 +260,8 @@ def evaluate_topic_intrusion_tasks(topic_intrusion_results):
 
     print(f"Topic Intrusion Task Accuracy: {topic_intrusion_accuracy * 100:.2f}%")
     
-    return {
+    return {        
+        "Evaluated Model:": TM_model,
         "topic_intrusion_accuracy": topic_intrusion_accuracy
     }
 
@@ -326,12 +326,13 @@ else:
     dataset = sys.argv[1]
 
 intruders = True
+TM_model = "BERTopic"
 
 if not intruders:
     path = "Distributions-Results/{}".format(dataset)
     # Load distributions
-    topic_word_df = load_topic_word_distribution(f"{path}/lda_topic_word_distribution.csv")
-    doc_topic_df = load_doc_topic_distribution(f"{path}/lda_document_topic_distribution.csv")
+    topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_topic_word_distribution.csv")
+    doc_topic_df = load_doc_topic_distribution(f"{path}/{TM_model}_document_topic_distribution.csv")
 
     # Prepare data
     top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
@@ -344,10 +345,10 @@ if not intruders:
 else:
     path = "helper/{}".format(dataset)
     model = "200GMM"
-    topic_word_df = load_topic_word_distribution(f"{path}/{model}_intruder_check.csv")
+    topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_intruder_check.csv")
 
     # Convert intruders pd to a list
-    intruders = pd.read_csv(f"{path}/{model}_the_intruders.csv")
+    intruders = pd.read_csv(f"{path}/{TM_model}_the_intruders.csv")
     intruders = list(intruders.drop(intruders.columns[0], axis=1).values[0])
 
     # Run word intrusion task
@@ -359,6 +360,8 @@ evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
 # Save evaluation results to a file
 with open("evaluation_results.json", "w") as f:
     json.dump(evaluation_results, f)
+
+
 
 
 # path = "Distributions-Results/{}".format(dataset)

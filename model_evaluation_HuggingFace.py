@@ -17,48 +17,71 @@ login("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")
 # Set custom cache directory for Hugging Face resources
 os.environ["TRANSFORMERS_CACHE"] = "/data/users/ishonta/cache/models"
 os.environ["HF_HOME"] = "/data/users/ishonta/cache"
+os.environ["CUDA_VISIBLE_DEVICES"] = "1" # Choose GPU to run on
 
-# Initialize the LLM pipeline
-model_name = "meta-llama/Llama-3.3-70B-Instruct"
+# # Initialize the LLM pipeline
+# model_name = "meta-llama/Llama-3.3-70B-Instruct"
 
-# Load the model with specified settings
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype=torch.bfloat16,   # Use bfloat16 for reduced memory usage
-    device_map="auto",           # Automatically map model across GPUs
-    cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
-)
+# # Load the model with specified settings
+# model = AutoModelForCausalLM.from_pretrained(
+#     model_name,
+#     torch_dtype=torch.bfloat16,   # Use bfloat16 for reduced memory usage
+#     device_map="auto",           # Automatically map model across GPUs
+#     cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
+# )
 
-# Load the tokenizer
-tokenizer = AutoTokenizer.from_pretrained(
-    model_name,
-    cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
-)
+# # Load the tokenizer
+# tokenizer = AutoTokenizer.from_pretrained(
+#     model_name,
+#     cache_dir=os.environ["TRANSFORMERS_CACHE"],  # Explicit cache directory
+# )
 
-# Ensure the tokenizer has a padding token
-if tokenizer.pad_token_id is None:
-    tokenizer.pad_token_id = tokenizer.eos_token_id
+# # Ensure the tokenizer has a padding token
+# if tokenizer.pad_token_id is None:
+#     tokenizer.pad_token_id = tokenizer.eos_token_id
 
 # Define generation settings
 temp = 0.7
 
-# Initialize the text-generation pipeline
-llm_model = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    device_map="auto",            # Automatically map model across GPUs
-    model_kwargs={"torch_dtype": torch.bfloat16},  # Use bfloat16
-)
+# # Initialize the text-generation pipeline
+# llm_model = pipeline(
+#     "text-generation",
+#     model=model,
+#     tokenizer=tokenizer,
+#     device_map="auto",            # Automatically map model across GPUs
+#     model_kwargs={"torch_dtype": torch.bfloat16},  # Use bfloat16
+# )
+
+def initialize_model(model_name):
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
+        cache_dir=os.environ["TRANSFORMERS_CACHE"]
+    )
+    tokenizer = AutoTokenizer.from_pretrained(
+        model_name,
+        cache_dir=os.environ["TRANSFORMERS_CACHE"]
+    )
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+    llm_pipeline = pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+        device_map="auto",
+        model_kwargs={"torch_dtype": torch.bfloat16}
+    )
+    return llm_pipeline
+
+model_name = "meta-llama/Llama-3.3-70B-Instruct"
+llm_model = initialize_model(model_name)
 
 # -------------------------
 # Load Data from CSV Files
 # -------------------------
 
-def load_topic_word_distribution(filepath):
-    return pd.read_csv(filepath)
-
-def load_doc_topic_distribution(filepath):
+def load_csv(filepath):
     return pd.read_csv(filepath)
 
 # -------------------------
@@ -168,7 +191,6 @@ def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=
     topic_word_df = topic_word_df.drop(topic_word_df.columns[0], axis=1)
 
     for topic_id, intruder in enumerate(tqdm(intruders, desc="Processing topics")):
-        # topic_id = 180
         words = topic_word_df.iloc[:, topic_id]
         words_list = list(words)
 
@@ -183,7 +205,7 @@ def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=
         The reason 4 is the intruder's index is since Dog, Cat, Horse and Pig are different kinds of animals, while Apple is a fruit.
 
         Here are your words:\r\n {numbered_word_list}.\n 
-        In your response, provide only one index between 1 to {len(words_list)}, where the index is the intruder word's index from the given list. Without any additional explanation"""
+        In your response, you have to provide only one index between 1 to {len(words_list)}, where the index is the intruder word's index from the given list. Without any additional explanations."""
 
         messages = [
             {"role": "user", "content": f"{input_text}"},
@@ -200,7 +222,6 @@ def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=
         )
 
         clean_result = result[0]['generated_text'].strip()
-        # print(clean_result)
         answer_ix = int(re.sub(r'[^0-9]', '', clean_result)) - 1
         word_result = words[answer_ix]
     
@@ -217,7 +238,7 @@ def updated_word_intrusion(topic_word_df, intruders, model, save_for_human_eval=
         
     # Optionally save for human evaluation   
     if save_for_human_eval:
-        with open(f"{TM_model}_prompt2_word_intrusion_results.json", "w") as f:
+        with open(f"{TM_model}_Top_{k}_word_intrusion_results.json", "w") as f:
             json.dump(word_intrusion_results, f, indent=4)
 
     return word_intrusion_results
@@ -267,6 +288,70 @@ def topic_intrusion(doc_topics, top_words_by_topic, model, save_for_human_eval=F
         json.dump(topic_intrusion_results, f)
 
     return topic_intrusion_results
+
+
+def updated_topic_intrusion(doc_topics, top_words_by_topic, model, save_for_human_eval=False):
+    topic_intrusion_results = []
+
+    for doc_id, topics in tqdm(doc_topics.items(), desc="Processing documents"):
+        all_topic_ids = list(top_words_by_topic.keys())
+        intruder_topic_id = random.choice([t for t in all_topic_ids if t not in topics])
+        intruder_topic_words = top_words_by_topic[intruder_topic_id]
+
+        topic_words_list = [
+            (topic_id, top_words_by_topic[topic_id]) for topic_id in topics
+        ] + [(intruder_topic_id, intruder_topic_words)]
+        random.shuffle(topic_words_list)
+
+        numbered_topic_list = ""
+        for i, (topic_id, topic_words) in enumerate(topic_words_list):
+            numbered_topic_list += f"{i + 1}. Topic {topic_id}: {', '.join(topic_words)}\r\n"
+
+        input_text = f"""From the following list of topics, identify the one topic that does not belong with the others.\
+        For example: for\r\n1. Topic 1: Banana, Orange, Strawberry\r\n2. Topic 2: Dog, Cat, Horse\r\n3. Topic 3: Japan, China, Korea\r\n4. Topic 4: Apple, Mango, Peach\r\nThe expected answer is index 3. The reason 3 is the intruder's index is since Topic 3 contains countries, while the others contain fruits or animals.\r\n\
+\r\nHere are your topics:\r\n {numbered_topic_list}.\n\
+In your response, provide only one index between 1 to {len(topic_words_list)}, where the index is the intruder topic's index from the given list. Without any additional explanation"""
+
+        messages = [
+            {"role": "user", "content": f"{input_text}"},
+        ]
+
+        # Generate output with constraints
+        result = model(
+            messages,
+            max_new_tokens=20,  # Limit to a few tokens to get a short response
+            no_repeat_ngram_size=2,
+            return_full_text=False,  # Only show generated text, not the prompt
+            temperature=temp
+        )
+
+        clean_result = result[0]['generated_text'].strip()
+        answer_ix = int(re.sub(r'[^0-9]', '', clean_result)) - 1
+        model_response = topic_words_list[answer_ix]
+
+        intrusion_result = {
+            "doc_id": doc_id,
+            "Topics List": [{"Topic ID": tid, "Words": ', '.join(words)} for tid, words in topic_words_list],
+            "Model Response": {
+                "Topic ID": model_response[0],
+                "Words": ', '.join(model_response[1])
+            },
+            "Real Intruder": {
+                "Topic ID": intruder_topic_id,
+                "Words": ', '.join(intruder_topic_words)
+            },
+            "Intruder Index": answer_ix + 1  # Convert back to 1-based index
+        }
+
+        topic_intrusion_results.append(intrusion_result)
+
+    # Optionally save for human evaluation
+    if save_for_human_eval:
+        with open("topic_intrusion_results.json", "w") as f:
+            json.dump(topic_intrusion_results, f, indent=4)
+
+    return topic_intrusion_results
+
 
 # -------------------------
 # Evaluate Model Performance
@@ -361,6 +446,7 @@ import argparse
 # dataset = args.dataset
 
 intruders = True
+want_to_evaluate_files = False
 full_evaluation_results = []
 
 # # # # # # # # # # # # # # # # #
@@ -372,44 +458,51 @@ if len(sys.argv) < 2:
 else:
     dataset = sys.argv[1]
 
-TM_models = ["100GMM"] 
+TM_models = ["100DM"]
 #
 # # # # # # # # # # # # # # # # #
 
 for TM_model in TM_models:
-    if not intruders:
-        path = "Distributions-Results/{}".format(dataset)
-        # Load distributions
-        topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_topic_word_distribution.csv")
-        doc_topic_df = load_doc_topic_distribution(f"{path}/{TM_model}_document_topic_distribution.csv")
+    for k in [10, 15, 20]:
+        if not intruders:
+            path = "Distributions-Results/{}".format(dataset)
+            # Load distributions
+            topic_word_df = load_csv(f"{path}/{TM_model}_topic_word_distribution.csv")
+            doc_topic_df = load_csv(f"{path}/{TM_model}_document_topic_distribution.csv")
 
-        # Prepare data
-        top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
-        bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
-        doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
+            # Prepare data
+            top_words_by_topic = get_top_words_for_topics(topic_word_df, top_n=8)
+            bottom_words_by_topic = get_bottom_words_for_topics(topic_word_df, top_n=10)
+            doc_topics = get_doc_topics(doc_topic_df, prob_threshold=0.1)
 
-        # Run word intrusion task
-        word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
+            # Run word intrusion task
+            word_intrusion_results = word_intrusion(top_words_by_topic, model=llm_model, save_for_human_eval=True)
 
-    else:
-        os.chdir("/home/dsi/ishonta/TM")
-        dir_path = "helper"
-        path = "{}/{}".format(dir_path, dataset)
-        topic_word_df = load_topic_word_distribution(f"{path}/{TM_model}_intruder_check.csv")
+        else:
+            os.chdir("/home/dsi/ishonta/TM")
+            dir_path = "helper"
+            path = "{}/{}".format(dir_path, dataset)
+            topic_word_df = load_csv(f"{path}/{k}_{TM_model}_intruder_check.csv")
 
-        # Convert intruders pd to a list
-        intruders = pd.read_csv(f"{path}/{TM_model}_the_intruders.csv")
-        intruders = list(intruders.drop(intruders.columns[0], axis=1).values[0])
+            # Convert intruders pd to a list
+            intruders = pd.read_csv(f"{path}/{k}_{TM_model}_the_intruders.csv")
+            intruders = list(intruders.drop(intruders.columns[0], axis=1).values[0])
 
-        # Run word intrusion task
-        word_intrusion_results = updated_word_intrusion(topic_word_df, intruders=intruders, model=llm_model, save_for_human_eval=True)
+            # Run word intrusion task
+            word_intrusion_results = updated_word_intrusion(topic_word_df, intruders=intruders, model=llm_model, save_for_human_eval=True)
 
+    # if want_to_evaluate_files:    
+    #     os.chdir("/home/dsi/ishonta/TM")
 
-    # Evaluate results
-    evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
-    full_evaluation_results.append(evaluation_results)
+    #     file_path = f"{TM_model}_Top_{k}_word_intrusion_results.json"
+    #     with open(file_path, "r") as file:
+    #         word_intrusion_results = json.load(file)
+
+        # Evaluate results
+        evaluation_results = evaluate_word_intrusion_tasks(word_intrusion_results)
+        full_evaluation_results.append(evaluation_results)
 
 path_save_eval_result = "model_eval_results"
 # Save evaluation results of all models to a file
-with open(f"{path_save_eval_result}/_prompt2_evaluation_results.json", "w") as f:
+with open(f"{path_save_eval_result}/evaluation_results.json", "w") as f:
     json.dump(full_evaluation_results, f, indent=4)

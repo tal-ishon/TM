@@ -1,0 +1,1982 @@
+[
+    {
+        "Topic_id": 0,
+        "Word List": [
+            "playoff",
+            "year",
+            "hockey",
+            "season",
+            "baseball",
+            "player",
+            "game",
+            "league",
+            "team",
+            "play",
+            "fester"
+        ],
+        "Model Response": "fester",
+        "Real Intruder": "fester"
+    },
+    {
+        "Topic_id": 1,
+        "Word List": [
+            "scrambling",
+            "rear",
+            "front",
+            "wheel",
+            "bike",
+            "riding",
+            "honda",
+            "motorcycle",
+            "engine",
+            "mile",
+            "ride"
+        ],
+        "Model Response": "mile",
+        "Real Intruder": "scrambling"
+    },
+    {
+        "Topic_id": 2,
+        "Word List": [
+            "church",
+            "christ",
+            "faith",
+            "belief",
+            "bible",
+            "christian",
+            "atheist",
+            "application",
+            "believe",
+            "jesu",
+            "religion"
+        ],
+        "Model Response": "application",
+        "Real Intruder": "application"
+    },
+    {
+        "Topic_id": 3,
+        "Word List": [
+            "people",
+            "right",
+            "state",
+            "weapon",
+            "firearm",
+            "crime",
+            "fire",
+            "pentium",
+            "clinton",
+            "police",
+            "government"
+        ],
+        "Model Response": "pentium",
+        "Real Intruder": "pentium"
+    },
+    {
+        "Topic_id": 4,
+        "Word List": [
+            "cause",
+            "infection",
+            "model",
+            "food",
+            "patient",
+            "doctor",
+            "medical",
+            "treatment",
+            "disease",
+            "diet",
+            "effect"
+        ],
+        "Model Response": "model",
+        "Real Intruder": "model"
+    },
+    {
+        "Topic_id": 5,
+        "Word List": [
+            "three",
+            "record",
+            "gotta",
+            "still",
+            "trip",
+            "headline",
+            "woof",
+            "cheek",
+            "though",
+            "first",
+            "gehrig"
+        ],
+        "Model Response": "woof",
+        "Real Intruder": "record"
+    },
+    {
+        "Topic_id": 6,
+        "Word List": [
+            "israeli",
+            "lebanon",
+            "research",
+            "people",
+            "muslim",
+            "peace",
+            "palestinian",
+            "israel",
+            "arab",
+            "jewish",
+            "bosnia"
+        ],
+        "Model Response": "research",
+        "Real Intruder": "research"
+    },
+    {
+        "Topic_id": 7,
+        "Word List": [
+            "drive",
+            "scsi",
+            "floppy",
+            "install",
+            "heard",
+            "problem",
+            "boot",
+            "controller",
+            "disk",
+            "hard",
+            "jumper"
+        ],
+        "Model Response": "heard",
+        "Real Intruder": "heard"
+    },
+    {
+        "Topic_id": 8,
+        "Word List": [
+            "clipper",
+            "security",
+            "secret",
+            "encryption",
+            "secure",
+            "escrow",
+            "algorithm",
+            "government",
+            "chip",
+            "tape",
+            "encrypt"
+        ],
+        "Model Response": "government",
+        "Real Intruder": "tape"
+    },
+    {
+        "Topic_id": 9,
+        "Word List": [
+            "file",
+            "widget",
+            "window",
+            "application",
+            "program",
+            "using",
+            "arab",
+            "running",
+            "manager",
+            "display",
+            "problem"
+        ],
+        "Model Response": "arab",
+        "Real Intruder": "arab"
+    },
+    {
+        "Topic_id": 10,
+        "Word List": [
+            "window",
+            "color",
+            "asante",
+            "driver",
+            "diamond",
+            "mode",
+            "monitor",
+            "video",
+            "card",
+            "graphic",
+            "svga"
+        ],
+        "Model Response": "asante",
+        "Real Intruder": "asante"
+    },
+    {
+        "Topic_id": 11,
+        "Word List": [
+            "audio",
+            "power",
+            "output",
+            "stereo",
+            "amplifier",
+            "voltage",
+            "input",
+            "innovative",
+            "circuit",
+            "watt",
+            "current"
+        ],
+        "Model Response": "innovative",
+        "Real Intruder": "innovative"
+    },
+    {
+        "Topic_id": 12,
+        "Word List": [
+            "think",
+            "ditto",
+            "yeah",
+            "retard",
+            "loser",
+            "content",
+            "subscribe",
+            "please",
+            "test",
+            "group",
+            "thank"
+        ],
+        "Model Response": "retard",
+        "Real Intruder": "content"
+    },
+    {
+        "Topic_id": 13,
+        "Word List": [
+            "laserwriter",
+            "laser",
+            "printing",
+            "postscript",
+            "driver",
+            "laserjet",
+            "deskjet",
+            "print",
+            "font",
+            "camera",
+            "printer"
+        ],
+        "Model Response": "camera",
+        "Real Intruder": "camera"
+    },
+    {
+        "Topic_id": 14,
+        "Word List": [
+            "contain",
+            "list",
+            "note",
+            "newsgroup",
+            "include",
+            "archive",
+            "send",
+            "multiple",
+            "site",
+            "information",
+            "including"
+        ],
+        "Model Response": "send",
+        "Real Intruder": "newsgroup"
+    },
+    {
+        "Topic_id": 15,
+        "Word List": [
+            "scripture",
+            "money",
+            "bible",
+            "word",
+            "divine",
+            "jesu",
+            "christ",
+            "church",
+            "life",
+            "christian",
+            "faith"
+        ],
+        "Model Response": "money",
+        "Real Intruder": "money"
+    },
+    {
+        "Topic_id": 16,
+        "Word List": [
+            "muslim",
+            "turkish",
+            "turkey",
+            "health",
+            "armenian",
+            "kurd",
+            "armenia",
+            "genocide",
+            "soviet",
+            "turk",
+            "serdar"
+        ],
+        "Model Response": "health",
+        "Real Intruder": "health"
+    },
+    {
+        "Topic_id": 17,
+        "Word List": [
+            "parent",
+            "fire",
+            "children",
+            "death",
+            "child",
+            "davidian",
+            "compound",
+            "koresh",
+            "batf",
+            "people",
+            "ceiling"
+        ],
+        "Model Response": "ceiling",
+        "Real Intruder": "ceiling"
+    },
+    {
+        "Topic_id": 18,
+        "Word List": [
+            "mission",
+            "satellite",
+            "solar",
+            "fuel",
+            "orbit",
+            "true",
+            "spacecraft",
+            "payload",
+            "space",
+            "launch",
+            "shuttle"
+        ],
+        "Model Response": "true",
+        "Real Intruder": true
+    },
+    {
+        "Topic_id": 19,
+        "Word List": [
+            "galaxy",
+            "launch",
+            "star",
+            "oort",
+            "comet",
+            "galactic",
+            "distribution",
+            "solar",
+            "distance",
+            "gamma",
+            "orbit"
+        ],
+        "Model Response": "distribution",
+        "Real Intruder": "launch"
+    },
+    {
+        "Topic_id": 20,
+        "Word List": [
+            "looking",
+            "file",
+            "turkish",
+            "advance",
+            "post",
+            "please",
+            "email",
+            "window",
+            "program",
+            "thank",
+            "mail"
+        ],
+        "Model Response": "turkish",
+        "Real Intruder": "turkish"
+    },
+    {
+        "Topic_id": 21,
+        "Word List": [
+            "funding",
+            "cost",
+            "billion",
+            "religion",
+            "money",
+            "project",
+            "space",
+            "moon",
+            "launch",
+            "nasa",
+            "lunar"
+        ],
+        "Model Response": "religion",
+        "Real Intruder": "religion"
+    },
+    {
+        "Topic_id": 22,
+        "Word List": [
+            "offer",
+            "super",
+            "trade",
+            "sale",
+            "sega",
+            "game",
+            "genesi",
+            "please",
+            "backup",
+            "football",
+            "nintendo"
+        ],
+        "Model Response": "football",
+        "Real Intruder": "backup"
+    },
+    {
+        "Topic_id": 23,
+        "Word List": [
+            "nasa",
+            "interest",
+            "offer",
+            "mail",
+            "sell",
+            "email",
+            "sale",
+            "shipping",
+            "contact",
+            "shrink",
+            "please"
+        ],
+        "Model Response": "nasa",
+        "Real Intruder": "nasa"
+    },
+    {
+        "Topic_id": 24,
+        "Word List": [
+            "email",
+            "brett",
+            "send",
+            "newsgroup",
+            "advance",
+            "anyone",
+            "thank",
+            "mailing",
+            "list",
+            "mail",
+            "please"
+        ],
+        "Model Response": "advance",
+        "Real Intruder": "brett"
+    },
+    {
+        "Topic_id": 25,
+        "Word List": [
+            "nifty",
+            "straight",
+            "cramer",
+            "homosexual",
+            "study",
+            "heterosexual",
+            "kinsey",
+            "sexual",
+            "male",
+            "survey",
+            "partner"
+        ],
+        "Model Response": "nifty",
+        "Real Intruder": "nifty"
+    },
+    {
+        "Topic_id": 26,
+        "Word List": [
+            "line",
+            "algorithm",
+            "plane",
+            "code",
+            "surface",
+            "point",
+            "motorola",
+            "polygon",
+            "intersection",
+            "curve",
+            "sphere"
+        ],
+        "Model Response": "motorola",
+        "Real Intruder": "motorola"
+    },
+    {
+        "Topic_id": 27,
+        "Word List": [
+            "gordon",
+            "cadre",
+            "shameful",
+            "bank",
+            "pitt",
+            "rust",
+            "surrender",
+            "chastity",
+            "intellect",
+            "soon",
+            "skepticism"
+        ],
+        "Model Response": "bank",
+        "Real Intruder": "rust"
+    },
+    {
+        "Topic_id": 28,
+        "Word List": [
+            "modem",
+            "backup",
+            "connect",
+            "software",
+            "baud",
+            "external",
+            "internal",
+            "serial",
+            "comm",
+            "problem",
+            "port"
+        ],
+        "Model Response": "problem",
+        "Real Intruder": "backup"
+    },
+    {
+        "Topic_id": 29,
+        "Word List": [
+            "moral",
+            "subjective",
+            "immoral",
+            "human",
+            "specie",
+            "objective",
+            "morality",
+            "behaviour",
+            "animal",
+            "mail",
+            "natural"
+        ],
+        "Model Response": "mail",
+        "Real Intruder": "mail"
+    },
+    {
+        "Topic_id": 30,
+        "Word List": [
+            "posting",
+            "content",
+            "like",
+            "post",
+            "letter",
+            "funny",
+            "military",
+            "newsgroup",
+            "joke",
+            "humor",
+            "poster"
+        ],
+        "Model Response": "military",
+        "Real Intruder": "military"
+    },
+    {
+        "Topic_id": 31,
+        "Word List": [
+            "retard",
+            "parking",
+            "dryer",
+            "bath",
+            "washer",
+            "road",
+            "ceiling",
+            "bedroom",
+            "area",
+            "room",
+            "kitchen"
+        ],
+        "Model Response": "road",
+        "Real Intruder": "retard"
+    },
+    {
+        "Topic_id": 32,
+        "Word List": [
+            "convert",
+            "image",
+            "file",
+            "program",
+            "format",
+            "picture",
+            "jpeg",
+            "tiff",
+            "graphic",
+            "thank",
+            "belief"
+        ],
+        "Model Response": "thank",
+        "Real Intruder": "belief"
+    },
+    {
+        "Topic_id": 33,
+        "Word List": [
+            "cyrix",
+            "chip",
+            "motherboard",
+            "board",
+            "thank",
+            "system",
+            "jumper",
+            "comet",
+            "slot",
+            "upgrade",
+            "price"
+        ],
+        "Model Response": "thank",
+        "Real Intruder": "comet"
+    },
+    {
+        "Topic_id": 34,
+        "Word List": [
+            "swedish",
+            "germany",
+            "number",
+            "telephone",
+            "dialing",
+            "phone",
+            "pica",
+            "sweden",
+            "wall",
+            "tone",
+            "dial"
+        ],
+        "Model Response": "number",
+        "Real Intruder": "pica"
+    },
+    {
+        "Topic_id": 35,
+        "Word List": [
+            "programming",
+            "platform",
+            "file",
+            "motif",
+            "code",
+            "window",
+            "feature",
+            "application",
+            "program",
+            "player",
+            "avail"
+        ],
+        "Model Response": "motif",
+        "Real Intruder": "player"
+    },
+    {
+        "Topic_id": 36,
+        "Word List": [
+            "kill",
+            "weapon",
+            "criminal",
+            "illegal",
+            "defense",
+            "police",
+            "crime",
+            "agent",
+            "citizen",
+            "hardware",
+            "firearm"
+        ],
+        "Model Response": "citizen",
+        "Real Intruder": "hardware"
+    },
+    {
+        "Topic_id": 37,
+        "Word List": [
+            "jesu",
+            "relationship",
+            "cheer",
+            "notion",
+            "humanism",
+            "cult",
+            "malcolm",
+            "sandvik",
+            "kent",
+            "secular",
+            "label"
+        ],
+        "Model Response": "sandvik",
+        "Real Intruder": "relationship"
+    },
+    {
+        "Topic_id": 38,
+        "Word List": [
+            "bcci",
+            "islam",
+            "rushdie",
+            "religion",
+            "fatwa",
+            "bank",
+            "gregg",
+            "khomeini",
+            "muslim",
+            "memory",
+            "islamic"
+        ],
+        "Model Response": "bank",
+        "Real Intruder": "memory"
+    },
+    {
+        "Topic_id": 39,
+        "Word List": [
+            "signal",
+            "alarm",
+            "radio",
+            "driver",
+            "traffic",
+            "bogey",
+            "valentine",
+            "sink",
+            "radar",
+            "detector",
+            "approaching"
+        ],
+        "Model Response": "valentine",
+        "Real Intruder": "sink"
+    },
+    {
+        "Topic_id": 40,
+        "Word List": [
+            "davidian",
+            "think",
+            "boulder",
+            "dave",
+            "david",
+            "israel",
+            "wood",
+            "feustel",
+            "koresh",
+            "risen",
+            "netcom"
+        ],
+        "Model Response": "israel",
+        "Real Intruder": "think"
+    },
+    {
+        "Topic_id": 41,
+        "Word List": [
+            "enforcement",
+            "secret",
+            "clipper",
+            "secure",
+            "risen",
+            "algorithm",
+            "encrypt",
+            "encryption",
+            "security",
+            "escrow",
+            "cryptography"
+        ],
+        "Model Response": "risen",
+        "Real Intruder": "risen"
+    },
+    {
+        "Topic_id": 42,
+        "Word List": [
+            "cooling",
+            "floor",
+            "cruel",
+            "cold",
+            "battery",
+            "temperature",
+            "discharge",
+            "acid",
+            "water",
+            "concrete",
+            "heat"
+        ],
+        "Model Response": "concrete",
+        "Real Intruder": "cruel"
+    },
+    {
+        "Topic_id": 43,
+        "Word List": [
+            "black",
+            "polish",
+            "coat",
+            "finish",
+            "buff",
+            "remove",
+            "paint",
+            "shop",
+            "liquid",
+            "bertrand",
+            "rust"
+        ],
+        "Model Response": "bertrand",
+        "Real Intruder": "bertrand"
+    },
+    {
+        "Topic_id": 44,
+        "Word List": [
+            "virtual",
+            "running",
+            "swap",
+            "application",
+            "file",
+            "window",
+            "segment",
+            "permanent",
+            "memory",
+            "manager",
+            "bedroom"
+        ],
+        "Model Response": "bedroom",
+        "Real Intruder": "bedroom"
+    },
+    {
+        "Topic_id": 45,
+        "Word List": [
+            "population",
+            "turk",
+            "armenian",
+            "armenia",
+            "genocide",
+            "middle",
+            "massacre",
+            "russian",
+            "turkish",
+            "muslim",
+            "serdar"
+        ],
+        "Model Response": "middle",
+        "Real Intruder": "middle"
+    },
+    {
+        "Topic_id": 46,
+        "Word List": [
+            "society",
+            "oort",
+            "innocent",
+            "cruel",
+            "life",
+            "killing",
+            "kill",
+            "punishment",
+            "penalty",
+            "death",
+            "people"
+        ],
+        "Model Response": "oort",
+        "Real Intruder": "oort"
+    },
+    {
+        "Topic_id": 47,
+        "Word List": [
+            "surfer",
+            "wolverine",
+            "bagg",
+            "mutant",
+            "turk",
+            "silver",
+            "marvel",
+            "hulk",
+            "avenger",
+            "shatterstar",
+            "comic"
+        ],
+        "Model Response": "bagg",
+        "Real Intruder": "turk"
+    },
+    {
+        "Topic_id": 48,
+        "Word List": [
+            "tigger",
+            "slot",
+            "plug",
+            "asante",
+            "board",
+            "number",
+            "cooling",
+            "connector",
+            "socket",
+            "ethernet",
+            "card"
+        ],
+        "Model Response": "asante",
+        "Real Intruder": "cooling"
+    },
+    {
+        "Topic_id": 49,
+        "Word List": [
+            "trip",
+            "ticket",
+            "airfare",
+            "orlando",
+            "perception",
+            "transfer",
+            "voucher",
+            "cancun",
+            "airline",
+            "offer",
+            "hotel"
+        ],
+        "Model Response": "perception",
+        "Real Intruder": "perception"
+    },
+    {
+        "Topic_id": 50,
+        "Word List": [
+            "minerva",
+            "article",
+            "newspaper",
+            "virginia",
+            "drive",
+            "azure",
+            "quoting",
+            "intercon",
+            "bertrand",
+            "read",
+            "buggy"
+        ],
+        "Model Response": "drive",
+        "Real Intruder": "drive"
+    },
+    {
+        "Topic_id": 51,
+        "Word List": [
+            "clinical",
+            "offer",
+            "health",
+            "medical",
+            "treatment",
+            "disease",
+            "prevention",
+            "patient",
+            "medicine",
+            "study",
+            "physician"
+        ],
+        "Model Response": "offer",
+        "Real Intruder": "offer"
+    },
+    {
+        "Topic_id": 52,
+        "Word List": [
+            "faster",
+            "memory",
+            "vram",
+            "simm",
+            "cache",
+            "solder",
+            "search",
+            "board",
+            "dram",
+            "controller",
+            "quadra"
+        ],
+        "Model Response": "solder",
+        "Real Intruder": "search"
+    },
+    {
+        "Topic_id": 53,
+        "Word List": [
+            "chomsky",
+            "media",
+            "washington",
+            "airway",
+            "local",
+            "watching",
+            "worry",
+            "coming",
+            "going",
+            "madalyn",
+            "postage"
+        ],
+        "Model Response": "postage",
+        "Real Intruder": "postage"
+    },
+    {
+        "Topic_id": 54,
+        "Word List": [
+            "insurance",
+            "doctor",
+            "straight",
+            "american",
+            "canada",
+            "health",
+            "fund",
+            "private",
+            "canadian",
+            "care",
+            "expenditure"
+        ],
+        "Model Response": "straight",
+        "Real Intruder": "straight"
+    },
+    {
+        "Topic_id": 55,
+        "Word List": [
+            "pentium",
+            "christian",
+            "processor",
+            "intel",
+            "risc",
+            "clock",
+            "performance",
+            "memory",
+            "instruction",
+            "cisc",
+            "computer"
+        ],
+        "Model Response": "christian",
+        "Real Intruder": "christian"
+    },
+    {
+        "Topic_id": 56,
+        "Word List": [
+            "rocket",
+            "moscow",
+            "soviet",
+            "cosmodrome",
+            "russian",
+            "larrison",
+            "temperature",
+            "kaliningrad",
+            "mann",
+            "launch",
+            "military"
+        ],
+        "Model Response": "temperature",
+        "Real Intruder": "temperature"
+    },
+    {
+        "Topic_id": 57,
+        "Word List": [
+            "kenny",
+            "sale",
+            "music",
+            "dance",
+            "tape",
+            "freddie",
+            "postage",
+            "nikon",
+            "clapton",
+            "girl",
+            "love"
+        ],
+        "Model Response": "nikon",
+        "Real Intruder": "nikon"
+    },
+    {
+        "Topic_id": 58,
+        "Word List": [
+            "mtct",
+            "part",
+            "nair",
+            "chod",
+            "shod",
+            "chori",
+            "tene",
+            "alho",
+            "nahf",
+            "nazz",
+            "tewa"
+        ],
+        "Model Response": "tene",
+        "Real Intruder": "tene"
+    },
+    {
+        "Topic_id": 59,
+        "Word List": [
+            "graphic",
+            "propos",
+            "orbit",
+            "split",
+            "discussing",
+            "forum",
+            "convenience",
+            "aspect",
+            "wate",
+            "group",
+            "newsgroup"
+        ],
+        "Model Response": "wate",
+        "Real Intruder": "orbit"
+    },
+    {
+        "Topic_id": 60,
+        "Word List": [
+            "postage",
+            "condition",
+            "nikon",
+            "pouch",
+            "camera",
+            "strap",
+            "velcro",
+            "domke",
+            "file",
+            "khaki",
+            "cordura"
+        ],
+        "Model Response": "file",
+        "Real Intruder": "file"
+    },
+    {
+        "Topic_id": 61,
+        "Word List": [
+            "winzip",
+            "pkzip",
+            "unzip",
+            "logo",
+            "cica",
+            "macintosh",
+            "util",
+            "program",
+            "indiana",
+            "directory",
+            "zippy"
+        ],
+        "Model Response": "logo",
+        "Real Intruder": "macintosh"
+    },
+    {
+        "Topic_id": 62,
+        "Word List": [
+            "animation",
+            "graphic",
+            "resolution",
+            "avid",
+            "ntsc",
+            "amiga",
+            "imagine",
+            "monitor",
+            "health",
+            "video",
+            "impulse"
+        ],
+        "Model Response": "health",
+        "Real Intruder": "health"
+    },
+    {
+        "Topic_id": 63,
+        "Word List": [
+            "split",
+            "laughter",
+            "office",
+            "president",
+            "taken",
+            "secretary",
+            "congres",
+            "political",
+            "meet",
+            "toward",
+            "briefing"
+        ],
+        "Model Response": "laughter",
+        "Real Intruder": "split"
+    },
+    {
+        "Topic_id": 64,
+        "Word List": [
+            "warrant",
+            "cult",
+            "reno",
+            "batf",
+            "knock",
+            "arrest",
+            "helicopter",
+            "unseal",
+            "illegal",
+            "grenade",
+            "search"
+        ],
+        "Model Response": "batf",
+        "Real Intruder": "cult"
+    },
+    {
+        "Topic_id": 65,
+        "Word List": [
+            "name",
+            "meer",
+            "bank",
+            "rolex",
+            "heard",
+            "financial",
+            "true",
+            "confirm",
+            "requestor",
+            "niet",
+            "maken"
+        ],
+        "Model Response": "rolex",
+        "Real Intruder": "bank"
+    },
+    {
+        "Topic_id": 66,
+        "Word List": [
+            "mail",
+            "post",
+            "mirror",
+            "nico",
+            "anyone",
+            "please",
+            "koresh",
+            "motorola",
+            "beta",
+            "send",
+            "email"
+        ],
+        "Model Response": "mirror",
+        "Real Intruder": "koresh"
+    },
+    {
+        "Topic_id": 67,
+        "Word List": [
+            "market",
+            "columbia",
+            "simm",
+            "upgrade",
+            "daystar",
+            "iisi",
+            "macintosh",
+            "intel",
+            "muslim",
+            "email",
+            "price"
+        ],
+        "Model Response": "muslim",
+        "Real Intruder": "muslim"
+    },
+    {
+        "Topic_id": 68,
+        "Word List": [
+            "quiet",
+            "noise",
+            "sink",
+            "going",
+            "mounting",
+            "clip",
+            "heat",
+            "flyback",
+            "blow",
+            "whine",
+            "cooling"
+        ],
+        "Model Response": "sink",
+        "Real Intruder": "going"
+    },
+    {
+        "Topic_id": 69,
+        "Word List": [
+            "fallen",
+            "isaiah",
+            "satan",
+            "lucifer",
+            "freewill",
+            "away",
+            "satanic",
+            "angel",
+            "bible",
+            "devil",
+            "tell"
+        ],
+        "Model Response": "freewill",
+        "Real Intruder": "away"
+    },
+    {
+        "Topic_id": 70,
+        "Word List": [
+            "site",
+            "torah",
+            "children",
+            "religion",
+            "parent",
+            "jesu",
+            "bible",
+            "love",
+            "christianity",
+            "relationship",
+            "christian"
+        ],
+        "Model Response": "love",
+        "Real Intruder": "site"
+    },
+    {
+        "Topic_id": 71,
+        "Word List": [
+            "ghostscript",
+            "dump",
+            "payload",
+            "convert",
+            "interpreter",
+            "file",
+            "manipulate",
+            "hardcopy",
+            "postscript",
+            "hello",
+            "converter"
+        ],
+        "Model Response": "hello",
+        "Real Intruder": "payload"
+    },
+    {
+        "Topic_id": 72,
+        "Word List": [
+            "quote",
+            "criticize",
+            "hypocrite",
+            "whining",
+            "hypocritical",
+            "argument",
+            "promise",
+            "telepathy",
+            "article",
+            "context",
+            "curve"
+        ],
+        "Model Response": "telepathy",
+        "Real Intruder": "curve"
+    },
+    {
+        "Topic_id": 73,
+        "Word List": [
+            "reasoning",
+            "different",
+            "room",
+            "genetic",
+            "evidence",
+            "purpose",
+            "specie",
+            "study",
+            "scientific",
+            "necessary",
+            "disagree"
+        ],
+        "Model Response": "room",
+        "Real Intruder": "room"
+    },
+    {
+        "Topic_id": 74,
+        "Word List": [
+            "install",
+            "presentation",
+            "teacher",
+            "projector",
+            "composite",
+            "room",
+            "pacific",
+            "video",
+            "bulletin",
+            "telnet",
+            "kermit"
+        ],
+        "Model Response": "pacific",
+        "Real Intruder": "install"
+    },
+    {
+        "Topic_id": 75,
+        "Word List": [
+            "diving",
+            "falling",
+            "gravity",
+            "astronaut",
+            "sustain",
+            "dive",
+            "lung",
+            "flotation",
+            "pilot",
+            "breathing",
+            "turk"
+        ],
+        "Model Response": "turk",
+        "Real Intruder": "turk"
+    },
+    {
+        "Topic_id": 76,
+        "Word List": [
+            "crack",
+            "joystick",
+            "stor",
+            "headphone",
+            "condition",
+            "sale",
+            "sell",
+            "tape",
+            "pair",
+            "maraldo",
+            "brett"
+        ],
+        "Model Response": "sale",
+        "Real Intruder": "joystick"
+    },
+    {
+        "Topic_id": 77,
+        "Word List": [
+            "gaza",
+            "land",
+            "casserole",
+            "country",
+            "meir",
+            "israel",
+            "israeli",
+            "jewish",
+            "arab",
+            "village",
+            "palestinian"
+        ],
+        "Model Response": "casserole",
+        "Real Intruder": "casserole"
+    },
+    {
+        "Topic_id": 78,
+        "Word List": [
+            "shafer",
+            "safety",
+            "dryden",
+            "nasa",
+            "world",
+            "perfect",
+            "insisting",
+            "live",
+            "ball",
+            "cosmodrome",
+            "mary"
+        ],
+        "Model Response": "ball",
+        "Real Intruder": "cosmodrome"
+    },
+    {
+        "Topic_id": 79,
+        "Word List": [
+            "math",
+            "coprocessor",
+            "meyer",
+            "thank",
+            "computing",
+            "truelove",
+            "move",
+            "thinkpad",
+            "retina",
+            "calculator",
+            "kludge"
+        ],
+        "Model Response": "thank",
+        "Real Intruder": "truelove"
+    },
+    {
+        "Topic_id": 80,
+        "Word List": [
+            "fester",
+            "lutz",
+            "burkhard",
+            "version",
+            "compliant",
+            "directory",
+            "export",
+            "file",
+            "filename",
+            "plug",
+            "unix"
+        ],
+        "Model Response": "burkhard",
+        "Real Intruder": "plug"
+    },
+    {
+        "Topic_id": 81,
+        "Word List": [
+            "driver",
+            "road",
+            "fairfax",
+            "plate",
+            "license",
+            "segment",
+            "parking",
+            "resident",
+            "state",
+            "virginia",
+            "california"
+        ],
+        "Model Response": "segment",
+        "Real Intruder": "segment"
+    },
+    {
+        "Topic_id": 82,
+        "Word List": [
+            "serial",
+            "controller",
+            "monitor",
+            "floppy",
+            "game",
+            "decryption",
+            "modem",
+            "motherboard",
+            "card",
+            "joystick",
+            "port"
+        ],
+        "Model Response": "decryption",
+        "Real Intruder": "decryption"
+    },
+    {
+        "Topic_id": 83,
+        "Word List": [
+            "army",
+            "vmax",
+            "pica",
+            "hate",
+            "bloodstream",
+            "testosterone",
+            "larrison",
+            "exiting",
+            "alcoholic",
+            "funnel",
+            "municipality"
+        ],
+        "Model Response": "bloodstream",
+        "Real Intruder": "larrison"
+    },
+    {
+        "Topic_id": 84,
+        "Word List": [
+            "daimi",
+            "john",
+            "planetoid",
+            "natch",
+            "sparkle",
+            "picker",
+            "neuharth",
+            "fantasy",
+            "tuesday",
+            "fluffy",
+            "ring"
+        ],
+        "Model Response": "planetoid",
+        "Real Intruder": "tuesday"
+    },
+    {
+        "Topic_id": 85,
+        "Word List": [
+            "soldering",
+            "green",
+            "mask",
+            "seen",
+            "blue",
+            "plastic",
+            "wetting",
+            "solder",
+            "board",
+            "loop",
+            "bakelite"
+        ],
+        "Model Response": "seen",
+        "Real Intruder": "loop"
+    },
+    {
+        "Topic_id": 86,
+        "Word List": [
+            "seminar",
+            "sponsoring",
+            "avail",
+            "siggraph",
+            "graphic",
+            "research",
+            "brandon",
+            "composite",
+            "computer",
+            "workstation",
+            "science"
+        ],
+        "Model Response": "brandon",
+        "Real Intruder": "composite"
+    },
+    {
+        "Topic_id": 87,
+        "Word List": [
+            "soviet",
+            "scrambling",
+            "ontario",
+            "canada",
+            "hour",
+            "riviera",
+            "columbia",
+            "bricklin",
+            "museum",
+            "showroom",
+            "ottawa"
+        ],
+        "Model Response": "hour",
+        "Real Intruder": "soviet"
+    },
+    {
+        "Topic_id": 88,
+        "Word List": [
+            "aristide",
+            "balcony",
+            "azerbaijani",
+            "apartment",
+            "anyone",
+            "deposition",
+            "bonner",
+            "yelena",
+            "sumgait",
+            "baku",
+            "pogrom"
+        ],
+        "Model Response": "apartment",
+        "Real Intruder": "anyone"
+    },
+    {
+        "Topic_id": 89,
+        "Word List": [
+            "graphic",
+            "fractal",
+            "texture",
+            "email",
+            "source",
+            "image",
+            "archie",
+            "svga",
+            "landscape",
+            "text",
+            "animation"
+        ],
+        "Model Response": "email",
+        "Real Intruder": "email"
+    },
+    {
+        "Topic_id": 90,
+        "Word List": [
+            "fortran",
+            "unix",
+            "nifty",
+            "code",
+            "source",
+            "recipe",
+            "version",
+            "encryption",
+            "decryption",
+            "numerical",
+            "private"
+        ],
+        "Model Response": "recipe",
+        "Real Intruder": "private"
+    },
+    {
+        "Topic_id": 91,
+        "Word List": [
+            "abstinence",
+            "quiet",
+            "birth",
+            "rate",
+            "school",
+            "edsel",
+            "article",
+            "pregnancy",
+            "liberal",
+            "education",
+            "abortion"
+        ],
+        "Model Response": "edsel",
+        "Real Intruder": "quiet"
+    },
+    {
+        "Topic_id": 92,
+        "Word List": [
+            "mail",
+            "israel",
+            "mailing",
+            "subscribe",
+            "cose",
+            "announcement",
+            "question",
+            "message",
+            "receive",
+            "tene",
+            "motif"
+        ],
+        "Model Response": "israel",
+        "Real Intruder": "israel"
+    },
+    {
+        "Topic_id": 93,
+        "Word List": [
+            "basin",
+            "cancun",
+            "submission",
+            "lipman",
+            "attendee",
+            "stocking",
+            "sponsoring",
+            "acceptance",
+            "tuesday",
+            "carderock",
+            "proceeding"
+        ],
+        "Model Response": "tuesday",
+        "Real Intruder": "cancun"
+    },
+    {
+        "Topic_id": 94,
+        "Word List": [
+            "cobb",
+            "firearm",
+            "michael",
+            "champaign",
+            "urbana",
+            "debate",
+            "middle",
+            "clinton",
+            "raise",
+            "alexia",
+            "uiuc"
+        ],
+        "Model Response": "debate",
+        "Real Intruder": "firearm"
+    },
+    {
+        "Topic_id": 95,
+        "Word List": [
+            "owning",
+            "serial",
+            "shearson",
+            "cypher",
+            "infomation",
+            "metzger",
+            "perry",
+            "registering",
+            "stream",
+            "number",
+            "larrison"
+        ],
+        "Model Response": "number",
+        "Real Intruder": "larrison"
+    },
+    {
+        "Topic_id": 96,
+        "Word List": [
+            "mailing",
+            "disk",
+            "hard",
+            "software",
+            "backup",
+            "microsoft",
+            "pirate",
+            "install",
+            "copy",
+            "madsen",
+            "reinstall"
+        ],
+        "Model Response": "madsen",
+        "Real Intruder": "mailing"
+    },
+    {
+        "Topic_id": 97,
+        "Word List": [
+            "chopin",
+            "chemistry",
+            "paperback",
+            "copyright",
+            "mandell",
+            "holt",
+            "petrucci",
+            "handbook",
+            "fortran",
+            "graham",
+            "death"
+        ],
+        "Model Response": "death",
+        "Real Intruder": "death"
+    },
+    {
+        "Topic_id": 98,
+        "Word List": [
+            "away",
+            "manhattan",
+            "stay",
+            "queen",
+            "undying",
+            "bronx",
+            "blew",
+            "bobbe",
+            "sank",
+            "condition",
+            "vice"
+        ],
+        "Model Response": "queen",
+        "Real Intruder": "condition"
+    },
+    {
+        "Topic_id": 99,
+        "Word List": [
+            "output",
+            "receiver",
+            "wave",
+            "emitting",
+            "linear",
+            "acceleration",
+            "meter",
+            "detector",
+            "window",
+            "quadrant",
+            "sensor"
+        ],
+        "Model Response": "acceleration",
+        "Real Intruder": "window"
+    },
+    {
+        "Topic_id": 100,
+        "Word List": [
+            "warrant",
+            "amendment",
+            "angel",
+            "wiretap",
+            "police",
+            "detail",
+            "decrypt",
+            "record",
+            "court",
+            "shearer",
+            "number"
+        ],
+        "Model Response": "angel",
+        "Real Intruder": "angel"
+    },
+    {
+        "Topic_id": 101,
+        "Word List": [
+            "backup",
+            "fractal",
+            "doyle",
+            "scsi",
+            "drive",
+            "munroe",
+            "consultant",
+            "exabyte",
+            "hudson",
+            "tape",
+            "acorn"
+        ],
+        "Model Response": "munroe",
+        "Real Intruder": "fractal"
+    },
+    {
+        "Topic_id": 102,
+        "Word List": [
+            "private",
+            "irony",
+            "sarcasm",
+            "thrown",
+            "humor",
+            "aware",
+            "group",
+            "possibility",
+            "jennifer",
+            "loop",
+            "assume"
+        ],
+        "Model Response": "jennifer",
+        "Real Intruder": "group"
+    },
+    {
+        "Topic_id": 103,
+        "Word List": [
+            "blaster",
+            "device",
+            "speech",
+            "voice",
+            "compression",
+            "talk",
+            "modem",
+            "sound",
+            "program",
+            "balk",
+            "hardware"
+        ],
+        "Model Response": "balk",
+        "Real Intruder": "program"
+    },
+    {
+        "Topic_id": 104,
+        "Word List": [
+            "joke",
+            "compile",
+            "version",
+            "define",
+            "preprocessor",
+            "macro",
+            "solution",
+            "diff",
+            "directive",
+            "familiar",
+            "conditional"
+        ],
+        "Model Response": "solution",
+        "Real Intruder": "joke"
+    },
+    {
+        "Topic_id": 105,
+        "Word List": [
+            "productive",
+            "inferior",
+            "symbolize",
+            "product",
+            "computer",
+            "perception",
+            "care",
+            "customize",
+            "segment",
+            "development",
+            "innovative"
+        ],
+        "Model Response": "computer",
+        "Real Intruder": "segment"
+    },
+    {
+        "Topic_id": 106,
+        "Word List": [
+            "athena",
+            "environment",
+            "linux",
+            "free",
+            "robust",
+            "networking",
+            "microsoft",
+            "display",
+            "avail",
+            "unix",
+            "feature"
+        ],
+        "Model Response": "microsoft",
+        "Real Intruder": "display"
+    },
+    {
+        "Topic_id": 107,
+        "Word List": [
+            "latest",
+            "jeff",
+            "stepping",
+            "referring",
+            "christian",
+            "newer",
+            "edition",
+            "model",
+            "title",
+            "version",
+            "visual"
+        ],
+        "Model Response": "jeff",
+        "Real Intruder": "christian"
+    },
+    {
+        "Topic_id": 108,
+        "Word List": [
+            "ensuring",
+            "protect",
+            "adjective",
+            "behind",
+            "economist",
+            "amendment",
+            "civil",
+            "constitution",
+            "gotta",
+            "personal",
+            "tyranny"
+        ],
+        "Model Response": "adjective",
+        "Real Intruder": "gotta"
+    },
+    {
+        "Topic_id": 109,
+        "Word List": [
+            "pizza",
+            "turkey",
+            "leftover",
+            "commercial",
+            "truelove",
+            "wing",
+            "study",
+            "bait",
+            "serv",
+            "casserole",
+            "flaming"
+        ],
+        "Model Response": "study",
+        "Real Intruder": "study"
+    }
+]

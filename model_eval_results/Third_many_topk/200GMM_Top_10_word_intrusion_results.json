@@ -1,0 +1,3602 @@
+[
+    {
+        "Topic_id": 0,
+        "Word List": [
+            "lafontaine",
+            "sandinista",
+            "poet",
+            "caretaker",
+            "romano",
+            "ariel",
+            "yoshiro",
+            "talat",
+            "rightwing",
+            "meretz",
+            "plavsic"
+        ],
+        "Model Response": "poet",
+        "Real Intruder": "poet"
+    },
+    {
+        "Topic_id": 1,
+        "Word List": [
+            "vintage",
+            "buzz",
+            "trendy",
+            "casual",
+            "marketplace",
+            "hottest",
+            "hallmark",
+            "nostalgia",
+            "chanel",
+            "vibe",
+            "barn"
+        ],
+        "Model Response": "barn",
+        "Real Intruder": "barn"
+    },
+    {
+        "Topic_id": 2,
+        "Word List": [
+            "wound",
+            "spake",
+            "unseal",
+            "undock",
+            "neccessary",
+            "retard",
+            "reformatting",
+            "delimit",
+            "ecst",
+            "procede",
+            "taketh"
+        ],
+        "Model Response": "neccessary",
+        "Real Intruder": "wound"
+    },
+    {
+        "Topic_id": 3,
+        "Word List": [
+            "tommy",
+            "doug",
+            "pete",
+            "paul",
+            "oecd",
+            "donald",
+            "knight",
+            "steve",
+            "manager",
+            "nick",
+            "alex"
+        ],
+        "Model Response": "oecd",
+        "Real Intruder": "oecd"
+    },
+    {
+        "Topic_id": 4,
+        "Word List": [
+            "immoral",
+            "underpaid",
+            "belligerent",
+            "sane",
+            "predatory",
+            "compulsive",
+            "antisocial",
+            "imam",
+            "ignorant",
+            "suicidal",
+            "obedient"
+        ],
+        "Model Response": "imam",
+        "Real Intruder": "imam"
+    },
+    {
+        "Topic_id": 5,
+        "Word List": [
+            "meagre",
+            "annum",
+            "spurt",
+            "crimp",
+            "totaling",
+            "halve",
+            "pare",
+            "offsetting",
+            "backlog",
+            "outperform",
+            "bracket"
+        ],
+        "Model Response": "bracket",
+        "Real Intruder": "backlog"
+    },
+    {
+        "Topic_id": 6,
+        "Word List": [
+            "faraday",
+            "drunken",
+            "pratchett",
+            "espo",
+            "zabriskie",
+            "rawlinson",
+            "matthey",
+            "wardell",
+            "ezekiel",
+            "nostrand",
+            "brickell"
+        ],
+        "Model Response": "ezekiel",
+        "Real Intruder": "drunken"
+    },
+    {
+        "Topic_id": 7,
+        "Word List": [
+            "aircraft",
+            "drill",
+            "code",
+            "outpost",
+            "observation",
+            "endeavour",
+            "rescue",
+            "launch",
+            "space",
+            "mission",
+            "flew"
+        ],
+        "Model Response": "code",
+        "Real Intruder": "code"
+    },
+    {
+        "Topic_id": 8,
+        "Word List": [
+            "barreling",
+            "cherokee",
+            "waco",
+            "statehouse",
+            "concord",
+            "trenton",
+            "arrowhead",
+            "arlington",
+            "homestead",
+            "bakersfield",
+            "zephyr"
+        ],
+        "Model Response": "zephyr",
+        "Real Intruder": "barreling"
+    },
+    {
+        "Topic_id": 9,
+        "Word List": [
+            "breeze",
+            "multiverse",
+            "creationist",
+            "satanism",
+            "expediency",
+            "masculinity",
+            "cosmology",
+            "freudian",
+            "optimist",
+            "columbian",
+            "freud"
+        ],
+        "Model Response": "breeze",
+        "Real Intruder": "breeze"
+    },
+    {
+        "Topic_id": 10,
+        "Word List": [
+            "cook",
+            "fold",
+            "drain",
+            "stir",
+            "rinse",
+            "dough",
+            "peel",
+            "tear",
+            "invert",
+            "stuffing",
+            "crust"
+        ],
+        "Model Response": "dough",
+        "Real Intruder": "tear"
+    },
+    {
+        "Topic_id": 11,
+        "Word List": [
+            "doub",
+            "bellovin",
+            "odlyzko",
+            "petti",
+            "robart",
+            "coughran",
+            "kaliski",
+            "expertise",
+            "hitti",
+            "steinn",
+            "cauz"
+        ],
+        "Model Response": "expertise",
+        "Real Intruder": "expertise"
+    },
+    {
+        "Topic_id": 12,
+        "Word List": [
+            "fredrik",
+            "carsten",
+            "stefan",
+            "sturm",
+            "rasmussen",
+            "wolfgang",
+            "swede",
+            "heinz",
+            "busch",
+            "johan",
+            "kurt"
+        ],
+        "Model Response": "swede",
+        "Real Intruder": "busch"
+    },
+    {
+        "Topic_id": 13,
+        "Word List": [
+            "dangerous",
+            "outcome",
+            "affect",
+            "inconvenient",
+            "predict",
+            "extreme",
+            "nervous",
+            "concern",
+            "breakdown",
+            "scrutiny",
+            "frequent"
+        ],
+        "Model Response": "concern",
+        "Real Intruder": "inconvenient"
+    },
+    {
+        "Topic_id": 14,
+        "Word List": [
+            "infertile",
+            "sperm",
+            "infancy",
+            "captivity",
+            "nude",
+            "molesting",
+            "sierra",
+            "lesbian",
+            "residing",
+            "adolescent",
+            "caring"
+        ],
+        "Model Response": "sierra",
+        "Real Intruder": "sierra"
+    },
+    {
+        "Topic_id": 15,
+        "Word List": [
+            "declare",
+            "criticize",
+            "renounce",
+            "urge",
+            "dissolve",
+            "quit",
+            "resign",
+            "propose",
+            "wartime",
+            "advocating",
+            "vacate"
+        ],
+        "Model Response": "wartime",
+        "Real Intruder": "wartime"
+    },
+    {
+        "Topic_id": 16,
+        "Word List": [
+            "bryant",
+            "darren",
+            "barkley",
+            "rocker",
+            "elton",
+            "calvin",
+            "eddie",
+            "jimmie",
+            "bettman",
+            "troy",
+            "manning"
+        ],
+        "Model Response": "elton",
+        "Real Intruder": "darren"
+    },
+    {
+        "Topic_id": 17,
+        "Word List": [
+            "slaughtering",
+            "ordaining",
+            "rote",
+            "defaming",
+            "slandering",
+            "suppressing",
+            "apologetic",
+            "infringing",
+            "diverting",
+            "corrupting",
+            "auctioning"
+        ],
+        "Model Response": "apologetic",
+        "Real Intruder": "apologetic"
+    },
+    {
+        "Topic_id": 18,
+        "Word List": [
+            "prussian",
+            "wartime",
+            "plenum",
+            "prussia",
+            "fatherland",
+            "mussolini",
+            "mengele",
+            "ghetto",
+            "chevy",
+            "mitterrand",
+            "bolshevik"
+        ],
+        "Model Response": "chevy",
+        "Real Intruder": "chevy"
+    },
+    {
+        "Topic_id": 19,
+        "Word List": [
+            "ocean",
+            "coast",
+            "coastal",
+            "surrounding",
+            "near",
+            "town",
+            "atlantic",
+            "terminator",
+            "southeastern",
+            "west",
+            "shore"
+        ],
+        "Model Response": "terminator",
+        "Real Intruder": "terminator"
+    },
+    {
+        "Topic_id": 20,
+        "Word List": [
+            "terminator",
+            "muppet",
+            "phantom",
+            "avatar",
+            "buster",
+            "rebound",
+            "zombie",
+            "boop",
+            "riverboat",
+            "magneto",
+            "gump"
+        ],
+        "Model Response": "boop",
+        "Real Intruder": "rebound"
+    },
+    {
+        "Topic_id": 21,
+        "Word List": [
+            "terrace",
+            "neighborhood",
+            "street",
+            "building",
+            "brooklyn",
+            "lane",
+            "lodge",
+            "capitol",
+            "landmark",
+            "cemetery",
+            "sharon"
+        ],
+        "Model Response": "sharon",
+        "Real Intruder": "sharon"
+    },
+    {
+        "Topic_id": 22,
+        "Word List": [
+            "disarray",
+            "bickering",
+            "stark",
+            "heartbreak",
+            "fiasco",
+            "wrangling",
+            "nagging",
+            "divisive",
+            "hurdle",
+            "stumbling",
+            "unfolding"
+        ],
+        "Model Response": "hurdle",
+        "Real Intruder": "stark"
+    },
+    {
+        "Topic_id": 23,
+        "Word List": [
+            "bentsen",
+            "mitch",
+            "moynihan",
+            "espy",
+            "marble",
+            "watergate",
+            "panetta",
+            "koop",
+            "treasurer",
+            "mullen",
+            "thurmond"
+        ],
+        "Model Response": "watergate",
+        "Real Intruder": "marble"
+    },
+    {
+        "Topic_id": 24,
+        "Word List": [
+            "philharmonic",
+            "guitar",
+            "bakersfield",
+            "vocal",
+            "piano",
+            "classical",
+            "compilation",
+            "horn",
+            "acoustic",
+            "band",
+            "choir"
+        ],
+        "Model Response": "bakersfield",
+        "Real Intruder": "bakersfield"
+    },
+    {
+        "Topic_id": 25,
+        "Word List": [
+            "caufield",
+            "hemi",
+            "carleton",
+            "babson",
+            "desmond",
+            "putnam",
+            "hallam",
+            "manager",
+            "gatland",
+            "smythe",
+            "preston"
+        ],
+        "Model Response": "manager",
+        "Real Intruder": "manager"
+    },
+    {
+        "Topic_id": 26,
+        "Word List": [
+            "merican",
+            "supremacist",
+            "ulman",
+            "vanstone",
+            "glos",
+            "liefeld",
+            "nichola",
+            "oher",
+            "roehm",
+            "gianna",
+            "holl"
+        ],
+        "Model Response": "supremacist",
+        "Real Intruder": "supremacist"
+    },
+    {
+        "Topic_id": 27,
+        "Word List": [
+            "drew",
+            "publicity",
+            "judging",
+            "keynote",
+            "heard",
+            "criticism",
+            "pointed",
+            "recall",
+            "propose",
+            "spoken",
+            "reception"
+        ],
+        "Model Response": "keynote",
+        "Real Intruder": "propose"
+    },
+    {
+        "Topic_id": 28,
+        "Word List": [
+            "carb",
+            "sedative",
+            "anaesthetic",
+            "steroid",
+            "intravenous",
+            "prog",
+            "zoloft",
+            "dope",
+            "analgesic",
+            "decongestant",
+            "regimen"
+        ],
+        "Model Response": "regimen",
+        "Real Intruder": "prog"
+    },
+    {
+        "Topic_id": 29,
+        "Word List": [
+            "expertise",
+            "enhancement",
+            "developing",
+            "capability",
+            "stimulate",
+            "coordinate",
+            "oecd",
+            "contributing",
+            "securing",
+            "structural",
+            "verification"
+        ],
+        "Model Response": "oecd",
+        "Real Intruder": "verification"
+    },
+    {
+        "Topic_id": 30,
+        "Word List": [
+            "cauz",
+            "luke",
+            "darren",
+            "langer",
+            "shearer",
+            "gilchrist",
+            "nigel",
+            "boucher",
+            "graeme",
+            "hick",
+            "briton"
+        ],
+        "Model Response": "cauz",
+        "Real Intruder": "cauz"
+    },
+    {
+        "Topic_id": 31,
+        "Word List": [
+            "emitting",
+            "alkaline",
+            "solvent",
+            "condensation",
+            "particulate",
+            "octane",
+            "ammonia",
+            "hydrazine",
+            "inert",
+            "tritium",
+            "finesse"
+        ],
+        "Model Response": "finesse",
+        "Real Intruder": "finesse"
+    },
+    {
+        "Topic_id": 32,
+        "Word List": [
+            "camping",
+            "filming",
+            "voyage",
+            "thanksgiving",
+            "midnight",
+            "getaway",
+            "chronology",
+            "fare",
+            "onward",
+            "sunshine",
+            "commute"
+        ],
+        "Model Response": "chronology",
+        "Real Intruder": "chronology"
+    },
+    {
+        "Topic_id": 33,
+        "Word List": [
+            "withdrawing",
+            "receiving",
+            "replace",
+            "select",
+            "test",
+            "sign",
+            "access",
+            "routine",
+            "charge",
+            "check",
+            "preparation"
+        ],
+        "Model Response": "test",
+        "Real Intruder": "withdrawing"
+    },
+    {
+        "Topic_id": 34,
+        "Word List": [
+            "supervisory",
+            "undertake",
+            "solicit",
+            "organising",
+            "verifying",
+            "undertaken",
+            "undertaking",
+            "outpost",
+            "interviewing",
+            "auditing",
+            "exploring"
+        ],
+        "Model Response": "outpost",
+        "Real Intruder": "outpost"
+    },
+    {
+        "Topic_id": 35,
+        "Word List": [
+            "active",
+            "funny",
+            "million",
+            "nation",
+            "europe",
+            "promotion",
+            "global",
+            "commercial",
+            "distribution",
+            "activity",
+            "emerging"
+        ],
+        "Model Response": "million",
+        "Real Intruder": "funny"
+    },
+    {
+        "Topic_id": 36,
+        "Word List": [
+            "preach",
+            "dumber",
+            "forgiven",
+            "resent",
+            "bestow",
+            "shun",
+            "repent",
+            "forgive",
+            "allegiance",
+            "spoil",
+            "bury"
+        ],
+        "Model Response": "dumber",
+        "Real Intruder": "dumber"
+    },
+    {
+        "Topic_id": 37,
+        "Word List": [
+            "convergence",
+            "acceleration",
+            "correction",
+            "deceleration",
+            "automation",
+            "proportional",
+            "coldest",
+            "cutoff",
+            "maturity",
+            "latitude",
+            "measuring"
+        ],
+        "Model Response": "coldest",
+        "Real Intruder": "automation"
+    },
+    {
+        "Topic_id": 38,
+        "Word List": [
+            "slim",
+            "safest",
+            "salam",
+            "drier",
+            "sunny",
+            "spotty",
+            "convenient",
+            "cooler",
+            "affluent",
+            "flatter",
+            "nicer"
+        ],
+        "Model Response": "salam",
+        "Real Intruder": "salam"
+    },
+    {
+        "Topic_id": 39,
+        "Word List": [
+            "creative",
+            "form",
+            "fine",
+            "structure",
+            "background",
+            "immunize",
+            "shape",
+            "cast",
+            "symbol",
+            "vision",
+            "valuable"
+        ],
+        "Model Response": "immunize",
+        "Real Intruder": "immunize"
+    },
+    {
+        "Topic_id": 40,
+        "Word List": [
+            "seep",
+            "brighten",
+            "ferment",
+            "thicken",
+            "collide",
+            "westergaard",
+            "inhabit",
+            "suck",
+            "radiate",
+            "inflate",
+            "wilt"
+        ],
+        "Model Response": "westergaard",
+        "Real Intruder": "westergaard"
+    },
+    {
+        "Topic_id": 41,
+        "Word List": [
+            "interesting",
+            "amazing",
+            "heady",
+            "fascinating",
+            "mediocre",
+            "witty",
+            "hearted",
+            "juicy",
+            "window",
+            "delightful",
+            "loving"
+        ],
+        "Model Response": "window",
+        "Real Intruder": "window"
+    },
+    {
+        "Topic_id": 42,
+        "Word List": [
+            "raisin",
+            "amber",
+            "maze",
+            "chilli",
+            "carp",
+            "aqua",
+            "chestnut",
+            "chaparral",
+            "teal",
+            "hare",
+            "garnet"
+        ],
+        "Model Response": "garnet",
+        "Real Intruder": "maze"
+    },
+    {
+        "Topic_id": 43,
+        "Word List": [
+            "unprecedent",
+            "memo",
+            "spokesperson",
+            "confirmation",
+            "powell",
+            "counsel",
+            "consulate",
+            "dispatch",
+            "statement",
+            "adviser",
+            "letter"
+        ],
+        "Model Response": "unprecedent",
+        "Real Intruder": "unprecedent"
+    },
+    {
+        "Topic_id": 44,
+        "Word List": [
+            "broken",
+            "swept",
+            "walking",
+            "struck",
+            "tiny",
+            "underground",
+            "dawn",
+            "matthey",
+            "standing",
+            "overnight",
+            "battle"
+        ],
+        "Model Response": "tiny",
+        "Real Intruder": "matthey"
+    },
+    {
+        "Topic_id": 45,
+        "Word List": [
+            "woof",
+            "hallelujah",
+            "handmaid",
+            "thur",
+            "wack",
+            "xxxx",
+            "coulda",
+            "modernize",
+            "ouch",
+            "thang",
+            "diff"
+        ],
+        "Model Response": "modernize",
+        "Real Intruder": "modernize"
+    },
+    {
+        "Topic_id": 46,
+        "Word List": [
+            "fuhr",
+            "bourque",
+            "messier",
+            "modano",
+            "straka",
+            "irbe",
+            "selanne",
+            "verbeek",
+            "luongo",
+            "leetch",
+            "shield"
+        ],
+        "Model Response": "shield",
+        "Real Intruder": "shield"
+    },
+    {
+        "Topic_id": 47,
+        "Word List": [
+            "mouth",
+            "bearing",
+            "seal",
+            "corpse",
+            "doll",
+            "knife",
+            "belt",
+            "shield",
+            "pocket",
+            "sticking",
+            "middle"
+        ],
+        "Model Response": "corpse",
+        "Real Intruder": "middle"
+    },
+    {
+        "Topic_id": 48,
+        "Word List": [
+            "modulo",
+            "symmetry",
+            "invariant",
+            "vertex",
+            "cosine",
+            "auctioning",
+            "entropy",
+            "tiling",
+            "equivalence",
+            "polynomial",
+            "polyhedra"
+        ],
+        "Model Response": "auctioning",
+        "Real Intruder": "auctioning"
+    },
+    {
+        "Topic_id": 49,
+        "Word List": [
+            "print",
+            "diary",
+            "tornado",
+            "code",
+            "listing",
+            "chart",
+            "catalog",
+            "classified",
+            "transcript",
+            "mail",
+            "reading"
+        ],
+        "Model Response": "tornado",
+        "Real Intruder": "tornado"
+    },
+    {
+        "Topic_id": 50,
+        "Word List": [
+            "teacher",
+            "academia",
+            "firing",
+            "cambridge",
+            "literature",
+            "taught",
+            "doctorate",
+            "philosophy",
+            "lecture",
+            "graduate",
+            "alumni"
+        ],
+        "Model Response": "firing",
+        "Real Intruder": "firing"
+    },
+    {
+        "Topic_id": 51,
+        "Word List": [
+            "salle",
+            "sandiego",
+            "marche",
+            "princeton",
+            "faire",
+            "brasil",
+            "pont",
+            "casa",
+            "aire",
+            "nationale",
+            "haute"
+        ],
+        "Model Response": "brasil",
+        "Real Intruder": "princeton"
+    },
+    {
+        "Topic_id": 52,
+        "Word List": [
+            "lodging",
+            "nursery",
+            "desk",
+            "engineer",
+            "breakfast",
+            "salon",
+            "tent",
+            "tenant",
+            "sauna",
+            "bath",
+            "showroom"
+        ],
+        "Model Response": "engineer",
+        "Real Intruder": "engineer"
+    },
+    {
+        "Topic_id": 53,
+        "Word List": [
+            "dmitri",
+            "nieminen",
+            "romania",
+            "magadan",
+            "andrey",
+            "evgeny",
+            "jiri",
+            "krzysztof",
+            "alexei",
+            "jozef",
+            "penev"
+        ],
+        "Model Response": "romania",
+        "Real Intruder": "romania"
+    },
+    {
+        "Topic_id": 54,
+        "Word List": [
+            "teaspoon",
+            "starch",
+            "cream",
+            "ginger",
+            "chicken",
+            "manager",
+            "shrimp",
+            "sugar",
+            "chili",
+            "gelatin",
+            "broccoli"
+        ],
+        "Model Response": "manager",
+        "Real Intruder": "manager"
+    },
+    {
+        "Topic_id": 55,
+        "Word List": [
+            "electret",
+            "thrid",
+            "symbol",
+            "additonal",
+            "inflamation",
+            "succesive",
+            "preceeding",
+            "maintainance",
+            "antistatic",
+            "unprecedent",
+            "outliner"
+        ],
+        "Model Response": "outliner",
+        "Real Intruder": "symbol"
+    },
+    {
+        "Topic_id": 56,
+        "Word List": [
+            "stem",
+            "nerve",
+            "inhibition",
+            "protein",
+            "kayhan",
+            "adhesion",
+            "recessive",
+            "metabolism",
+            "escherichia",
+            "polymerase",
+            "precursor"
+        ],
+        "Model Response": "kayhan",
+        "Real Intruder": "kayhan"
+    },
+    {
+        "Topic_id": 57,
+        "Word List": [
+            "meter",
+            "backhand",
+            "seam",
+            "ecclesial",
+            "spin",
+            "tight",
+            "referee",
+            "rebound",
+            "kicking",
+            "ball",
+            "catch"
+        ],
+        "Model Response": "ecclesial",
+        "Real Intruder": "ecclesial"
+    },
+    {
+        "Topic_id": 58,
+        "Word List": [
+            "continent",
+            "yemen",
+            "ababa",
+            "namibia",
+            "incitement",
+            "equatorial",
+            "uganda",
+            "sierra",
+            "mozambique",
+            "morocco",
+            "grenada"
+        ],
+        "Model Response": "incitement",
+        "Real Intruder": "incitement"
+    },
+    {
+        "Topic_id": 59,
+        "Word List": [
+            "birmingham",
+            "ontario",
+            "burgh",
+            "hobart",
+            "glasgow",
+            "southampton",
+            "barnsley",
+            "perth",
+            "churchill",
+            "aberdeen",
+            "fife"
+        ],
+        "Model Response": "burgh",
+        "Real Intruder": "churchill"
+    },
+    {
+        "Topic_id": 60,
+        "Word List": [
+            "satan",
+            "curse",
+            "mighty",
+            "witch",
+            "treasure",
+            "incarnation",
+            "voyage",
+            "alien",
+            "nickname",
+            "shining",
+            "realm"
+        ],
+        "Model Response": "alien",
+        "Real Intruder": "voyage"
+    },
+    {
+        "Topic_id": 61,
+        "Word List": [
+            "painstaking",
+            "inconclusive",
+            "tentative",
+            "ninety",
+            "overture",
+            "fruitful",
+            "pause",
+            "whirlwind",
+            "shaky",
+            "swift",
+            "decisive"
+        ],
+        "Model Response": "ninety",
+        "Real Intruder": "ninety"
+    },
+    {
+        "Topic_id": 62,
+        "Word List": [
+            "maze",
+            "fatigue",
+            "cramp",
+            "forearm",
+            "wound",
+            "wrist",
+            "stress",
+            "groin",
+            "undergo",
+            "hamstring",
+            "muscle"
+        ],
+        "Model Response": "maze",
+        "Real Intruder": "maze"
+    },
+    {
+        "Topic_id": 63,
+        "Word List": [
+            "depreciate",
+            "overtake",
+            "redraw",
+            "securing",
+            "underscore",
+            "recur",
+            "versa",
+            "mull",
+            "redrawn",
+            "speculating",
+            "influencing"
+        ],
+        "Model Response": "versa",
+        "Real Intruder": "securing"
+    },
+    {
+        "Topic_id": 64,
+        "Word List": [
+            "system",
+            "equipment",
+            "technique",
+            "installation",
+            "technical",
+            "luther",
+            "platform",
+            "manual",
+            "dual",
+            "repair",
+            "instrument"
+        ],
+        "Model Response": "luther",
+        "Real Intruder": "luther"
+    },
+    {
+        "Topic_id": 65,
+        "Word List": [
+            "lifter",
+            "daytona",
+            "surfing",
+            "hideout",
+            "diving",
+            "sabre",
+            "rider",
+            "biking",
+            "jogging",
+            "whistler",
+            "sprint"
+        ],
+        "Model Response": "hideout",
+        "Real Intruder": "hideout"
+    },
+    {
+        "Topic_id": 66,
+        "Word List": [
+            "nevada",
+            "prairie",
+            "lynx",
+            "kentucky",
+            "alaska",
+            "georgia",
+            "florida",
+            "idaho",
+            "missouri",
+            "virginia",
+            "hampshire"
+        ],
+        "Model Response": "lynx",
+        "Real Intruder": "lynx"
+    },
+    {
+        "Topic_id": 67,
+        "Word List": [
+            "maker",
+            "saloon",
+            "equinox",
+            "buick",
+            "compact",
+            "corolla",
+            "colt",
+            "jetta",
+            "caravan",
+            "chevy",
+            "pontiac"
+        ],
+        "Model Response": "equinox",
+        "Real Intruder": "maker"
+    },
+    {
+        "Topic_id": 68,
+        "Word List": [
+            "roadway",
+            "cascade",
+            "subdivision",
+            "barrier",
+            "traverse",
+            "strand",
+            "expressway",
+            "spreading",
+            "junction",
+            "branch",
+            "lookout"
+        ],
+        "Model Response": "spreading",
+        "Real Intruder": "spreading"
+    },
+    {
+        "Topic_id": 69,
+        "Word List": [
+            "svenska",
+            "canard",
+            "menschen",
+            "studi",
+            "summa",
+            "aircraft",
+            "vatan",
+            "historie",
+            "kayhan",
+            "davar",
+            "jesu"
+        ],
+        "Model Response": "aircraft",
+        "Real Intruder": "aircraft"
+    },
+    {
+        "Topic_id": 70,
+        "Word List": [
+            "schilling",
+            "homer",
+            "glavine",
+            "vibrational",
+            "strikeout",
+            "infielder",
+            "slugger",
+            "bullpen",
+            "infield",
+            "lefty",
+            "griffey"
+        ],
+        "Model Response": "vibrational",
+        "Real Intruder": "vibrational"
+    },
+    {
+        "Topic_id": 71,
+        "Word List": [
+            "faction",
+            "revolution",
+            "tory",
+            "labour",
+            "minority",
+            "band",
+            "solidarity",
+            "outspoken",
+            "opposition",
+            "regime",
+            "religious"
+        ],
+        "Model Response": "religious",
+        "Real Intruder": "band"
+    },
+    {
+        "Topic_id": 72,
+        "Word List": [
+            "fullest",
+            "superiority",
+            "polarization",
+            "deterrence",
+            "futility",
+            "rigor",
+            "capacitive",
+            "finesse",
+            "firepower",
+            "purity",
+            "obedience"
+        ],
+        "Model Response": "capacitive",
+        "Real Intruder": "capacitive"
+    },
+    {
+        "Topic_id": 73,
+        "Word List": [
+            "zoology",
+            "anatomy",
+            "comparative",
+            "biologist",
+            "repository",
+            "statistical",
+            "homo",
+            "sociology",
+            "dissertation",
+            "microgravity",
+            "epidemiology"
+        ],
+        "Model Response": "microgravity",
+        "Real Intruder": "homo"
+    },
+    {
+        "Topic_id": 74,
+        "Word List": [
+            "bombardment",
+            "airlift",
+            "subordinate",
+            "macedonia",
+            "auxiliary",
+            "combatant",
+            "regiment",
+            "commando",
+            "garrison",
+            "adjutant",
+            "command"
+        ],
+        "Model Response": "macedonia",
+        "Real Intruder": "macedonia"
+    },
+    {
+        "Topic_id": 75,
+        "Word List": [
+            "paternal",
+            "youngest",
+            "husband",
+            "lord",
+            "widow",
+            "younger",
+            "born",
+            "emperor",
+            "aortic",
+            "lover",
+            "sister"
+        ],
+        "Model Response": "aortic",
+        "Real Intruder": "aortic"
+    },
+    {
+        "Topic_id": 76,
+        "Word List": [
+            "royalty",
+            "employee",
+            "tariff",
+            "postage",
+            "compensatory",
+            "admission",
+            "withheld",
+            "backlog",
+            "preferential",
+            "payroll",
+            "nevada"
+        ],
+        "Model Response": "nevada",
+        "Real Intruder": "nevada"
+    },
+    {
+        "Topic_id": 77,
+        "Word List": [
+            "prejudice",
+            "mistreatment",
+            "arbitrary",
+            "injustice",
+            "correctional",
+            "racial",
+            "incitement",
+            "bias",
+            "racism",
+            "disobedience",
+            "homophobia"
+        ],
+        "Model Response": "disobedience",
+        "Real Intruder": "correctional"
+    },
+    {
+        "Topic_id": 78,
+        "Word List": [
+            "bushy",
+            "clad",
+            "wear",
+            "burgundy",
+            "matching",
+            "logo",
+            "orange",
+            "stripe",
+            "complexion",
+            "farming",
+            "trim"
+        ],
+        "Model Response": "farming",
+        "Real Intruder": "farming"
+    },
+    {
+        "Topic_id": 79,
+        "Word List": [
+            "yahoo",
+            "fujitsu",
+            "honeywell",
+            "canon",
+            "kyocera",
+            "swede",
+            "maker",
+            "acer",
+            "mattel",
+            "compaq",
+            "corp"
+        ],
+        "Model Response": "swede",
+        "Real Intruder": "swede"
+    },
+    {
+        "Topic_id": 80,
+        "Word List": [
+            "misery",
+            "rebellion",
+            "lull",
+            "ouster",
+            "interviewing",
+            "unrest",
+            "bout",
+            "revolt",
+            "quell",
+            "clash",
+            "sparking"
+        ],
+        "Model Response": "interviewing",
+        "Real Intruder": "interviewing"
+    },
+    {
+        "Topic_id": 81,
+        "Word List": [
+            "allergic",
+            "acute",
+            "fever",
+            "disorder",
+            "morbidity",
+            "nausea",
+            "sleep",
+            "vaccine",
+            "neurological",
+            "larussa",
+            "symptom"
+        ],
+        "Model Response": "larussa",
+        "Real Intruder": "larussa"
+    },
+    {
+        "Topic_id": 82,
+        "Word List": [
+            "differ",
+            "domain",
+            "exist",
+            "relation",
+            "definition",
+            "neutral",
+            "ball",
+            "phenomenon",
+            "refer",
+            "differing",
+            "demographic"
+        ],
+        "Model Response": "ball",
+        "Real Intruder": "ball"
+    },
+    {
+        "Topic_id": 83,
+        "Word List": [
+            "lopez",
+            "exploring",
+            "uribe",
+            "salvador",
+            "castro",
+            "clemente",
+            "costa",
+            "mexican",
+            "felix",
+            "sergio",
+            "cruz"
+        ],
+        "Model Response": "mexican",
+        "Real Intruder": "exploring"
+    },
+    {
+        "Topic_id": 84,
+        "Word List": [
+            "handle",
+            "healthy",
+            "squalid",
+            "weigh",
+            "recover",
+            "advancing",
+            "retire",
+            "save",
+            "devote",
+            "helping",
+            "spend"
+        ],
+        "Model Response": "squalid",
+        "Real Intruder": "squalid"
+    },
+    {
+        "Topic_id": 85,
+        "Word List": [
+            "sequester",
+            "mistreat",
+            "prejudge",
+            "cooler",
+            "interoperate",
+            "ordain",
+            "apportion",
+            "deceive",
+            "rend",
+            "familiarize",
+            "immunize"
+        ],
+        "Model Response": "cooler",
+        "Real Intruder": "cooler"
+    },
+    {
+        "Topic_id": 86,
+        "Word List": [
+            "death",
+            "juror",
+            "taught",
+            "presiding",
+            "probation",
+            "trial",
+            "testimony",
+            "custody",
+            "client",
+            "sodomy",
+            "lawyer"
+        ],
+        "Model Response": "death",
+        "Real Intruder": "taught"
+    },
+    {
+        "Topic_id": 87,
+        "Word List": [
+            "augustine",
+            "apostolic",
+            "priest",
+            "alexandria",
+            "coptic",
+            "roman",
+            "jesuit",
+            "saint",
+            "pope",
+            "helio",
+            "archbishop"
+        ],
+        "Model Response": "helio",
+        "Real Intruder": "helio"
+    },
+    {
+        "Topic_id": 88,
+        "Word List": [
+            "notebook",
+            "yorker",
+            "hardcover",
+            "telegram",
+            "citation",
+            "courier",
+            "imprint",
+            "isbn",
+            "cruz",
+            "issn",
+            "pamphlet"
+        ],
+        "Model Response": "cruz",
+        "Real Intruder": "cruz"
+    },
+    {
+        "Topic_id": 89,
+        "Word List": [
+            "transceiver",
+            "expander",
+            "mpeg",
+            "cept",
+            "posix",
+            "solenoid",
+            "resend",
+            "graeme",
+            "ident",
+            "compositing",
+            "cert"
+        ],
+        "Model Response": "graeme",
+        "Real Intruder": "graeme"
+    },
+    {
+        "Topic_id": 90,
+        "Word List": [
+            "fuselage",
+            "vertical",
+            "tetrahedron",
+            "anterior",
+            "angle",
+            "inward",
+            "ascending",
+            "cylindrical",
+            "suck",
+            "radial",
+            "circular"
+        ],
+        "Model Response": "suck",
+        "Real Intruder": "suck"
+    },
+    {
+        "Topic_id": 91,
+        "Word List": [
+            "vizquel",
+            "guillen",
+            "hirschbeck",
+            "griffey",
+            "groundout",
+            "cedeno",
+            "baerga",
+            "vizcaino",
+            "blauser",
+            "zeile",
+            "appier"
+        ],
+        "Model Response": "groundout",
+        "Real Intruder": "griffey"
+    },
+    {
+        "Topic_id": 92,
+        "Word List": [
+            "positron",
+            "diode",
+            "fusion",
+            "radiation",
+            "detection",
+            "vibrational",
+            "particle",
+            "package",
+            "convection",
+            "resonance",
+            "fluid"
+        ],
+        "Model Response": "package",
+        "Real Intruder": "package"
+    },
+    {
+        "Topic_id": 93,
+        "Word List": [
+            "misleading",
+            "untrue",
+            "erroneous",
+            "cite",
+            "conclusive",
+            "firsthand",
+            "pollster",
+            "unproven",
+            "alibi",
+            "refute",
+            "statistic"
+        ],
+        "Model Response": "cite",
+        "Real Intruder": "pollster"
+    },
+    {
+        "Topic_id": 94,
+        "Word List": [
+            "srebrenica",
+            "bosnian",
+            "nicosia",
+            "tribe",
+            "serbian",
+            "khmer",
+            "bosnia",
+            "zepa",
+            "macedonia",
+            "karabakh",
+            "skopje"
+        ],
+        "Model Response": "tribe",
+        "Real Intruder": "tribe"
+    },
+    {
+        "Topic_id": 95,
+        "Word List": [
+            "tachometer",
+            "restriction",
+            "wiper",
+            "sunroof",
+            "fascia",
+            "starboard",
+            "headroom",
+            "stair",
+            "shifter",
+            "occupant",
+            "pane"
+        ],
+        "Model Response": "starboard",
+        "Real Intruder": "restriction"
+    },
+    {
+        "Topic_id": 96,
+        "Word List": [
+            "haganah",
+            "doomsday",
+            "aryan",
+            "extremist",
+            "subsistence",
+            "hindu",
+            "klux",
+            "davidian",
+            "zionist",
+            "supremacist",
+            "tribe"
+        ],
+        "Model Response": "subsistence",
+        "Real Intruder": "subsistence"
+    },
+    {
+        "Topic_id": 97,
+        "Word List": [
+            "simplify",
+            "obsolete",
+            "resell",
+            "reinvent",
+            "allocate",
+            "insert",
+            "renovating",
+            "multiverse",
+            "modernize",
+            "equip",
+            "integrate"
+        ],
+        "Model Response": "multiverse",
+        "Real Intruder": "multiverse"
+    },
+    {
+        "Topic_id": 98,
+        "Word List": [
+            "catechist",
+            "debater",
+            "drinker",
+            "villager",
+            "grader",
+            "solicit",
+            "protector",
+            "smoker",
+            "plotter",
+            "taker",
+            "enforcer"
+        ],
+        "Model Response": "solicit",
+        "Real Intruder": "solicit"
+    },
+    {
+        "Topic_id": 99,
+        "Word List": [
+            "replay",
+            "officiating",
+            "submission",
+            "quiz",
+            "tourney",
+            "pairing",
+            "doubleheader",
+            "scoresheet",
+            "duel",
+            "auburn",
+            "sectional"
+        ],
+        "Model Response": "auburn",
+        "Real Intruder": "auburn"
+    },
+    {
+        "Topic_id": 100,
+        "Word List": [
+            "withheld",
+            "sympathy",
+            "grief",
+            "derision",
+            "desperation",
+            "discontent",
+            "anguish",
+            "disbelief",
+            "lust",
+            "aversion",
+            "shame"
+        ],
+        "Model Response": "lust",
+        "Real Intruder": "withheld"
+    },
+    {
+        "Topic_id": 101,
+        "Word List": [
+            "exhibiting",
+            "depict",
+            "grainy",
+            "workmanship",
+            "aesthetic",
+            "prose",
+            "poetic",
+            "monumental",
+            "craftsmen",
+            "masculine",
+            "healthy"
+        ],
+        "Model Response": "healthy",
+        "Real Intruder": "healthy"
+    },
+    {
+        "Topic_id": 102,
+        "Word List": [
+            "welling",
+            "barking",
+            "grin",
+            "breeze",
+            "thumping",
+            "rumbling",
+            "pact",
+            "wailing",
+            "wail",
+            "wink",
+            "sigh"
+        ],
+        "Model Response": "pact",
+        "Real Intruder": "pact"
+    },
+    {
+        "Topic_id": 103,
+        "Word List": [
+            "vela",
+            "fermin",
+            "sant",
+            "renoir",
+            "gotti",
+            "lombardi",
+            "mikel",
+            "rocco",
+            "enzo",
+            "divisive",
+            "senna"
+        ],
+        "Model Response": "divisive",
+        "Real Intruder": "divisive"
+    },
+    {
+        "Topic_id": 104,
+        "Word List": [
+            "chain",
+            "consortium",
+            "sponsorship",
+            "acquiring",
+            "triple",
+            "merchandise",
+            "affiliate",
+            "paramount",
+            "murdoch",
+            "promotional",
+            "lucrative"
+        ],
+        "Model Response": "triple",
+        "Real Intruder": "triple"
+    },
+    {
+        "Topic_id": 105,
+        "Word List": [
+            "psychiatry",
+            "oncology",
+            "hospital",
+            "examiner",
+            "radiology",
+            "gynecologist",
+            "anaesthesia",
+            "anesthesia",
+            "pharmacist",
+            "orthopedist",
+            "carleton"
+        ],
+        "Model Response": "carleton",
+        "Real Intruder": "carleton"
+    },
+    {
+        "Topic_id": 106,
+        "Word List": [
+            "caputo",
+            "magnesium",
+            "preservative",
+            "serum",
+            "ethyl",
+            "ether",
+            "sulfuric",
+            "hydroxyl",
+            "aldehyde",
+            "cyanide",
+            "ammonium"
+        ],
+        "Model Response": "caputo",
+        "Real Intruder": "caputo"
+    },
+    {
+        "Topic_id": 107,
+        "Word List": [
+            "adventure",
+            "movie",
+            "episode",
+            "comedy",
+            "actor",
+            "picture",
+            "protagonist",
+            "fantasy",
+            "serial",
+            "creator",
+            "apportion"
+        ],
+        "Model Response": "apportion",
+        "Real Intruder": "apportion"
+    },
+    {
+        "Topic_id": 108,
+        "Word List": [
+            "paternal",
+            "sparse",
+            "dusty",
+            "strewn",
+            "pile",
+            "quarry",
+            "desolate",
+            "squalid",
+            "decaying",
+            "subterranean",
+            "maze"
+        ],
+        "Model Response": "paternal",
+        "Real Intruder": "paternal"
+    },
+    {
+        "Topic_id": 109,
+        "Word List": [
+            "poet",
+            "sunroof",
+            "sculptor",
+            "painter",
+            "linguist",
+            "consultant",
+            "contractor",
+            "trainer",
+            "nobel",
+            "engineer",
+            "animator"
+        ],
+        "Model Response": "sunroof",
+        "Real Intruder": "sunroof"
+    },
+    {
+        "Topic_id": 110,
+        "Word List": [
+            "infiltrate",
+            "overthrowing",
+            "subdue",
+            "plunder",
+            "infiltrating",
+            "plundering",
+            "transporting",
+            "sabotage",
+            "uproot",
+            "maim",
+            "falkland"
+        ],
+        "Model Response": "falkland",
+        "Real Intruder": "falkland"
+    },
+    {
+        "Topic_id": 111,
+        "Word List": [
+            "gate",
+            "window",
+            "arbour",
+            "altar",
+            "coffin",
+            "cave",
+            "porch",
+            "ditch",
+            "marble",
+            "barn",
+            "statue"
+        ],
+        "Model Response": "marble",
+        "Real Intruder": "arbour"
+    },
+    {
+        "Topic_id": 112,
+        "Word List": [
+            "retaliatory",
+            "phase",
+            "lifting",
+            "demolition",
+            "dissolution",
+            "shutting",
+            "withdrawing",
+            "reopening",
+            "expulsion",
+            "moratorium",
+            "ovary"
+        ],
+        "Model Response": "ovary",
+        "Real Intruder": "ovary"
+    },
+    {
+        "Topic_id": 113,
+        "Word List": [
+            "bram",
+            "amis",
+            "ogata",
+            "idaho",
+            "dore",
+            "tutu",
+            "anser",
+            "kinsey",
+            "stang",
+            "arbour",
+            "allegra"
+        ],
+        "Model Response": "idaho",
+        "Real Intruder": "idaho"
+    },
+    {
+        "Topic_id": 114,
+        "Word List": [
+            "italic",
+            "acronym",
+            "pronoun",
+            "grammatical",
+            "dialling",
+            "callsign",
+            "stanza",
+            "ntsc",
+            "numbering",
+            "magneto",
+            "variant"
+        ],
+        "Model Response": "stanza",
+        "Real Intruder": "magneto"
+    },
+    {
+        "Topic_id": 115,
+        "Word List": [
+            "perm",
+            "heidelberg",
+            "microgravity",
+            "djurgarden",
+            "sion",
+            "genoa",
+            "yokohama",
+            "tampere",
+            "lille",
+            "mannheim",
+            "trier"
+        ],
+        "Model Response": "microgravity",
+        "Real Intruder": "microgravity"
+    },
+    {
+        "Topic_id": 116,
+        "Word List": [
+            "vincent",
+            "henri",
+            "michel",
+            "benoit",
+            "stephane",
+            "proton",
+            "maurice",
+            "monaco",
+            "jerome",
+            "philippe",
+            "alain"
+        ],
+        "Model Response": "proton",
+        "Real Intruder": "proton"
+    },
+    {
+        "Topic_id": 117,
+        "Word List": [
+            "fresco",
+            "wolfenstein",
+            "herod",
+            "doge",
+            "archangel",
+            "maya",
+            "pilate",
+            "espo",
+            "athenian",
+            "nauvoo",
+            "homo"
+        ],
+        "Model Response": "espo",
+        "Real Intruder": "espo"
+    },
+    {
+        "Topic_id": 118,
+        "Word List": [
+            "paint",
+            "yarn",
+            "graffiti",
+            "airtight",
+            "insulating",
+            "stain",
+            "rump",
+            "adhesive",
+            "woven",
+            "carpeting",
+            "barrel"
+        ],
+        "Model Response": "rump",
+        "Real Intruder": "barrel"
+    },
+    {
+        "Topic_id": 119,
+        "Word List": [
+            "shipman",
+            "whit",
+            "hobey",
+            "greig",
+            "firsthand",
+            "wynn",
+            "bundy",
+            "lehrer",
+            "caputo",
+            "krueger",
+            "jacoby"
+        ],
+        "Model Response": "firsthand",
+        "Real Intruder": "firsthand"
+    },
+    {
+        "Topic_id": 120,
+        "Word List": [
+            "champion",
+            "professional",
+            "defeating",
+            "bribery",
+            "victory",
+            "medal",
+            "reigning",
+            "beating",
+            "award",
+            "slam",
+            "gold"
+        ],
+        "Model Response": "bribery",
+        "Real Intruder": "bribery"
+    },
+    {
+        "Topic_id": 121,
+        "Word List": [
+            "denver",
+            "cleveland",
+            "detroit",
+            "husband",
+            "calgary",
+            "chicago",
+            "vancouver",
+            "baltimore",
+            "milwaukee",
+            "portland",
+            "toronto"
+        ],
+        "Model Response": "husband",
+        "Real Intruder": "husband"
+    },
+    {
+        "Topic_id": 122,
+        "Word List": [
+            "slush",
+            "escrow",
+            "teller",
+            "scrip",
+            "treasure",
+            "hotline",
+            "depository",
+            "manipulator",
+            "airmail",
+            "loophole",
+            "queue"
+        ],
+        "Model Response": "manipulator",
+        "Real Intruder": "treasure"
+    },
+    {
+        "Topic_id": 123,
+        "Word List": [
+            "ventricular",
+            "laparoscopic",
+            "ovary",
+            "aortic",
+            "tract",
+            "eyelid",
+            "vascular",
+            "genital",
+            "irritant",
+            "macular",
+            "comet"
+        ],
+        "Model Response": "comet",
+        "Real Intruder": "comet"
+    },
+    {
+        "Topic_id": 124,
+        "Word List": [
+            "haras",
+            "charset",
+            "oooo",
+            "dammit",
+            "oooooo",
+            "sigh",
+            "chech",
+            "outa",
+            "ummm",
+            "federale",
+            "fidei"
+        ],
+        "Model Response": "charset",
+        "Real Intruder": "sigh"
+    },
+    {
+        "Topic_id": 125,
+        "Word List": [
+            "pollster",
+            "stein",
+            "thomson",
+            "ebert",
+            "klein",
+            "moody",
+            "farber",
+            "burnham",
+            "hanson",
+            "cato",
+            "spoken"
+        ],
+        "Model Response": "spoken",
+        "Real Intruder": "spoken"
+    },
+    {
+        "Topic_id": 126,
+        "Word List": [
+            "banner",
+            "weeping",
+            "solemn",
+            "tiananmen",
+            "banquet",
+            "hung",
+            "abuse",
+            "silent",
+            "farewell",
+            "greeting",
+            "begging"
+        ],
+        "Model Response": "tiananmen",
+        "Real Intruder": "abuse"
+    },
+    {
+        "Topic_id": 127,
+        "Word List": [
+            "checker",
+            "speedo",
+            "yemen",
+            "fairground",
+            "midget",
+            "helio",
+            "misl",
+            "lube",
+            "dragster",
+            "fixe",
+            "godiva"
+        ],
+        "Model Response": "yemen",
+        "Real Intruder": "yemen"
+    },
+    {
+        "Topic_id": 128,
+        "Word List": [
+            "hygiene",
+            "enroll",
+            "counselling",
+            "inpatient",
+            "vocational",
+            "screening",
+            "instruction",
+            "oral",
+            "licensure",
+            "curriculum",
+            "moncton"
+        ],
+        "Model Response": "moncton",
+        "Real Intruder": "moncton"
+    },
+    {
+        "Topic_id": 129,
+        "Word List": [
+            "fung",
+            "classical",
+            "chin",
+            "jong",
+            "csrc",
+            "zhou",
+            "qiang",
+            "tang",
+            "lien",
+            "chang",
+            "gong"
+        ],
+        "Model Response": "classical",
+        "Real Intruder": "classical"
+    },
+    {
+        "Topic_id": 130,
+        "Word List": [
+            "gunpowder",
+            "toting",
+            "weaponry",
+            "protester",
+            "detonate",
+            "handle",
+            "detonating",
+            "backpack",
+            "tear",
+            "firing",
+            "stun"
+        ],
+        "Model Response": "protester",
+        "Real Intruder": "handle"
+    },
+    {
+        "Topic_id": 131,
+        "Word List": [
+            "authorship",
+            "surname",
+            "psalm",
+            "norse",
+            "neolithic",
+            "lodge",
+            "arthurian",
+            "chronology",
+            "tanakh",
+            "epistle",
+            "etymology"
+        ],
+        "Model Response": "lodge",
+        "Real Intruder": "lodge"
+    },
+    {
+        "Topic_id": 132,
+        "Word List": [
+            "icbm",
+            "drabek",
+            "arianespace",
+            "proton",
+            "comet",
+            "saturn",
+            "tracker",
+            "perigee",
+            "salyut",
+            "infinity",
+            "sigma"
+        ],
+        "Model Response": "infinity",
+        "Real Intruder": "drabek"
+    },
+    {
+        "Topic_id": 133,
+        "Word List": [
+            "overran",
+            "consortium",
+            "enemy",
+            "muslim",
+            "rebel",
+            "hideout",
+            "sunni",
+            "servicemen",
+            "cleric",
+            "mosque",
+            "shelling"
+        ],
+        "Model Response": "servicemen",
+        "Real Intruder": "consortium"
+    },
+    {
+        "Topic_id": 134,
+        "Word List": [
+            "vauxhall",
+            "benz",
+            "busch",
+            "leyland",
+            "prussia",
+            "mazda",
+            "opel",
+            "manufacturer",
+            "royce",
+            "isuzu",
+            "dealership"
+        ],
+        "Model Response": "prussia",
+        "Real Intruder": "prussia"
+    },
+    {
+        "Topic_id": 135,
+        "Word List": [
+            "baset",
+            "hamamatsu",
+            "kalat",
+            "qatif",
+            "uist",
+            "azarbaijan",
+            "varberg",
+            "mixe",
+            "agdam",
+            "graffiti",
+            "yozgat"
+        ],
+        "Model Response": "graffiti",
+        "Real Intruder": "graffiti"
+    },
+    {
+        "Topic_id": 136,
+        "Word List": [
+            "romanian",
+            "defamation",
+            "denmark",
+            "germany",
+            "euro",
+            "belgium",
+            "romania",
+            "french",
+            "hungary",
+            "lithuania",
+            "baltic"
+        ],
+        "Model Response": "defamation",
+        "Real Intruder": "defamation"
+    },
+    {
+        "Topic_id": 137,
+        "Word List": [
+            "batting",
+            "overcame",
+            "pitch",
+            "triple",
+            "comeback",
+            "preseason",
+            "kicker",
+            "distribution",
+            "offseason",
+            "shutout",
+            "offensive"
+        ],
+        "Model Response": "distribution",
+        "Real Intruder": "distribution"
+    },
+    {
+        "Topic_id": 138,
+        "Word List": [
+            "attica",
+            "cimarron",
+            "holstein",
+            "adirondack",
+            "moncton",
+            "bowery",
+            "academical",
+            "greenbelt",
+            "fiasco",
+            "fundy",
+            "sault"
+        ],
+        "Model Response": "fiasco",
+        "Real Intruder": "fiasco"
+    },
+    {
+        "Topic_id": 139,
+        "Word List": [
+            "alto",
+            "ventura",
+            "menlo",
+            "palo",
+            "marina",
+            "napa",
+            "edison",
+            "laguna",
+            "rampart",
+            "take",
+            "seca"
+        ],
+        "Model Response": "take",
+        "Real Intruder": "take"
+    },
+    {
+        "Topic_id": 140,
+        "Word List": [
+            "casablanca",
+            "eldoret",
+            "kerem",
+            "etzion",
+            "kerry",
+            "afar",
+            "jericho",
+            "trabzon",
+            "dura",
+            "sabra",
+            "orient"
+        ],
+        "Model Response": "orient",
+        "Real Intruder": "kerry"
+    },
+    {
+        "Topic_id": 141,
+        "Word List": [
+            "inference",
+            "middle",
+            "other",
+            "drive",
+            "take",
+            "live",
+            "reach",
+            "people",
+            "open",
+            "face",
+            "over"
+        ],
+        "Model Response": "people",
+        "Real Intruder": "inference"
+    },
+    {
+        "Topic_id": 142,
+        "Word List": [
+            "dominance",
+            "expansionism",
+            "marxism",
+            "nationalism",
+            "peasant",
+            "devotion",
+            "radicalism",
+            "rigid",
+            "supremacy",
+            "agrarian",
+            "leninist"
+        ],
+        "Model Response": "peasant",
+        "Real Intruder": "devotion"
+    },
+    {
+        "Topic_id": 143,
+        "Word List": [
+            "geigy",
+            "lybrand",
+            "penney",
+            "gmbh",
+            "leninist",
+            "pence",
+            "beverage",
+            "ikea",
+            "aerospatiale",
+            "granada",
+            "olde"
+        ],
+        "Model Response": "leninist",
+        "Real Intruder": "leninist"
+    },
+    {
+        "Topic_id": 144,
+        "Word List": [
+            "seat",
+            "statewide",
+            "democrat",
+            "candidate",
+            "predecessor",
+            "ballot",
+            "impeach",
+            "nominate",
+            "judiciary",
+            "aspiration",
+            "kerry"
+        ],
+        "Model Response": "aspiration",
+        "Real Intruder": "aspiration"
+    },
+    {
+        "Topic_id": 145,
+        "Word List": [
+            "reuter",
+            "kata",
+            "bohr",
+            "sander",
+            "oldenburg",
+            "westergaard",
+            "ziff",
+            "cleave",
+            "krupp",
+            "browning",
+            "brighten"
+        ],
+        "Model Response": "brighten",
+        "Real Intruder": "brighten"
+    },
+    {
+        "Topic_id": 146,
+        "Word List": [
+            "batch",
+            "intermediate",
+            "millennium",
+            "ninety",
+            "thereafter",
+            "maturity",
+            "comprising",
+            "english",
+            "tenth",
+            "hundred",
+            "ceremonial"
+        ],
+        "Model Response": "english",
+        "Real Intruder": "maturity"
+    },
+    {
+        "Topic_id": 147,
+        "Word List": [
+            "clicking",
+            "newsgroup",
+            "viewing",
+            "multiplex",
+            "email",
+            "chin",
+            "tape",
+            "listener",
+            "viewer",
+            "pager",
+            "phone"
+        ],
+        "Model Response": "chin",
+        "Real Intruder": "chin"
+    },
+    {
+        "Topic_id": 148,
+        "Word List": [
+            "brind",
+            "larussa",
+            "faire",
+            "vesa",
+            "toner",
+            "tare",
+            "kadlec",
+            "sillinger",
+            "ralomar",
+            "drabek",
+            "gagner"
+        ],
+        "Model Response": "toner",
+        "Real Intruder": "faire"
+    },
+    {
+        "Topic_id": 149,
+        "Word List": [
+            "accession",
+            "drunken",
+            "informant",
+            "smuggling",
+            "espionage",
+            "plot",
+            "illegal",
+            "affair",
+            "gang",
+            "conspirator",
+            "burglary"
+        ],
+        "Model Response": "accession",
+        "Real Intruder": "accession"
+    },
+    {
+        "Topic_id": 150,
+        "Word List": [
+            "investment",
+            "lending",
+            "fidelity",
+            "transaction",
+            "wholesale",
+            "money",
+            "credit",
+            "detroit",
+            "exchange",
+            "insurance",
+            "trillion"
+        ],
+        "Model Response": "detroit",
+        "Real Intruder": "detroit"
+    },
+    {
+        "Topic_id": 151,
+        "Word List": [
+            "accel",
+            "thinkpad",
+            "cyrix",
+            "kreme",
+            "teck",
+            "ricoh",
+            "quadra",
+            "connexion",
+            "grolier",
+            "gameboy",
+            "mexican"
+        ],
+        "Model Response": "mexican",
+        "Real Intruder": "mexican"
+    },
+    {
+        "Topic_id": 152,
+        "Word List": [
+            "coca",
+            "cane",
+            "cultivation",
+            "opium",
+            "painstaking",
+            "biotech",
+            "dairy",
+            "cocoa",
+            "farm",
+            "palm",
+            "maple"
+        ],
+        "Model Response": "opium",
+        "Real Intruder": "painstaking"
+    },
+    {
+        "Topic_id": 153,
+        "Word List": [
+            "isaac",
+            "ernest",
+            "joseph",
+            "ward",
+            "kennedy",
+            "churchill",
+            "luther",
+            "philip",
+            "stanley",
+            "abraham",
+            "ecclesial"
+        ],
+        "Model Response": "ecclesial",
+        "Real Intruder": "ecclesial"
+    },
+    {
+        "Topic_id": 154,
+        "Word List": [
+            "hooking",
+            "glancing",
+            "errant",
+            "fatigue",
+            "barreling",
+            "tripping",
+            "abort",
+            "idling",
+            "lobbing",
+            "unread",
+            "thumbing"
+        ],
+        "Model Response": "fatigue",
+        "Real Intruder": "fatigue"
+    },
+    {
+        "Topic_id": 155,
+        "Word List": [
+            "canda",
+            "eurocard",
+            "tandberg",
+            "xxxi",
+            "xxxii",
+            "nixdorf",
+            "pager",
+            "digitisation",
+            "newsflash",
+            "ncsa",
+            "spacewatch"
+        ],
+        "Model Response": "xxxi",
+        "Real Intruder": "pager"
+    },
+    {
+        "Topic_id": 156,
+        "Word List": [
+            "devotional",
+            "witchcraft",
+            "mormon",
+            "theological",
+            "meretz",
+            "upbringing",
+            "patriarchal",
+            "schism",
+            "mormonism",
+            "orthodoxy",
+            "jehovah"
+        ],
+        "Model Response": "meretz",
+        "Real Intruder": "meretz"
+    },
+    {
+        "Topic_id": 157,
+        "Word List": [
+            "cathy",
+            "kathy",
+            "anne",
+            "helen",
+            "sara",
+            "statistic",
+            "julia",
+            "rachel",
+            "kate",
+            "joan",
+            "elisabeth"
+        ],
+        "Model Response": "statistic",
+        "Real Intruder": "statistic"
+    },
+    {
+        "Topic_id": 158,
+        "Word List": [
+            "armenia",
+            "baku",
+            "minsk",
+            "kremlin",
+            "crimea",
+            "sergei",
+            "siberia",
+            "nikolai",
+            "moscow",
+            "stefan",
+            "anatolia"
+        ],
+        "Model Response": "anatolia",
+        "Real Intruder": "stefan"
+    },
+    {
+        "Topic_id": 159,
+        "Word List": [
+            "cater",
+            "educating",
+            "responsive",
+            "harmonious",
+            "inflate",
+            "inclusive",
+            "morale",
+            "commensurate",
+            "uniting",
+            "fulfilling",
+            "aspiration"
+        ],
+        "Model Response": "morale",
+        "Real Intruder": "inflate"
+    },
+    {
+        "Topic_id": 160,
+        "Word List": [
+            "liquor",
+            "dumping",
+            "barrel",
+            "steel",
+            "shipment",
+            "importer",
+            "petrol",
+            "export",
+            "offshore",
+            "water",
+            "firsthand"
+        ],
+        "Model Response": "firsthand",
+        "Real Intruder": "firsthand"
+    },
+    {
+        "Topic_id": 161,
+        "Word List": [
+            "cracking",
+            "licking",
+            "skewer",
+            "shaving",
+            "macedonia",
+            "slider",
+            "mince",
+            "hump",
+            "mouthpiece",
+            "dumpty",
+            "stitch"
+        ],
+        "Model Response": "macedonia",
+        "Real Intruder": "macedonia"
+    },
+    {
+        "Topic_id": 162,
+        "Word List": [
+            "anwar",
+            "jaber",
+            "shah",
+            "hamid",
+            "sultan",
+            "sabah",
+            "matthey",
+            "hassan",
+            "salam",
+            "khan",
+            "yassin"
+        ],
+        "Model Response": "matthey",
+        "Real Intruder": "matthey"
+    },
+    {
+        "Topic_id": 163,
+        "Word List": [
+            "funny",
+            "mengele",
+            "sensational",
+            "ridiculous",
+            "fiery",
+            "funniest",
+            "repetitive",
+            "messy",
+            "stark",
+            "horrifying",
+            "bizarre"
+        ],
+        "Model Response": "repetitive",
+        "Real Intruder": "mengele"
+    },
+    {
+        "Topic_id": 164,
+        "Word List": [
+            "prog",
+            "goddamn",
+            "kinky",
+            "anaesthetic",
+            "nudist",
+            "psych",
+            "raving",
+            "wallop",
+            "thyself",
+            "schoolyard",
+            "dumber"
+        ],
+        "Model Response": "anaesthetic",
+        "Real Intruder": "anaesthetic"
+    },
+    {
+        "Topic_id": 165,
+        "Word List": [
+            "avon",
+            "greenwich",
+            "zion",
+            "paddock",
+            "newington",
+            "kenwood",
+            "belmont",
+            "bryn",
+            "crematorium",
+            "sharpen",
+            "flushing"
+        ],
+        "Model Response": "crematorium",
+        "Real Intruder": "sharpen"
+    },
+    {
+        "Topic_id": 166,
+        "Word List": [
+            "sinner",
+            "whoa",
+            "dont",
+            "rockin",
+            "ballgame",
+            "daddy",
+            "breeze",
+            "cheat",
+            "tryin",
+            "dear",
+            "bang"
+        ],
+        "Model Response": "cheat",
+        "Real Intruder": "breeze"
+    },
+    {
+        "Topic_id": 167,
+        "Word List": [
+            "automation",
+            "disk",
+            "cdma",
+            "midi",
+            "firewall",
+            "macintosh",
+            "dram",
+            "netware",
+            "dolby",
+            "emperor",
+            "atari"
+        ],
+        "Model Response": "emperor",
+        "Real Intruder": "emperor"
+    },
+    {
+        "Topic_id": 168,
+        "Word List": [
+            "shrinking",
+            "spark",
+            "alain",
+            "meltdown",
+            "slumping",
+            "thaw",
+            "slowdown",
+            "overheating",
+            "crippling",
+            "spreading",
+            "soaring"
+        ],
+        "Model Response": "alain",
+        "Real Intruder": "alain"
+    },
+    {
+        "Topic_id": 169,
+        "Word List": [
+            "somewhere",
+            "plenty",
+            "deserved",
+            "knowing",
+            "deceive",
+            "reveal",
+            "whether",
+            "discover",
+            "anymore",
+            "somebody",
+            "lucky"
+        ],
+        "Model Response": "lucky",
+        "Real Intruder": "deceive"
+    },
+    {
+        "Topic_id": 170,
+        "Word List": [
+            "departure",
+            "visit",
+            "signing",
+            "month",
+            "evening",
+            "closing",
+            "earlier",
+            "year",
+            "reveal",
+            "march",
+            "night"
+        ],
+        "Model Response": "signing",
+        "Real Intruder": "reveal"
+    },
+    {
+        "Topic_id": 171,
+        "Word List": [
+            "header",
+            "roma",
+            "arsenal",
+            "defender",
+            "rebound",
+            "celtic",
+            "minute",
+            "milan",
+            "striker",
+            "sevilla",
+            "chelsea"
+        ],
+        "Model Response": "rebound",
+        "Real Intruder": "rebound"
+    },
+    {
+        "Topic_id": 172,
+        "Word List": [
+            "fixing",
+            "filming",
+            "defamation",
+            "grievance",
+            "interference",
+            "remedy",
+            "dismissal",
+            "proxy",
+            "lawsuit",
+            "abuse",
+            "bribery"
+        ],
+        "Model Response": "proxy",
+        "Real Intruder": "filming"
+    },
+    {
+        "Topic_id": 173,
+        "Word List": [
+            "penal",
+            "revocation",
+            "desist",
+            "legalize",
+            "injunction",
+            "restriction",
+            "punitive",
+            "cloture",
+            "renouncing",
+            "outa",
+            "veto"
+        ],
+        "Model Response": "outa",
+        "Real Intruder": "outa"
+    },
+    {
+        "Topic_id": 174,
+        "Word List": [
+            "nuri",
+            "imam",
+            "farid",
+            "hamza",
+            "mirza",
+            "mian",
+            "ayatollah",
+            "sant",
+            "pasha",
+            "noor",
+            "caliph"
+        ],
+        "Model Response": "sant",
+        "Real Intruder": "sant"
+    },
+    {
+        "Topic_id": 175,
+        "Word List": [
+            "malice",
+            "collusion",
+            "quid",
+            "sham",
+            "encroachment",
+            "innuendo",
+            "disuse",
+            "mischief",
+            "servitude",
+            "deceit",
+            "steinn"
+        ],
+        "Model Response": "steinn",
+        "Real Intruder": "steinn"
+    },
+    {
+        "Topic_id": 176,
+        "Word List": [
+            "rambling",
+            "offhand",
+            "trickier",
+            "kremlin",
+            "intelligible",
+            "sadder",
+            "inconvenient",
+            "apologetic",
+            "unreal",
+            "paraphrasing",
+            "guesswork"
+        ],
+        "Model Response": "kremlin",
+        "Real Intruder": "kremlin"
+    },
+    {
+        "Topic_id": 177,
+        "Word List": [
+            "regroup",
+            "technique",
+            "mobilize",
+            "derail",
+            "normalize",
+            "reconnect",
+            "rein",
+            "loosen",
+            "destabilize",
+            "deepen",
+            "sharpen"
+        ],
+        "Model Response": "derail",
+        "Real Intruder": "technique"
+    },
+    {
+        "Topic_id": 178,
+        "Word List": [
+            "catastrophe",
+            "tidal",
+            "storm",
+            "diving",
+            "eruption",
+            "cloud",
+            "warming",
+            "gust",
+            "hemisphere",
+            "intermittent",
+            "tornado"
+        ],
+        "Model Response": "diving",
+        "Real Intruder": "diving"
+    },
+    {
+        "Topic_id": 179,
+        "Word List": [
+            "liter",
+            "wound",
+            "coil",
+            "braking",
+            "muzzle",
+            "rectifier",
+            "furnace",
+            "valve",
+            "brake",
+            "piston",
+            "vacuum"
+        ],
+        "Model Response": "wound",
+        "Real Intruder": "wound"
+    },
+    {
+        "Topic_id": 180,
+        "Word List": [
+            "quantitative",
+            "normative",
+            "summation",
+            "criterion",
+            "inference",
+            "cryptography",
+            "rational",
+            "empirical",
+            "phonograph",
+            "conjecture",
+            "relational"
+        ],
+        "Model Response": "phonograph",
+        "Real Intruder": "phonograph"
+    },
+    {
+        "Topic_id": 181,
+        "Word List": [
+            "nova",
+            "brittany",
+            "nomadic",
+            "gondwana",
+            "crete",
+            "asiatic",
+            "arabian",
+            "maritime",
+            "falkland",
+            "ammonia",
+            "pirate"
+        ],
+        "Model Response": "ammonia",
+        "Real Intruder": "ammonia"
+    },
+    {
+        "Topic_id": 182,
+        "Word List": [
+            "thailand",
+            "bangladesh",
+            "tibet",
+            "singapore",
+            "philippine",
+            "patriarchal",
+            "kuala",
+            "indonesia",
+            "cambodia",
+            "asian",
+            "lumpur"
+        ],
+        "Model Response": "patriarchal",
+        "Real Intruder": "patriarchal"
+    },
+    {
+        "Topic_id": 183,
+        "Word List": [
+            "christ",
+            "praying",
+            "motto",
+            "kippur",
+            "buddha",
+            "healing",
+            "immaculate",
+            "burgh",
+            "mecca",
+            "burial",
+            "atonement"
+        ],
+        "Model Response": "burgh",
+        "Real Intruder": "burgh"
+    },
+    {
+        "Topic_id": 184,
+        "Word List": [
+            "provincial",
+            "deputy",
+            "inclusive",
+            "national",
+            "agency",
+            "commissioner",
+            "justice",
+            "interior",
+            "board",
+            "responsible",
+            "minister"
+        ],
+        "Model Response": "justice",
+        "Real Intruder": "inclusive"
+    },
+    {
+        "Topic_id": 185,
+        "Word List": [
+            "heritage",
+            "ecological",
+            "habitat",
+            "livestock",
+            "farming",
+            "diversity",
+            "logging",
+            "soil",
+            "subsistence",
+            "select",
+            "grazing"
+        ],
+        "Model Response": "select",
+        "Real Intruder": "select"
+    },
+    {
+        "Topic_id": 186,
+        "Word List": [
+            "quarter",
+            "percentage",
+            "growth",
+            "adirondack",
+            "cent",
+            "improvement",
+            "fiscal",
+            "wage",
+            "efficiency",
+            "slower",
+            "cost"
+        ],
+        "Model Response": "adirondack",
+        "Real Intruder": "adirondack"
+    },
+    {
+        "Topic_id": 187,
+        "Word List": [
+            "dolphin",
+            "lynx",
+            "mammal",
+            "squid",
+            "feral",
+            "prey",
+            "crocodile",
+            "statue",
+            "terrier",
+            "fowl",
+            "predator"
+        ],
+        "Model Response": "statue",
+        "Real Intruder": "statue"
+    },
+    {
+        "Topic_id": 188,
+        "Word List": [
+            "review",
+            "relief",
+            "support",
+            "oversight",
+            "policy",
+            "budget",
+            "protection",
+            "predecessor",
+            "package",
+            "reform",
+            "challenging"
+        ],
+        "Model Response": "predecessor",
+        "Real Intruder": "predecessor"
+    },
+    {
+        "Topic_id": 189,
+        "Word List": [
+            "photonic",
+            "capacitive",
+            "anaerobic",
+            "cilia",
+            "ovulation",
+            "compressible",
+            "biotic",
+            "infielder",
+            "gait",
+            "latency",
+            "adaptive"
+        ],
+        "Model Response": "infielder",
+        "Real Intruder": "infielder"
+    },
+    {
+        "Topic_id": 190,
+        "Word List": [
+            "thumbnail",
+            "tilde",
+            "exchange",
+            "phonograph",
+            "handwriting",
+            "mime",
+            "megapixel",
+            "ascii",
+            "sgml",
+            "blank",
+            "lettering"
+        ],
+        "Model Response": "phonograph",
+        "Real Intruder": "exchange"
+    },
+    {
+        "Topic_id": 191,
+        "Word List": [
+            "incandescent",
+            "bleach",
+            "acrid",
+            "washing",
+            "saliva",
+            "spray",
+            "spraying",
+            "bathing",
+            "snowing",
+            "etymology",
+            "flesh"
+        ],
+        "Model Response": "etymology",
+        "Real Intruder": "etymology"
+    },
+    {
+        "Topic_id": 192,
+        "Word List": [
+            "baserunning",
+            "schismatic",
+            "injunctive",
+            "personae",
+            "resister",
+            "ecclesial",
+            "agression",
+            "sequitur",
+            "farm",
+            "strategical",
+            "unfree"
+        ],
+        "Model Response": "farm",
+        "Real Intruder": "farm"
+    },
+    {
+        "Topic_id": 193,
+        "Word List": [
+            "subway",
+            "carriage",
+            "fare",
+            "commuter",
+            "amtrak",
+            "parking",
+            "express",
+            "towing",
+            "haul",
+            "oncoming",
+            "railway"
+        ],
+        "Model Response": "parking",
+        "Real Intruder": "fare"
+    },
+    {
+        "Topic_id": 194,
+        "Word List": [
+            "whdh",
+            "darpa",
+            "ucsb",
+            "rmit",
+            "bourque",
+            "technion",
+            "zeit",
+            "wbbm",
+            "technische",
+            "maharishi",
+            "messe"
+        ],
+        "Model Response": "zeit",
+        "Real Intruder": "bourque"
+    },
+    {
+        "Topic_id": 195,
+        "Word List": [
+            "friendship",
+            "discipline",
+            "saturn",
+            "enjoyment",
+            "skill",
+            "loyalty",
+            "patience",
+            "zeal",
+            "integrity",
+            "bravery",
+            "devotion"
+        ],
+        "Model Response": "saturn",
+        "Real Intruder": "saturn"
+    },
+    {
+        "Topic_id": 196,
+        "Word List": [
+            "princeton",
+            "amherst",
+            "correctional",
+            "auburn",
+            "polytechnic",
+            "wesleyan",
+            "sympathy",
+            "carnegie",
+            "ucla",
+            "drexel",
+            "stanford"
+        ],
+        "Model Response": "sympathy",
+        "Real Intruder": "sympathy"
+    },
+    {
+        "Topic_id": 197,
+        "Word List": [
+            "substantive",
+            "mediator",
+            "pact",
+            "accession",
+            "autonomy",
+            "referenda",
+            "faraday",
+            "settlement",
+            "sovereignty",
+            "compromise",
+            "verification"
+        ],
+        "Model Response": "faraday",
+        "Real Intruder": "faraday"
+    },
+    {
+        "Topic_id": 198,
+        "Word List": [
+            "sukru",
+            "singh",
+            "kemal",
+            "particle",
+            "abba",
+            "sverdrup",
+            "yehuda",
+            "anil",
+            "sher",
+            "aydin",
+            "reddy"
+        ],
+        "Model Response": "particle",
+        "Real Intruder": "particle"
+    },
+    {
+        "Topic_id": 199,
+        "Word List": [
+            "occupation",
+            "israel",
+            "cairo",
+            "qatar",
+            "mideast",
+            "hezbollah",
+            "sharon",
+            "jordanian",
+            "libya",
+            "arafat",
+            "supervisory"
+        ],
+        "Model Response": "occupation",
+        "Real Intruder": "supervisory"
+    }
+]

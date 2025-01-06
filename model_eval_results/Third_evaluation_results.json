@@ -1,0 +1,138 @@
+[
+    {
+        "Evaluated Model:": "BERTopic - Top 10",
+        "word_intrusion_accuracy": 0.44262,
+        "cv Coherence": 0.5407
+    },
+    {
+        "Evaluated Model:": "BERTopic - Top 15",
+        "word_intrusion_accuracy": 0.36885,
+        "cv Coherence": 0.47781
+    },
+    {
+        "Evaluated Model:": "BERTopic - Top 20",
+        "word_intrusion_accuracy": 0.35246,
+        "cv Coherence": 0.44701
+    },
+    {
+        "Evaluated Model:": "100_prior_DM - Top 10",
+        "word_intrusion_accuracy": 0.29,
+        "cv Coherence": 0.4876
+    },
+    {
+        "Evaluated Model:": "100_prior_DM - Top 15",
+        "word_intrusion_accuracy": 0.22,
+        "cv Coherence": 0.51893
+    },
+    {
+        "Evaluated Model:": "100_prior_DM - Top 20",
+        "word_intrusion_accuracy": 0.14,
+        "cv Coherence": 0.54579
+    },
+    {
+        "Evaluated Model:": "100DM - Top 10",
+        "word_intrusion_accuracy": 0.49,
+        "cv Coherence": 0.44561
+
+    },
+    {
+        "Evaluated Model:": "100DM - Top 15",
+        "word_intrusion_accuracy": 0.47,
+        "cv Coherence": 0.56033
+    },
+    {
+        "Evaluated Model:": "100DM - Top 20",
+        "word_intrusion_accuracy": 0.53,
+        "cv Coherence": 0.62163
+    },
+    {
+        "Evaluated Model:": "100GMM - Top 10",
+        "word_intrusion_accuracy": 0.76,
+        "cv Coherence": 0.43852
+    },
+    {
+        "Evaluated Model:": "100GMM - Top 15",
+        "word_intrusion_accuracy": 0.68,
+        "cv Coherence": 0.5367
+    },
+    {
+        "Evaluated Model:": "100GMM - Top 20",
+        "word_intrusion_accuracy": 0.71,
+        "cv Coherence": 0.58152
+    },
+    {
+        "Evaluated Model:": "200GMM - Top 10",
+        "word_intrusion_accuracy": 0.675,
+        "cv Coherence": 0.43704
+    },
+    {
+        "Evaluated Model:": "200GMM - Top 15",
+        "word_intrusion_accuracy": 0.585,
+        "cv Coherence": 0.53564
+    },
+    {
+        "Evaluated Model:": "200GMM - Top 20",
+        "word_intrusion_accuracy": 0.595,
+        "cv Coherence": 0.592
+    },
+    {
+        "Evaluated Model:": "100_prior_GMM - Top 10",
+        "word_intrusion_accuracy": 0.31,
+        "cv Coherence": 0.48325
+    },
+    {
+        "Evaluated Model:": "100_prior_GMM - Top 15",
+        "word_intrusion_accuracy": 0.26,
+        "cv Coherence": 0.52096
+    },
+    {
+        "Evaluated Model:": "100_prior_GMM - Top 20",
+        "word_intrusion_accuracy": 0.19,
+        "cv Coherence": 0.55912
+    },
+    {
+        "Evaluated Model:": "200_prior_GMM - Top 10",
+        "word_intrusion_accuracy": 0.245,
+        "cv Coherence": 0.43876
+    },
+    {
+        "Evaluated Model:": "200_prior_GMM - Top 15",
+        "word_intrusion_accuracy": 0.195,
+        "cv Coherence": 0.48159
+    },
+    {
+        "Evaluated Model:": "200_prior_GMM - Top 20",
+        "word_intrusion_accuracy": 0.2,
+        "cv Coherence": 0.53235
+    },
+    {
+        "Evaluated Model:": "100lda - Top 10",
+        "word_intrusion_accuracy": 0.39,
+        "cv Coherence": 0.45559
+    },
+    {
+        "Evaluated Model:": "100lda - Top 15",
+        "word_intrusion_accuracy": 0.31,
+        "cv Coherence": 0.42918
+    },
+    {
+        "Evaluated Model:": "100lda - Top 20",
+        "word_intrusion_accuracy": 0.28,
+        "cv Coherence": 0.42008
+    },
+    {
+        "Evaluated Model:": "200lda - Top 10",
+        "word_intrusion_accuracy": 0.36,
+        "cv Coherence": 0.40892
+    },
+    {
+        "Evaluated Model:": "200lda - Top 15",
+        "word_intrusion_accuracy": 0.31,
+        "cv Coherence": 0.3946
+    },
+    {
+        "Evaluated Model:": "200lda - Top 20",
+        "word_intrusion_accuracy": 0.215,
+        "cv Coherence": 0.41247
+    }
+]

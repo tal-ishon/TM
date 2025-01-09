@@ -3,18 +3,18 @@
 cd ~/TM || exit 1
 
 # Define arrays of dataset names, models, and corresponding number of topics
-datasets=("20NewsGroup" "20NewsGroup")
-models=("lda" "prior_GMM")  # Replace with your actual model names
-num_topics=("100" "200")  # Replace with the actual number of topics for each dataset
+datasets=("20NewsGroup")
+models=("pmi" "npmi")  # Replace with your actual model names
+num_topics=("100")  # Replace with the actual number of topics for each dataset
 
 # Path to your Python file
-python_file="test_gensim.py"
+python_file="test_graph_gensim.py"
 
 # Loop through the models, datasets, and their corresponding topics
 for model in "${models[@]}"; do
-  for i in "${!datasets[@]}"; do
-    dataset="${datasets[$i]}"
-    topics="${num_topics[$i]}"
+  for topic in "${num_topics[@]}"; do
+    dataset="${datasets[@]}"
+    topics="${topic}"
     
     echo "Running $model on $dataset with $topics topics..."
     

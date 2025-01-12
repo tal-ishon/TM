@@ -10,13 +10,22 @@ from gensim import corpora
 
 class Graph(nx.Graph):
 
-    def __init__(self, dictionary, corpus, window_size=3, metric="pmi"):
+    def __init__(self, dictionary, corpus, similarity=False, no_word2vec_model=False, window_size=3, metric="pmi", alpha=0.7):
         super().__init__()
 
         self.dictionary = dictionary
         self.corpus = corpus
         self.window_size = window_size
+        self.alpha = alpha
+        self.similarity = similarity
 
+        if similarity:
+            from gensim.models import Word2Vec
+            if no_word2vec_model:
+                self.model = Word2Vec(self.corpus, vector_size=100, window=self.window_size, min_count=1, workers=4, sg=0)
+                self.model.save("/home/dsi/ishonta/TM/WordsGraph/Word2VecModel/word2vec.model")
+            else:
+                self.model = Word2Vec.load("/home/dsi/ishonta/TM/WordsGraph/Word2VecModel/word2vec.model")
         self._build_graph(metric=metric)
 
 
@@ -54,22 +63,60 @@ class Graph(nx.Graph):
     
 
     def _construct_graph_edges(self, unigram_probs, bigram_counts, total_co_occurrences, metric="pmi"):
-
+        """
+        Construct the edges of the graph according to chosen metric.
+        """
+        weights = []
+        joint_probs = []
         # Add edges with PMI as weights
-        for (word_id1, word_id2), count in bigram_counts.items():
+        for (word1, word2), count in bigram_counts.items():
             joint_prob = count / total_co_occurrences
-            word_id1 = self.dictionary.token2id[word_id1]
-            word_id2 = self.dictionary.token2id[word_id2]
+            word_id1 = self.dictionary.token2id[word1]
+            word_id2 = self.dictionary.token2id[word2]
             weight = np.log(joint_prob / (unigram_probs[word_id1] * unigram_probs[word_id2]))
+            weights.append(weight)
+            joint_probs.append(joint_prob)
+        
+        max_weight = max(weights)
 
+        for i, (word1, word2) in enumerate(bigram_counts.keys()):
+            joint_prob = joint_probs[i]
+            word_id1 = self.dictionary.token2id[word1]
+            word_id2 = self.dictionary.token2id[word2]
             if metric == 'npmi':
-                weight = weight / -np.log(joint_prob)
+                weight = weights[i] / -np.log(joint_prob)
+            else:
+                weight = weights[i]
 
             if weight < 0: # Make sure positive and negative correlation are meaningfull in graph
                 weight = -weight
+            
+            if self.similarity:
+                if metric == "npmi":
+                    weight = self.alpha * weight + (1 - self.alpha) * self._norm_cosine_similarity(word1, word2)
+                else:
+                    # Add scaling to cosine similarity to make it more impactfull over pmi range values
+                    weight = self.alpha * weight + (1 - self.alpha) * (self._norm_cosine_similarity(word1, word2) * max_weight)
+
 
             self.add_edge(word_id1, word_id2, weight=weight)
     
+
+    def _norm_cosine_similarity(self, word1, word2):
+        """
+        Calculate the normalized cosine similarity between two words.
+        Returns a value in the range [0, 1].
+        """
+        from sklearn.metrics.pairwise import cosine_similarity
+        
+        vec1 = self.model.wv[word1]
+        vec2 = self.model.wv[word2]
+
+        cos_similaity = cosine_similarity(vec1.reshape(1, -1), vec2.reshape(1, -1))[0][0]
+        norm_cos_similarity = (cos_similaity + 1) / 2  # Normalize to [0, 1] 
+
+        return norm_cos_similarity
+
 
     def _calculate_co_occurrences(self):
         """

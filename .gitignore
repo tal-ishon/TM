@@ -16,3 +16,11 @@ __pycache__/
 glove.6B/
 mallet-2.0.8/
 spectralnet/
+WordsGraph/distributions/
+WordsGraph/helper/
+WordsGraph/IntrusionResults/
+WordsGraph/priors/
+WordsGraph/Word2VecModel
+
+
+

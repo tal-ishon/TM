@@ -7,7 +7,7 @@ from scipy.sparse.linalg import eigsh
 import scipy.sparse as sp
 import numpy as np
 from  matrix_utils import get_gaussian_kernel, get_random_walk_laplacian
-
+import os
 
 def load_data(path_data):
     # Load the dictionary from a file
@@ -93,7 +93,10 @@ def _apply_gmm(word_features, path, n_components=20, to_save=True, metric="npmi"
     topic_assignments = gmm.predict_proba(word_features)
     smoothed_topic_assignments = soft_predictions(topic_assignments)
     if to_save:
-        save_matrix_torch(smoothed_topic_assignments, save_path=f"{path}/_{metric}_topic_assignments.pt")
+        # Create directory if it doesn't exist
+        if not os.path.exists(path):
+            os.makedirs(path)
+        save_matrix_torch(smoothed_topic_assignments, save_path=f"{path}/{metric}_topic_assignments.pt")
     else:
         return smoothed_topic_assignments
 
@@ -106,14 +109,14 @@ def create_prior(path, word_features, n_components, metric="npmi", to_save=True)
 
 
 
-def main(metrics=["pmi"]):
+def main(alpha=0.7, metrics=["npmi"]):
     path = "ProcessedData/20NewsGroup"
-    save_prior_path = "WordsGraph/priors/RandomWalk/Similarity/Second"
+    save_prior_path = f"WordsGraph/priors/RandomWalk/{CURRENT_DIR}"
 
     dictionary, _, _, corpus = load_data(path)
 
     for m in metrics:
-        words_graph = graph.Graph(dictionary=dictionary, corpus=corpus, metric=m, similarity=True)
+        words_graph = graph.Graph(dictionary=dictionary, corpus=corpus, metric=m, alpha=alpha, similarity=True)
         affinity_matrix = words_graph.get_graph_as_affinity_matrix()
         _, matrix = get_random_walk_laplacian(affinity_matrix, k=500)
         create_prior(save_prior_path, matrix, n_components=100, to_save=True, metric=m)
@@ -125,9 +128,11 @@ if __name__ == "__main__":
 
     argc = len(argv)    
     if argc > 1:
-        metrics = []
-        for v in argv[1:]:
-            metrics.append(v)
-        main(metrics)
+        metrics = [argv[1]]
+        alpha = float(argv[2])
+        CURRENT_DIR = argv[3]
+        
+        main(metrics=metrics, alpha=alpha)
     else:
+        CURRENT_DIR = "Fixed"
         main()

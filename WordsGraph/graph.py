@@ -10,7 +10,10 @@ from gensim import corpora
 
 class Graph(nx.Graph):
 
-    def __init__(self, dictionary, corpus, similarity=False, no_word2vec_model=False, window_size=3, metric="pmi", alpha=0.7):
+    def __init__(self, dictionary, corpus, similarity=False, is_ppmi=False, no_word2vec_model=False, window_size=3, metric="pmi", alpha=0.7):
+        """
+        is_ppmi: if pmi value is negative change value to 0. max(pmi, 0). - tried but didn't influence performance.
+        """
         super().__init__()
 
         self.dictionary = dictionary
@@ -18,6 +21,7 @@ class Graph(nx.Graph):
         self.window_size = window_size
         self.alpha = alpha
         self.similarity = similarity
+        self.is_ppmi = is_ppmi
 
         if similarity:
             from gensim.models import Word2Vec
@@ -83,16 +87,19 @@ class Graph(nx.Graph):
             joint_prob = joint_probs[i]
             word_id1 = self.dictionary.token2id[word1]
             word_id2 = self.dictionary.token2id[word2]
-            if metric == 'npmi':
+            if 'npmi' in metric:
                 weight = weights[i] / -np.log(joint_prob)
             else:
                 weight = weights[i]
 
             if weight < 0: # Make sure positive and negative correlation are meaningfull in graph
-                weight = -weight
+                if self.is_ppmi:
+                    weight = 0
+                else:
+                    weight = -weight
             
             if self.similarity:
-                if metric == "npmi":
+                if "npmi" in metric:
                     weight = self.alpha * weight + (1 - self.alpha) * self._norm_cosine_similarity(word1, word2)
                 else:
                     # Add scaling to cosine similarity to make it more impactfull over pmi range values
@@ -128,11 +135,12 @@ class Graph(nx.Graph):
         # Calculate bigram counts using a sliding window
         for sentence in self.corpus:
             for i, word_id in enumerate(sentence):
-                window = islice(sentence, max(i - self.window_size, 0), min(i + self.window_size + 1, len(sentence)))
+                window = islice(sentence, i + 1, min(i + 1 + self.window_size, len(sentence)))
                 for context_word in window:
                     if context_word != word_id:
-                        bigram_counts[(word_id, context_word)] += 1
-
+                        tuple_id = sorted((word_id, context_word))
+                        bigram_counts[(tuple_id[0], tuple_id[1])] += 1
+                        
         # Total co-occurrences
         total_co_occurrences = sum(bigram_counts.values())
 

@@ -5,9 +5,9 @@ import pickle
 import re
 
 DATASET_NAME = "20NewsGroup"
-PATH_DF = f"/home/dsi/ishonta/TM/Distributions-Results/{DATASET_NAME}"
+PATH_DF = f"/home/dsi/ishonta/TM/WordsGraph/distributions/RandomWalk/Fixed/Second"
 PATH_DATA = f"ProcessedData/{DATASET_NAME}"
-MODELS = ["100_prior_DM"]
+MODELS = ["npmi", "pmi"]
 
 top_k = 20
 
@@ -28,13 +28,16 @@ texts = [
     for bow in doc_term_matrix
 ]
 
-pattern = r"\d+GMM"
+dictionary = corpora.Dictionary(texts)
+
+pattern1 = r"\d+GMM"
+pattern2 = r"\d+DM"
 
 for MODEL in MODELS:
     for k in [10, 15, 20]:
         topics_df = pd.read_csv(f"{PATH_DF}/{MODEL}_topic_word_distribution.csv")
 
-        if re.findall(pattern, MODEL):
+        if re.findall(pattern1, MODEL) or re.findall(pattern2, MODEL):
             topic_word_lists = [list(topic[:k]) for topic in topics_df.values]
         else:
             topic_word_lists = [

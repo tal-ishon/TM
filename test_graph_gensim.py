@@ -14,7 +14,6 @@ import pandas as pd
 from gensim import corpora
 import pickle
 import os
-import little_mallet_wrapper as lmw
 from bertopic import BERTopic
     
 
@@ -22,6 +21,7 @@ CORPUS_PATH = None
 IS_FIRST = None
 IS_SAVED = None
 MODEL_TYPE = "pmi"
+CURRENT_DIR = ""
 
 # Setting seeds for reproducibility
 random.seed(42)
@@ -36,7 +36,7 @@ os.environ['MKL_NUM_THREADS'] = '1'
 
 
 def save_distributions(model, model_type, corpus):
-    path = f"/home/dsi/ishonta/TM/WordsGraph/LDA_Results/co_occurance"
+    path = f"/home/dsi/ishonta/TM/WordsGraph/distributions/RandomWalk/{CURRENT_DIR}"
     # topic-word
 
     # Get topic-word matrix
@@ -44,7 +44,7 @@ def save_distributions(model, model_type, corpus):
 
     # Save to CSV
     topic_word_df = pd.DataFrame(topic_word_matrix, columns=[dictionary[i] for i in range(topic_word_matrix.shape[1])])
-    topic_word_df.to_csv(f"{path}/{TOPIC_NUM}{model_type}_topic_word_distribution.csv", index_label="Topic")
+    topic_word_df.to_csv(f"{path}/{model_type}_topic_word_distribution.csv", index_label="Topic")
 
     # document-topic
     # Convert to dense matrix
@@ -55,7 +55,7 @@ def save_distributions(model, model_type, corpus):
 
     # Save to CSV
     doc_topic_df = pd.DataFrame(doc_topic_matrix)
-    doc_topic_df.to_csv(f"{path}/{TOPIC_NUM}{model_type}_document_topic_distribution.csv", index_label="Document")
+    doc_topic_df.to_csv(f"{path}/{model_type}_document_topic_distribution.csv", index_label="Document")
 
 
 def saveBERTopic_distributions(model, probs):
@@ -325,7 +325,7 @@ def run_lda_models(prior_type="lda"):
                     eta=false_prior * eta_weight, 
                     alpha=alpha)
     else:
-        prior = torch.load(f"affinity_matrix_{prior_type}.pt").numpy()
+        prior = torch.load(f"/home/dsi/ishonta/TM/WordsGraph/priors/RandomWalk/{CURRENT_DIR}/{prior_type}_topic_assignments.pt").T.numpy()
         LDA = LdaModel(doc_term_matrix, 
                     num_topics=TOPIC_NUM, 
                     id2word=dictionary.id2token, 
@@ -397,14 +397,18 @@ def main():
     parser = argparse.ArgumentParser(description="Run a model with the specified parameters.")
     parser.add_argument("--model_type", type=str, required=True, help="The type of model to run")
     parser.add_argument("--dataset", type=str, required=True, help="The dataset to use")
-    parser.add_argument("--num_of_topics", type=int, required=True, help="The number of topics")
+    parser.add_argument("--num_topics", type=int, required=True, help="The number of topics")
+    parser.add_argument("--current_dir", type=str, required=True, help="The directory that has the prior")
 
-    global MODEL_TYPE, TOPIC_NUM
+    
+
+    global MODEL_TYPE, TOPIC_NUM, CURRENT_DIR
     # Parse the arguments
     args = parser.parse_args()
     MODEL_TYPE = args.model_type
     dataset = args.dataset
-    TOPIC_NUM = args.num_of_topics
+    TOPIC_NUM = args.num_topics
+    CURRENT_DIR = args.current_dir
 
     print(f"Dataset: {dataset}")
 

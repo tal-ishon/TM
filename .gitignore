@@ -14,13 +14,17 @@ words.pkl
 /BBC/
 __pycache__/
 glove.6B/
-mallet-2.0.8/
+mallet/
 spectralnet/
 WordsGraph/distributions/
 WordsGraph/helper/
 WordsGraph/IntrusionResults/
 WordsGraph/priors/
 WordsGraph/Word2VecModel
+WordsGraph/Mallet/
+WordsGraph/Gibbs/
+WordsGraph/Uri/
+
 
 
 

@@ -6,11 +6,12 @@ from itertools import islice
 from scipy.sparse import lil_matrix
 import numpy as np
 from gensim import corpora
+import heapq
 
 
 class Graph(nx.Graph):
 
-    def __init__(self, dictionary, corpus, similarity=False, is_ppmi=False, no_word2vec_model=False, window_size=3, metric="pmi", alpha=0.7):
+    def __init__(self, dictionary, corpus, whose_idea="tal",similarity=False, is_ppmi=False, no_word2vec_model=False, window_size=3, metric="pmi", alpha=0.7):
         """
         is_ppmi: if pmi value is negative change value to 0. max(pmi, 0). - tried but didn't influence performance.
         """
@@ -22,6 +23,7 @@ class Graph(nx.Graph):
         self.alpha = alpha
         self.similarity = similarity
         self.is_ppmi = is_ppmi
+        self.whose_idea = whose_idea
 
         if similarity:
             from gensim.models import Word2Vec
@@ -51,7 +53,6 @@ class Graph(nx.Graph):
         bigram_counts, total_co_occurrences = self._calculate_co_occurrences()
 
         self._construct_graph_edges(unigram_probs, bigram_counts, total_co_occurrences, metric=metric)
-
         self._deal_with_non_connectivity(unigram_counts, bigram_counts)
 
 
@@ -83,6 +84,15 @@ class Graph(nx.Graph):
         
         max_weight = max(weights)
 
+        if self.whose_idea != "uri":
+            """
+            If it's not uri's idea - we make sure all values are non-negative by converting them to positive values.
+            """
+            if self.is_ppmi:
+                weights = [max(w, 0) for w in weights]
+            else:
+                weights = [abs(w) for w in weights]
+
         for i, (word1, word2) in enumerate(bigram_counts.keys()):
             joint_prob = joint_probs[i]
             word_id1 = self.dictionary.token2id[word1]
@@ -91,12 +101,6 @@ class Graph(nx.Graph):
                 weight = weights[i] / -np.log(joint_prob)
             else:
                 weight = weights[i]
-
-            if weight < 0: # Make sure positive and negative correlation are meaningfull in graph
-                if self.is_ppmi:
-                    weight = 0
-                else:
-                    weight = -weight
             
             if self.similarity:
                 if "npmi" in metric:
@@ -169,22 +173,54 @@ class Graph(nx.Graph):
         self.window_size = size
 
 
-    def get_graph_as_affinity_matrix(self):
+    def get_graph_as_affinity_matrix(self, k=20):
         """
         Take the graph and return an affinity matrix.
         """
-        # Compose the affinity matrix obtained from the graph
-        nodes = list(self.nodes)
-        n = len(nodes)
+        if self.whose_idea == "tal":
+            # Compose the affinity matrix obtained from the graph
+            nodes = list(self.nodes)
+            n = len(nodes)
+            
+            affinity_matrix = lil_matrix((n, n), dtype=float)
+
+            for node1, node2, data in self.edges(data=True):
+                i, j = node1, node2
+                affinity_matrix[i, j] = data['weight']
+                affinity_matrix[j, i] = data['weight']  # Ensure the matrix is symmetric
+
+            return affinity_matrix
         
-        affinity_matrix = lil_matrix((n, n), dtype=float)
+        elif self.whose_idea == "uri":
+            # Get the list of nodes
+            nodes = list(self.nodes)
+            n = len(nodes)
 
-        for node1, node2, data in self.edges(data=True):
-            i, j = node1, node2
-            affinity_matrix[i, j] = data['weight']
-            affinity_matrix[j, i] = data['weight']  # Ensure the matrix is symmetric
+            # Initialize the sparse affinity matrix
+            affinity_matrix = lil_matrix((n, n))
 
-        return affinity_matrix
+            # Iterate through each node
+            for node in nodes:
+                # Get neighbors with positive weights
+                neighbors = [
+                    (self[node][neighbor]["weight"], neighbor)
+                    for neighbor in self.neighbors(node)
+                    if self[node][neighbor]["weight"] > 0
+                ]
+
+                # Use a heap to get the top-k neighbors
+                top_k_neighbors = heapq.nlargest(k, neighbors, key=lambda x: x[0])
+
+                # Add values to the affinity matrix
+                for weight, neighbor in top_k_neighbors:
+                    i = node
+                    j = neighbor
+                    affinity_matrix[i, j] = weight
+                    affinity_matrix[j, i] = weight  # Ensure the matrix is symmetric
+
+            return affinity_matrix
+            
+
 
 
 

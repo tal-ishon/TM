@@ -3,7 +3,7 @@ from  matrix_utils import get_random_walk_laplacian, load_data, create_prior, ap
 
 
 def main(whose_idea, metrics=["pmi"]):
-    path = "ProcessedData/20NewsGroup"
+    path = "ProcessedData/Trump'sTweets"
     save_prior_path = f"WordsGraph/{CURRENT_DIR}/priors"
     dictionary, _, _, corpus = load_data(path)
     k_neighbors = 100
@@ -16,7 +16,7 @@ def main(whose_idea, metrics=["pmi"]):
             _, matrix = get_random_walk_laplacian(affinity_matrix, k=500)
         else:
             _, matrix = apply_diffusion_operator(affinity_matrix, use_exp=use_exp, k=k_neighbors)
-        create_prior(save_prior_path, matrix, n_components=100, to_save=True, metric=m, whose_idea=whose_idea)
+        create_prior(save_prior_path, matrix, n_components=200, to_save=True, metric=m, whose_idea=whose_idea)
 
 
 if __name__ == "__main__":

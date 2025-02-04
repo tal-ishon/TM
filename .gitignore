@@ -16,15 +16,12 @@ __pycache__/
 glove.6B/
 mallet/
 spectralnet/
-WordsGraph/distributions/
-WordsGraph/helper/
-WordsGraph/IntrusionResults/
-WordsGraph/priors/
-WordsGraph/Word2VecModel
-WordsGraph/Mallet/
-WordsGraph/Gibbs/
-WordsGraph/Uri/
-
+/WordsGraph/*/
+/helper/
+/Distributions-Results/
+/Train_Bert_Model/
+/scripts/
+/model_eval_results/
 
 
 

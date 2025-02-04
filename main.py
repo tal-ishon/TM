@@ -16,12 +16,14 @@ from collections import defaultdict
 import torch
 from itertools import chain
 from spectralnet import SpectralNet
-from spectralnet._utils import get_affinity_matrix
 from scase import ScaSE, SpectralNet as SN
 from sklearn.mixture import GaussianMixture as GMM
 from sklearn.manifold import SpectralEmbedding as SE
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import normalize
+from pydiffmap import diffusion_map as dm
+from helper_functions import diffusion_maps as dm
+
 
 np.random.seed(42)
 
@@ -199,57 +201,41 @@ class Predictor:
             else:
                 embed = np.load("embed.npy")
             model = GMM(n_components=self.n_predictions, 
-                        random_state=42)
+                        random_state=42,
+                        n_init=5, 
+                        verbose=1)
             model.fit(embed)
             return model, embed
             # model = SN(self.n_predictions, spectral_lr=0.001)
             # model.fit(self.X)
-        elif self.mode == "PCA":
-            pca = PCA(n_components=20)
-            X_transformed = pca.fit_transform(self.X)
-            model = GMM(self.n_predictions, n_init=1)
-            model.fit(X_transformed)
-            return model, X_transformed
-        elif self.mode == "UMAP":
-            import umap
-            model = umap.UMAP(n_components=20)
-            X_transformed = model.fit_transform(self.X)
-            gmm = GMM(self.n_predictions, n_init=1)
-            gmm.fit(X_transformed)
-            return gmm, X_transformed          
+        elif self.mode == "DM":
+            diffusion_coordinats = dm(data=self.X, n_components=100, k=20, epsilon=35)
+            self.X = diffusion_coordinats
+            model = GMM(
+                n_components=self.n_predictions,  # adjust based on your needs
+                random_state=42,
+                n_init=5, 
+                verbose=1
+            )
+            model.fit(self.X)       
         else:
             pca = PCA(n_components=50)  # You can adjust this
             self.X = pca.fit_transform(self.X)
             model = GMM(
                 n_components=self.n_predictions,  # adjust based on your needs
-                random_state=42
+                random_state=42,
+                n_init=5, 
+                verbose=1
             )
             model.fit(self.X)
 
-        return model, self.X
+        return model
 
     def __prediction(self, model):
         """
         This function predict according to models mode.
-        """
-        if self.mode == "SN":
-            model, embed = model[0], model[1] 
-            pred = model.predict(self.X)
-        elif self.mode == "ScaSE":
-            model, embed = model[0], model[1] 
-            pred = model.predict_proba(embed)
-        elif self.mode == "PCA":
-            model, embed = model[0], model[1] 
-            pred = model.predict_proba(embed)
-        elif self.mode == "UMAP":
-            model, embed = model[0], model[1] 
-            pred = model.predict_proba(embed)
-        elif self.mode == "RW":
-            model, embed = model[0], model[1] 
-            pred = model.predict_proba(embed)
-        else:
-            model, embed = model[0], model[1] 
-            pred = model.predict_proba(embed)
+        """ 
+        pred = model.predict_proba(self.X)
         
         return pred
 
@@ -281,7 +267,7 @@ DATASET = "20NewsGroup"
 DATASET_PATH = "20NewsGroup"
 FILE_TYPE = "json"
 
-MODES = ["GMM"]
+MODES = ["DM"]
 TOPICS_LIST = [100]
 DATA_PATH = f"{DATASET_PATH}.{FILE_TYPE}"
 
@@ -304,5 +290,5 @@ for MODE in MODES:
         predictor = Predictor(mode=MODE, X=pprocessor.embedding, n_predictions=TOPICS)
         predictor.predict()
         predictor.calculte_prior()
-        predictor.save_predictions(f"NewResults/{DATASET}/{TOPICS}pred_{MODE}")
-        predictor.save_prior_to_file(f"NewResults/{DATASET}/{TOPICS}prior_{MODE}")
+        predictor.save_predictions(f"NewResults/{DATASET}/{TOPICS}_CHANGEpred_{MODE}")
+        predictor.save_prior_to_file(f"NewResults/{DATASET}/{TOPICS}_CHANGEprior_{MODE}")

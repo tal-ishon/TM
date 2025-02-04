@@ -68,3 +68,23 @@ def coherence_model_evaluation(topics, texts, dictionary, coherence="c_v"):
         coherence=coherence
     )
     return coherence_model.get_coherence()
+
+def topic_diversity_evaluation(topics, topk=10):
+    """
+    compute the proportion of unique words
+
+    Parameters
+    ----------
+    topics: a list of lists of words
+    topk: top k words on which the topic diversity will be computed
+    """
+    if topk > len(topics[0]):
+        raise Exception('Words in topics are less than '+str(topk))
+    else:
+        unique_words = set()
+        for topic in topics:
+            unique_words = unique_words.union(set(topic[:topk]))
+        puw = len(unique_words) / (topk * len(topics))
+        return puw
+
+

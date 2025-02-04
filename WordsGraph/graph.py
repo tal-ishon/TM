@@ -66,6 +66,27 @@ class Graph(nx.Graph):
 
         return unigram_probs, unigram_counts
     
+    
+    def _calculate_co_occurrences(self):
+        """
+        Calculate the co-occurrences of words in the corpus.
+        """
+        # Initialize counters for bigrams
+        bigram_counts = Counter()
+
+        # Calculate bigram counts using a sliding window
+        for sentence in self.corpus:
+            for i, word_id in enumerate(sentence):
+                window = islice(sentence, i + 1, min(i + 1 + self.window_size, len(sentence)))
+                for context_word in window:
+                    if context_word != word_id:
+                        tuple_id = sorted((word_id, context_word))
+                        bigram_counts[(tuple_id[0], tuple_id[1])] += 1
+                        
+        # Total co-occurrences
+        total_co_occurrences = sum(bigram_counts.values())
+
+        return bigram_counts, total_co_occurrences
 
     def _construct_graph_edges(self, unigram_probs, bigram_counts, total_co_occurrences, metric="pmi"):
         """
@@ -93,6 +114,10 @@ class Graph(nx.Graph):
             else:
                 weights = [abs(w) for w in weights]
 
+        ### Changed here for abs with uri's idea
+        weights = [abs(w) for w in weights]
+        ###
+        
         for i, (word1, word2) in enumerate(bigram_counts.keys()):
             joint_prob = joint_probs[i]
             word_id1 = self.dictionary.token2id[word1]
@@ -127,28 +152,6 @@ class Graph(nx.Graph):
         norm_cos_similarity = (cos_similaity + 1) / 2  # Normalize to [0, 1] 
 
         return norm_cos_similarity
-
-
-    def _calculate_co_occurrences(self):
-        """
-        Calculate the co-occurrences of words in the corpus.
-        """
-        # Initialize counters for bigrams
-        bigram_counts = Counter()
-
-        # Calculate bigram counts using a sliding window
-        for sentence in self.corpus:
-            for i, word_id in enumerate(sentence):
-                window = islice(sentence, i + 1, min(i + 1 + self.window_size, len(sentence)))
-                for context_word in window:
-                    if context_word != word_id:
-                        tuple_id = sorted((word_id, context_word))
-                        bigram_counts[(tuple_id[0], tuple_id[1])] += 1
-                        
-        # Total co-occurrences
-        total_co_occurrences = sum(bigram_counts.values())
-
-        return bigram_counts, total_co_occurrences
     
 
     def _deal_with_non_connectivity(self, unigram_counts, bigram_counts):
@@ -177,7 +180,7 @@ class Graph(nx.Graph):
         """
         Take the graph and return an affinity matrix.
         """
-        if self.whose_idea == "tal":
+        if self.whose_idea == "uri":
             # Compose the affinity matrix obtained from the graph
             nodes = list(self.nodes)
             n = len(nodes)
@@ -191,7 +194,7 @@ class Graph(nx.Graph):
 
             return affinity_matrix
         
-        elif self.whose_idea == "uri":
+        else:
             # Get the list of nodes
             nodes = list(self.nodes)
             n = len(nodes)

@@ -1,0 +1,67 @@
+20NewsGroup -
+
+Top10:
+results = {
+    "LDA": {
+        "cv_coherence": [0.6987],
+        "umass": [-1.4399],
+        "td": [0.72],
+        "wid": [0.4]
+    },
+    "InitBoost-LDA": {
+        "cv_coherence": [0.7644],
+        "umass": [-1.3205],
+        "td": [0.88],
+        "wid": [1.0]
+    },
+    "BERTopic": {
+        "cv_coherence": [0.703],
+        "umass": [-1.4119],
+        "td": [0.71],
+        "wid": [0.4]
+    }
+}
+
+Top15:
+results = {
+    "LDA": {
+        "cv_coherence": [0.6648],
+        "umass": [-1.6136],
+        "td": [0.72],
+        "wid": [0.2]
+    },
+    "InitBoost-LDA": {
+        "cv_coherence": [0.6901],
+        "umass": [-1.4853],
+        "td": [0.899],
+        "wid": [0.8]
+    },
+    "BERTopic": {
+        "cv_coherence": [0.6811],
+        "umass": [-1.5181],
+        "td": [0.68],
+        "wid": [0.3]
+    }
+}
+
+Top20:
+results = {
+    "LDA": {
+        "cv_coherence": [0.6555],
+        "umass": [-1.6454],
+        "td": [0.71],
+        "wid": [0.4]
+    },
+    "InitBoost-LDA": {
+        "cv_coherence": [0.6598],
+        "umass": [-1.5581],
+        "td": [0.89],
+        "wid": [0.6]
+    },
+    "BERTopic": {
+        "cv_coherence": [0.6459],
+        "umass": [-1.5674],
+        "td": [0.655],
+        "wid": [0.1]
+    }
+}
